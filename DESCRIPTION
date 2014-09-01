@@ -1,0 +1,26 @@
+Package: quickmapr
+Type: Package
+Title: Quickly map and explore spatial data 
+Version: 0.1
+Date: 2014-09-01
+Authors@R: person(given = "Jeffrey W.", family = "Hollister",
+    role = c("aut","cre"),
+    email = "hollister.jeff@epa.gov")
+URL: http://www.github.com/jhollist/quickmapr
+BugReports: https://www.github.com/jhollist/quickmapr/issues
+Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
+License: CC0
+Description: Many packages exist or are in development that faciliate visualizing spatial
+data in R; however, most of these pacakges are geared toward interactive visualization, 
+for production quality maps, or do not directly map \code{sp} or \code{raster} objects.
+This package fills in that gap and is geared towards a typical GIS-type workflow that
+required quickly visualizing results relative to other spatial data and allows for a 
+basic level of interactivity that includes zooming in, zooming out, panning, and 
+labelling. 
+Imports:
+    rgdal,
+    raster,
+    sp,
+    mapproj,
+    ggplot2
+Author: Jeffrey W. Hollister [aut, cre]
