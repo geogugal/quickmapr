@@ -22,9 +22,9 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
     #Test Projections
     if(prj){
       prjs<-lapply(mapdata,crs)
-      if(length(unique(prjs)>1){
+      if(length(unique(prjs))>1){
         stop("Projections do not match", call.=FALSE)
-      } else if(length(unique(prjs)==0){
+      } else if(length(unique(prjs))==0){
         stop("No projection info.  Use prj=FALSE to override projection check", call.=FALSE)
       }
     }
@@ -33,10 +33,10 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       bbx<-bbox(mapdata[[1]])
       for(i in length(mapdata))
       {
-       bbx[1,1]<-min(c(bbx[1,1],bbox(mapdata[[i]])[1,1])
-       bbx[1,2]<-min(c(bbx[1,2],bbox(mapdata[[i]])[1,2])
-       bbx[2,1]<-max(c(bbx[2,1],bbox(mapdata[[i]])[2,1])
-       bbx[2,2]<-max(c(bbx[2,2],bbox(mapdata[[i]])[2,2])
+       bbx[1,1]<-min(c(bbx[1,1],bbox(mapdata[[i]])[1,1]))
+       bbx[1,2]<-min(c(bbx[1,2],bbox(mapdata[[i]])[1,2]))
+       bbx[2,1]<-max(c(bbx[2,1],bbox(mapdata[[i]])[2,1]))
+       bbx[2,2]<-max(c(bbx[2,2],bbox(mapdata[[i]])[2,2]))
       }
     } 
   } 

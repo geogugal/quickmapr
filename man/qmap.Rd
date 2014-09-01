@@ -4,16 +4,18 @@
 \title{Display spatial data from a list.}
 \usage{
 qmap(mapdata, extent = NULL, order = 1:length(mapdata),
-  colors = 1:length(mapdata))
+  colors = 1:length(mapdata), prj = TRUE)
 }
 \arguments{
-\item{mapdata}{A list of spatial objects or a \code{qmap} object.}
+\item{mapdata}{A list of spatial objects}
 
 \item{extent}{}
 
 \item{order}{}
 
 \item{colors}{}
+
+\item{prj}{}
 }
 \value{
 Function displays a map from the input \code{mapdata} paramter
@@ -24,6 +26,6 @@ visualization.
 }
 \examples{
 data(lakes)
-m(list(exampleLake,exampleElev))
+qmap(list(exampleLake,exampleElev))
 }
 
