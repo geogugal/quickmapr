@@ -62,22 +62,35 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       #do this
     } else if(spclass=="SpatialPixels") {
       #do this
-    } else {
+    } else if(spclass=="SpatialPoints") {
+      #do this
+    } else if(spclass=="SpatialPolygons") {
       ifort<-fortify(mapdata[[i]])
-    }
+    } else if(spclass=="Polygons") {
+      #do this
+    } else if(spclass=="Polygon") {
+      #do this
+    } else if(spclass=="SpatialLines") {
+      lin<-coordinates(mapdata[[i]])
+      ifort<-data.frame(lin,names(lin))
+      names(ifort)<-c("long","lat","ID")
+    } else if(spclass=="Lines") {
+      #do this
+    } else if(spclass=="Line") {
+      #do this
+    } 
 
     ggp<-switch(spclass,
            SpatialPolygons=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           Polygons=assign("ggp",ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           Polygon=assign("ggp",ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           SpatialLines=assign("ggp",ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           Lines=assign("ggp",ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           Line=assign("ggp",ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           SpatialPoints=assign("ggp",ggp+geom_point(data=ifort,aes(x=long,y=lat),colour=colors[i])),
-           SpatialPixels=assign("ggp",ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i])),
-           SpatialGrid=assign("ggp",ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i])),
-           RasterLayer=assign("ggp",ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]))
-    )
+           Polygons=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           Polygon=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           SpatialLines=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           Lines=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           Line=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           SpatialPoints=ggp+geom_point(data=ifort,aes(x=long,y=lat),colour=colors[i]),
+           SpatialPixels=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]),
+           SpatialGrid=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]),
+           RasterLayer=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]))
   }
 
   return(ggp)
