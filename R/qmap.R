@@ -4,10 +4,12 @@
 #' visualization.
 #' 
 #' @param mapdata A list of spatial objects
-#' @param extent 
-#' @param order
-#' @param colors
-#' @param prj
+#' @param extent A \code{sp} or \code{raster} object to use as the initial extent of the map.  Defaults
+#'               to the maximum extent of all input object
+#' @param order draw order of the spatial object. Defaults to order in mapdata
+#' @param colors line colors. Defaults to 1:length(mapdata)  
+#' @param prj Logical to check projections of input spatial objects.  Transformation, if needed, should be
+#'            done prior to mapping with \code{rgdal::spTransform()}.
 #' @return Function displays a map from the input \code{mapdata} paramter
 #' 
 #' @import ggplot2

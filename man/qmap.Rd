@@ -9,13 +9,15 @@ qmap(mapdata, extent = NULL, order = 1:length(mapdata),
 \arguments{
 \item{mapdata}{A list of spatial objects}
 
-\item{extent}{}
+\item{extent}{A \code{sp} or \code{raster} object to use as the initial extent of the map.  Defaults
+to the maximum extent of all input object}
 
-\item{order}{}
+\item{order}{draw order of the spatial object. Defaults to order in mapdata}
 
-\item{colors}{}
+\item{colors}{line colors. Defaults to 1:length(mapdata)}
 
-\item{prj}{}
+\item{prj}{Logical to check projections of input spatial objects.  Transformation, if needed, should be
+done prior to mapping with \code{rgdal::spTransform()}.}
 }
 \value{
 Function displays a map from the input \code{mapdata} paramter
