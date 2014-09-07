@@ -3,9 +3,9 @@ quickmapr
 
 There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. Rhe current thinking for `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
-planned functionality for the first release is for easy mapping of multiple layers, simple zooming, panning, and labelling.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
+Planned functionality for the first release is for easy mapping of multiple layers, simple zooming, panning, and labelling.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` uses ggplot2 for building the plots. Currently there are 5 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for `ggplot2` and `ggmap`. Currently there are 5 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
 - `qmap()`: creates the map
 - `zi()`: zooms in
