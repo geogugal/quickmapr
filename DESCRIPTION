@@ -15,10 +15,10 @@ Description: Many packages exist or are in development that faciliate
     toward interactive visualization, for production quality maps, or do not
     directly map \code{sp} or \code{raster} objects. This package fills in that
     gap and is geared towards a typical GIS-type workflow that required quickly
-    visualizing results relative to other spatial data.  \code{quickmapr} contains
-    wrapper function for \code{ggmap} and \code{ggplot2} that allow for a basic
-    level of interactivity that includes zooming in, zooming out, panning, and
-    labelling.
+    visualizing results relative to other spatial data.  \code{quickmapr}
+    contains wrapper function for \code{ggmap} and \code{ggplot2} that allow
+    for a basic level of interactivity that includes zooming in, zooming out,
+    panning, and labelling.
 Imports:
     rgdal,
     raster,

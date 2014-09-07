@@ -50,6 +50,8 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
     bbx<-bbox(extent)
   }
   bbx<-data.frame(bbx)
+  #work on ggmap later - needs to be dd
+  #map<-get_map(location=c(long=coordinates(mapdata[[1]])[1],lat=coordinates(mapdata[[1]])[1]))
   ggp<-ggplot(bbx,aes(x=bbx[,1],y=bbx[,2]))+coord_equal()
   for(i in order){
     spclass<-class(mapdata[[i]])[1]
