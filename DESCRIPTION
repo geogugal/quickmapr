@@ -24,5 +24,6 @@ Imports:
     raster,
     sp,
     mapproj,
-    ggplot2
+    ggplot2,
+    ggmap
 Author: Jeffrey W. Hollister [aut, cre]
