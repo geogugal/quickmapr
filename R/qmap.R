@@ -16,8 +16,8 @@
 #' @export
 #' 
 #' @examples
-#' data(lakes)
-#' qmap(list(exampleLake,exampleElev))
+#' data(lake)
+#' qmap(list(lake,buffer,elev))
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),prj=TRUE){
 
@@ -94,6 +94,11 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
            SpatialGrid=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]),
            RasterLayer=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]))
   }
-
+  ggp<-ggp+
+    theme(panel.background = element_blank(), panel.grid = element_blank(), 
+          panel.border = element_blank(), legend.position = "none", 
+          axis.text = element_blank(),axis.ticks = element_blank()) + 
+    ylab("Northing") + 
+    xlab("Easting")
   return(ggp)
 }

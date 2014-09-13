@@ -27,7 +27,7 @@ This funtion genarates a call to \code{ggplot2} and builds the quick map
 visualization.
 }
 \examples{
-data(lakes)
-qmap(list(exampleLake,exampleElev))
+data(lake)
+qmap(list(lake,buffer,elev))
 }
 
