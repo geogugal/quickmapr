@@ -50,6 +50,15 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
     bbx<-bbox(extent)
   }
   bbx<-data.frame(bbx)
+  
+  #Raster draw order
+  #should maintain order of vector layers
+  #should maintain order of raster layers but moves to front
+  #so that the draw first with vector on top.
+  classes<-unlist(lapply(mapdata[order],class))
+  rasters<-classes=="RasterLayer"
+  order<-c(order[rasters],order[!rasters])
+  
   #work on ggmap later - needs to be dd
   #map<-get_map(location=c(long=coordinates(mapdata[[1]])[1],lat=coordinates(mapdata[[1]])[1]))
   ggp<-ggplot(bbx,aes(x=bbx[,1],y=bbx[,2]))+coord_equal()
