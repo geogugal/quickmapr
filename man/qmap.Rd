@@ -23,7 +23,7 @@ done prior to mapping with \code{rgdal::spTransform()}.}
 Function displays a map from the input \code{mapdata} paramter
 }
 \description{
-This funtion genarates a call to \code{ggplot2} and builds the quick map
+This function genarates a call to \code{ggplot2} and builds the quick map
 visualization.
 }
 \examples{

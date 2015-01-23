@@ -11,6 +11,6 @@
 #' @examples
 #' data(lake)
 #' qmap(list(lake,buffer,elev)) %>% zi()
-zo<-function(...){
-  zoom::out.zoom(...)
+p<-function(...){
+  zoom::move.to.click.zoom(...)
 }

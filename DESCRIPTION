@@ -2,3 +2,29 @@ Package: quickmapr
 Type: Package
 Title: Quickly map and explore spatial data.
 Version: 0.1
+Date: 2015-11-23
+Authors@R: person(given = "Jeffrey W.",family = "Hollister",
+    role = c("aut","cre"),
+    email = "hollister.jeff@epa.gov")
+URL: https://www.github.com/jhollist/quickmapr
+BugReports: https://github.com/jhollist/quickmapr/issues
+Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
+License: CC0
+Description: Visualizing spatial data in R has received a lot of attention and
+    their are many packages to provide production quality maps and many
+    packages that offer interactivity (zoom, pan, and identify) .  To do this,
+    these packages utilize javascript and/or require data to be in a specific
+    projection thus requiring several additional steps to produce a map.
+    During the analytical process, however, a quick and easy visualization is
+    needed that allows for quick plotting, and simple, but easy interactivity.
+    \code{quickmapr} fills this gap by providing a simple method to visualize
+    sp and raster objects as well as allow for basic zooming, panning and
+    identifying of spatial objects.
+Depends:
+    sp,
+    rgdal,
+    raster,
+    zoom
+Suggests:
+    knitr
+VignetteBuilder: knitr

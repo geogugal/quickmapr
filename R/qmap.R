@@ -1,6 +1,6 @@
 #' Display spatial data from a list.
 #'
-#' This funtion genarates a call to \code{ggplot2} and builds the quick map
+#' This function genarates a call to \code{ggplot2} and builds the quick map
 #' visualization.
 #' 
 #' @param mapdata A list of spatial objects
@@ -20,7 +20,7 @@
 #' qmap(list(lake,buffer,elev))
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),prj=TRUE){
-
+  
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
@@ -49,7 +49,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   } else if(!is.null(extent)){
     bbx<-bbox(extent)
   }
-  bbx<-data.frame(bbx)
+  #bbx<-data.frame(bbx)
   
   #Raster draw order
   #should maintain order of vector layers
@@ -57,57 +57,23 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   #so that the draw first with vector on top.
   classes<-unlist(lapply(mapdata[order],class))
   rasters<-classes=="RasterLayer"
-  order<-c(order[rasters],order[!rasters])
-  
-  #work on ggmap later - needs to be dd
-  #map<-get_map(location=c(long=coordinates(mapdata[[1]])[1],lat=coordinates(mapdata[[1]])[1]))
-  ggp<-ggplot(bbx,aes(x=bbx[,1],y=bbx[,2]))+coord_equal()
+  if(length(order)>1){
+    order<-c(order[rasters],order[!rasters])
+  } 
+  first<-TRUE
+  #browser()
   for(i in order){
-    spclass<-class(mapdata[[i]])[1]
-    spclass<-gsub("DataFrame","",spclass)
-    if(spclass=="RasterLayer"){
-       ifort<-data.frame(coordinates(mapdata[[i]]))
-       names(ifort)<-c("long","lat")
-       ifort<-data.frame(ifort,values=raster::getValues(mapdata[[i]]))
-    } else if(spclass=="SpatialGrid"){
-      #do this
-    } else if(spclass=="SpatialPixels") {
-      #do this
-    } else if(spclass=="SpatialPoints") {
-      #do this
-    } else if(spclass=="SpatialPolygons") {
-      ifort<-fortify(mapdata[[i]])
-    } else if(spclass=="Polygons") {
-      #do this
-    } else if(spclass=="Polygon") {
-      #do this
-    } else if(spclass=="SpatialLines") {
-      lin<-coordinates(mapdata[[i]])
-      ifort<-data.frame(lin,names(lin))
-      names(ifort)<-c("long","lat","ID")
-    } else if(spclass=="Lines") {
-      #do this
-    } else if(spclass=="Line") {
-      #do this
-    } 
-
-    ggp<-switch(spclass,
-           SpatialPolygons=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           Polygons=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           Polygon=ggp+geom_polygon(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           SpatialLines=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           Lines=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           Line=ggp+geom_line(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           SpatialPoints=ggp+geom_point(data=ifort,aes(x=long,y=lat),colour=colors[i]),
-           SpatialPixels=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]),
-           SpatialGrid=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]),
-           RasterLayer=ggp+geom_raster(data=ifort,aes(x=long,y=lat,fill=values),colour=colors[i]))
+    if(first & classes[i] == "RasterLayer"){
+      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
+      first<-FALSE
+    } else if(first & classes[i] != "RasterLayer"){
+      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
+      first<-FALSE
+    } else if(!first & classes[i] != "RasterLayer"){
+      plot(mapdata[[i]],border=colors[i],add=TRUE)
+    } else {
+      plot(mapdata[[i]],add=TRUE)
+    }
   }
-  ggp<-ggp+
-    theme(panel.background = element_blank(), panel.grid = element_blank(), 
-          panel.border = element_blank(), legend.position = "none", 
-          axis.text = element_blank(),axis.ticks = element_blank()) + 
-    ylab("Northing") + 
-    xlab("Easting")
-  return(ggp)
+  return(recordPlot())
 }
