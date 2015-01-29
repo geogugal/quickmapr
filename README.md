@@ -5,10 +5,12 @@ There are many packages that already exist or are in active development that sup
 
 Planned functionality for the first release is for easy mapping of multiple layers, simple zooming, panning, and labelling.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` is built as a series of wrapper functions for `ggplot2` and `ggmap`. Currently there are 5 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for the defaul `sp`plotting functions and curretnly utilizes the `zoom` packages for zooming and panning. Currently there are 5 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
 - `qmap()`: creates the map
 - `zi()`: zooms in
 - `zo()`: zooms out
-- `pan()`: pans
+- `p()`: pans
 - `lab()`: adds labels
+
+If I can figure it out I will try to include an identify function as well.
