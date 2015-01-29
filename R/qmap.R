@@ -12,7 +12,7 @@
 #'            done prior to mapping with \code{rgdal::spTransform()}.
 #' @return Function displays a map from the input \code{mapdata} paramter
 #' 
-#' @import ggplot2
+#' @import sp
 #' @export
 #' 
 #' @examples
@@ -32,47 +32,49 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       }
     }
     #Sets Extent to all entered extents or a specific one.
-    if(is.null(extent)){
-      bbx<-sp::bbox(mapdata[[1]])
-      for(i in length(mapdata))
-      {
-       bbx[1,1]<-min(c(bbx[1,1],sp::bbox(mapdata[[i]])[1,1]))
-       bbx[1,2]<-max(c(bbx[1,2],sp::bbox(mapdata[[i]])[1,2]))
-       bbx[2,1]<-min(c(bbx[2,1],sp::bbox(mapdata[[i]])[2,1]))
-       bbx[2,2]<-max(c(bbx[2,2],sp::bbox(mapdata[[i]])[2,2]))
-      }
-    } 
+    #if(is.null(extent)){
+    #  bbx<-sp::bbox(mapdata[[1]])
+    #  for(i in length(mapdata))
+    #  {
+    #   bbx[1,1]<-min(c(bbx[1,1],sp::bbox(mapdata[[i]])[1,1]))
+    #   bbx[1,2]<-max(c(bbx[1,2],sp::bbox(mapdata[[i]])[1,2]))
+    #   bbx[2,1]<-min(c(bbx[2,1],sp::bbox(mapdata[[i]])[2,1]))
+    #   bbx[2,2]<-max(c(bbx[2,2],sp::bbox(mapdata[[i]])[2,2]))
+    # }
+    #} 
   } 
   
-  if(!exists("bbx")&is.null(extent)){
-    bbx<-bbox(mapdata[[1]])
-  } else if(!is.null(extent)){
-    bbx<-bbox(extent)
-  }
+  #if(!exists("bbx")&is.null(extent)){
+  #  bbx<-bbox(mapdata[[1]])
+  #} else if(!is.null(extent)){
+  #  bbx<-bbox(extent)
+  #}
   #bbx<-data.frame(bbx)
   
   #Raster draw order
   #should maintain order of vector layers
   #should maintain order of raster layers but moves to front
   #so that the draw first with vector on top.
-  classes<-unlist(lapply(mapdata[order],class))
+  mapdata<-mapdata[order]
+  classes<-unlist(lapply(mapdata,class))
   rasters<-classes=="RasterLayer"
-  if(length(order)>1){
-    order<-c(order[rasters],order[!rasters])
-  } 
-  first<-TRUE
-  #browser()
-  for(i in order){
-    if(first & classes[i] == "RasterLayer"){
-      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
-      first<-FALSE
-    } else if(first & classes[i] != "RasterLayer"){
-      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
-      first<-FALSE
-    } else if(!first & classes[i] != "RasterLayer"){
-      plot(mapdata[[i]],border=colors[i],add=TRUE)
-    } else {
+  mapdata<-c(mapdata[rasters],mapdata[!rasters])
+  classes<-unlist(lapply(mapdata,class))
+  for(i in 1:length(mapdata)){
+    if(i == 1 & classes[i] == "RasterLayer"){
+      #plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
+      plot(mapdata[[i]])
+    } else if(i == 1 & regexpr("Polygon",classes[i])>0){
+      #plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,fg=colors[i])
+      plot(mapdata[[i]],border=colors[i])
+    } else if(i == 1) {
+      plot(mapdata[[i]],col=colors[i])
+    } else if(classes[i] == "RasterLayer"){
       plot(mapdata[[i]],add=TRUE)
+    } else if(regexpr("Polygon",classes[i])>0){
+      plot(mapdata[[i]], border=colors[i], add=TRUE)
+    } else {
+      plot(mapdata[[i]], col=colors[i], add=TRUE)
     }
   }
   return(recordPlot())
