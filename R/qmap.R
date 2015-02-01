@@ -12,7 +12,7 @@
 #'            done prior to mapping with \code{rgdal::spTransform()}.
 #' @return Function displays a map from the input \code{mapdata} paramter
 #' 
-#' @import ggplot2
+#' @import sp
 #' @export
 #' 
 #' @examples
@@ -40,7 +40,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
        bbx[1,2]<-max(c(bbx[1,2],sp::bbox(mapdata[[i]])[1,2]))
        bbx[2,1]<-min(c(bbx[2,1],sp::bbox(mapdata[[i]])[2,1]))
        bbx[2,2]<-max(c(bbx[2,2],sp::bbox(mapdata[[i]])[2,2]))
-      }
+     }
     } 
   } 
   
@@ -49,7 +49,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   } else if(!is.null(extent)){
     bbx<-bbox(extent)
   }
-  #bbx<-data.frame(bbx)
+  bbx<-data.frame(bbx)
   
   #Raster draw order
   #should maintain order of vector layers
@@ -66,10 +66,12 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   for(i in order){
     if(first & classes[i] == "RasterLayer"){
       tmp_rast<-as(mapdata[[i]],"SpatialGridDataFrame")
-      image(tmp_rast,xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
+      #image(tmp_rast,xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
+      image(tmp_rast,axes=TRUE)
       first<-FALSE
     } else if(first & classes[i] != "RasterLayer"){
-      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
+      #plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
+      plot(mapdata[[i]],axes=TRUE,border=colors[i])
       first<-FALSE
     } else if(!first & classes[i] != "RasterLayer"){
       plot(mapdata[[i]],border=colors[i],add=TRUE)
