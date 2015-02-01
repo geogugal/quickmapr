@@ -55,16 +55,18 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   #should maintain order of vector layers
   #should maintain order of raster layers but moves to front
   #so that the draw first with vector on top.
-  classes<-unlist(lapply(mapdata[order],class))
+  classes<-unlist(lapply(mapdata,class))
   rasters<-classes=="RasterLayer"
   if(length(order)>1){
-    order<-c(order[rasters],order[!rasters])
+    order<-na.omit(c(order[rasters],order[!rasters]))
   } 
+  
   first<-TRUE
   #browser()
   for(i in order){
     if(first & classes[i] == "RasterLayer"){
-      plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
+      tmp_rast<-as(mapdata[[i]],"SpatialGridDataFrame")
+      image(tmp_rast,xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
       first<-FALSE
     } else if(first & classes[i] != "RasterLayer"){
       plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
@@ -72,7 +74,8 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
     } else if(!first & classes[i] != "RasterLayer"){
       plot(mapdata[[i]],border=colors[i],add=TRUE)
     } else {
-      plot(mapdata[[i]],add=TRUE)
+      tmp_rast<-as(mapdata[[i]],"SpatialGridDataFrame")
+      image(tmp_rast,add=TRUE)
     }
   }
   return(recordPlot())
