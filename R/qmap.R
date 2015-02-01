@@ -56,27 +56,27 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   #should maintain order of raster layers but moves to front
   #so that the draw first with vector on top.
   classes<-unlist(lapply(mapdata,class))
-  rasters<-classes=="RasterLayer"
-  if(length(order)>1){
-    order<-na.omit(c(order[rasters],order[!rasters]))
-  } 
-  
+  #rasters<-classes=="RasterLayer"
+  #if(length(order)>1){
+  #  order<-na.omit(c(order[rasters],order[!rasters]))
+  #} 
   first<-TRUE
+  colors<-rep(colors,length(mapdata))[1:length(mapdata)]
   #browser()
-  for(i in order){
-    if(first & classes[i] == "RasterLayer"){
-      tmp_rast<-as(mapdata[[i]],"SpatialGridDataFrame")
+  for(i in 1:length(order)){
+    if(first & classes[order[i]] == "RasterLayer"){
+      tmp_rast<-as(mapdata[[order[i]]],"SpatialGridDataFrame")
       #image(tmp_rast,xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
       image(tmp_rast,axes=TRUE)
       first<-FALSE
-    } else if(first & classes[i] != "RasterLayer"){
+    } else if(first & classes[order[i]] != "RasterLayer"){
       #plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
-      plot(mapdata[[i]],axes=TRUE,border=colors[i])
+      plot(mapdata[[order[i]]],axes=TRUE,border=colors[order[i]])
       first<-FALSE
-    } else if(!first & classes[i] != "RasterLayer"){
-      plot(mapdata[[i]],border=colors[i],add=TRUE)
+    } else if(!first & classes[order[i]] != "RasterLayer"){
+      plot(mapdata[[order[i]]],border=colors[order[i]],add=TRUE)
     } else {
-      tmp_rast<-as(mapdata[[i]],"SpatialGridDataFrame")
+      tmp_rast<-as(mapdata[[order[i]]],"SpatialGridDataFrame")
       image(tmp_rast,add=TRUE)
     }
   }
