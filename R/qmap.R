@@ -10,7 +10,8 @@
 #' @param colors line colors. Defaults to 1:length(mapdata)  
 #' @param prj Logical to check projections of input spatial objects.  Transformation, if needed, should be
 #'            done prior to mapping with \code{rgdal::spTransform()}.
-#' @return Function displays a map from the input \code{mapdata} paramter
+#' @return Function displays a map from the input \code{mapdata} parameter and returns
+#'         a recorded plot.
 #' 
 #' @import sp
 #' @export
@@ -20,7 +21,7 @@
 #' qmap(list(lake,buffer,elev))
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),prj=TRUE){
-  
+  if(!is.list(mapdata)){stop("mapdata must be a list")}
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
@@ -34,7 +35,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
     #Sets Extent to all entered extents or a specific one.
     if(is.null(extent)){
       bbx<-sp::bbox(mapdata[[1]])
-      for(i in length(mapdata))
+      for(i in 1:length(mapdata))
       {
        bbx[1,1]<-min(c(bbx[1,1],sp::bbox(mapdata[[i]])[1,1]))
        bbx[1,2]<-max(c(bbx[1,2],sp::bbox(mapdata[[i]])[1,2]))
@@ -51,12 +52,13 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   }
   bbx<-data.frame(bbx)
   
-  #Raster draw order
-  #should maintain order of vector layers
-  #should maintain order of raster layers but moves to front
-  #so that the draw first with vector on top.
-  classes<-unlist(lapply(mapdata,class))
-  #rasters<-classes=="RasterLayer"
+  #converts rasterlayers to spatialgriddf
+  for(i in 1:length(mapdata)){
+    if(class(mapdata[[i]])=="RasterLayer"){
+      mapdata[[i]]<-as(mapdata[[i]],"SpatialGridDataFrame")
+    }
+  }
+    
   #if(length(order)>1){
   #  order<-na.omit(c(order[rasters],order[!rasters]))
   #} 
@@ -64,20 +66,21 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   colors<-rep(colors,length(mapdata))[1:length(mapdata)]
   #browser()
   for(i in 1:length(order)){
-    if(first & classes[order[i]] == "RasterLayer"){
-      tmp_rast<-as(mapdata[[order[i]]],"SpatialGridDataFrame")
-      #image(tmp_rast,xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE)
-      image(tmp_rast,axes=TRUE)
+    if(first & regexpr("grid",tolower(class(mapdata[[order[i]]])))[1]>0){
+      image(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE)
       first<-FALSE
-    } else if(first & classes[order[i]] != "RasterLayer"){
-      #plot(mapdata[[i]],xlim=as.vector(bbx[1,]),ylim=as.vector(bbx[2,]),axes=TRUE,border=colors[i])
-      plot(mapdata[[order[i]]],axes=TRUE,border=colors[order[i]])
+    } else if(first & regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
+      plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE,border=colors[i])
       first<-FALSE
-    } else if(!first & classes[order[i]] != "RasterLayer"){
+    } else if(first & !regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
+      plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE,col=colors[i])
+      first<-FALSE
+    } else if(!first & regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
       plot(mapdata[[order[i]]],border=colors[order[i]],add=TRUE)
+    } else if(!first & regexpr("grid",tolower(class(mapdata[[order[i]]])))[1]>0) {
+      image(mapdata[[order[i]]],add=TRUE)
     } else {
-      tmp_rast<-as(mapdata[[order[i]]],"SpatialGridDataFrame")
-      image(tmp_rast,add=TRUE)
+      plot(mapdata[[order[i]]],col=colors[i],add=TRUE)
     }
   }
   return(recordPlot())

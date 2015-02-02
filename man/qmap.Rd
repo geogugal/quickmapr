@@ -21,7 +21,8 @@ to the maximum extent of all input object}
 done prior to mapping with \code{rgdal::spTransform()}.}
 }
 \value{
-Function displays a map from the input \code{mapdata} paramter
+Function displays a map from the input \code{mapdata} parameter and returns
+        a recorded plot.
 }
 \description{
 This function genarates a call to \code{ggplot2} and builds the quick map
