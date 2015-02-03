@@ -18,9 +18,11 @@
 #' 
 #' @examples
 #' data(lake)
-#' qmap(list(lake,buffer,elev))
+#' mymap<-list(elev,lake,buffer,length)
+#' qmap(mymap)
+#' #change d
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
-               colors=1:length(mapdata),prj=TRUE){
+               colors=1:length(mapdata),fill=FALSE,prj=TRUE){
   if(!is.list(mapdata)){stop("mapdata must be a list")}
   if(length(mapdata)>1){
     #Test Projections
@@ -58,30 +60,66 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       mapdata[[i]]<-as(mapdata[[i]],"SpatialGridDataFrame")
     }
   }
-    
-  #if(length(order)>1){
-  #  order<-na.omit(c(order[rasters],order[!rasters]))
-  #} 
-  first<-TRUE
+  
+  #match colors to length of mapdata
   colors<-rep(colors,length(mapdata))[1:length(mapdata)]
-  #browser()
+  
+  #Creates the plot
+  first<-TRUE
   for(i in 1:length(order)){
-    if(first & regexpr("grid",tolower(class(mapdata[[order[i]]])))[1]>0){
-      image(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE)
-      first<-FALSE
-    } else if(first & regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
-      plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE,border=colors[i])
-      first<-FALSE
-    } else if(first & !regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
-      plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),axes=TRUE,col=colors[i])
-      first<-FALSE
-    } else if(!first & regexpr("poly",tolower(class(mapdata[[order[i]]])))[1]>0){
-      plot(mapdata[[order[i]]],border=colors[order[i]],add=TRUE)
-    } else if(!first & regexpr("grid",tolower(class(mapdata[[order[i]]])))[1]>0) {
-      image(mapdata[[order[i]]],add=TRUE)
+    if(first){
+      if(get_sp_type(mapdata[[order[i]]])=="grid"){
+        image(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
+              axes=TRUE)
+        first<-FALSE
+      } else if(get_sp_type(mapdata[[order[i]]])=="polygon"){
+        if(fill){
+          plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
+               axes=TRUE,col=colors[i])
+        } else {
+          plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
+               axes=TRUE,border=colors[i])
+        }
+        first<-FALSE
+      } else if(!get_sp_type(mapdata[[order[i]]])=="polygon"){
+        plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
+             axes=TRUE,col=colors[i])
+        first<-FALSE
+      }
     } else {
-      plot(mapdata[[order[i]]],col=colors[i],add=TRUE)
+      if(get_sp_type(mapdata[[order[i]]])=="grid"){
+        image(mapdata[[order[i]]],add=TRUE)
+      } else if(get_sp_type(mapdata[[order[i]]])=="polygon"){
+        if(fill){
+          plot(mapdata[[order[i]]],col=colors[i],add=TRUE)
+        } else {
+          plot(mapdata[[order[i]]],border=colors[i],add=TRUE)
+        }
+      } else if(!get_sp_type(mapdata[[order[i]]])=="polygon"){
+        plot(mapdata[[order[i]]],col=colors[i],add=TRUE)
+      }
     }
   }
   return(recordPlot())
+}
+
+#' Pull out essential info on sp class
+#' @param spdata an sp object
+#' @return character vector indicating point, line, polygon, or grid
+#' @keywords internal
+get_sp_type<-function(spdata){
+  spclass<-tolower(class(spdata)[1])
+  if(regexpr("polygon",spclass)>0){
+    return("polygon")
+  } else if (regexpr("line",spclass)>0){
+    return("line")
+  } else if (regexpr("point",spclass)>0){
+    return("point")
+  } else if (regexpr("grid",spclass)>0){
+    return("grid")
+  } else if (regexpr("pixel",spclass)>0){
+    return("grid")
+  } else if (regexpr("raster",spclass)>0){
+    return("grid")
+  }
 }

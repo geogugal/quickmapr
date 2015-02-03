@@ -4,7 +4,7 @@
 \title{Display spatial data from a list.}
 \usage{
 qmap(mapdata, extent = NULL, order = 1:length(mapdata),
-  colors = 1:length(mapdata), prj = TRUE)
+  colors = 1:length(mapdata), fill = FALSE, prj = TRUE)
 }
 \arguments{
 \item{mapdata}{A list of spatial objects}
@@ -29,6 +29,8 @@ visualization.
 }
 \examples{
 data(lake)
-qmap(list(lake,buffer,elev))
+mymap<-list(elev,lake,buffer,length)
+qmap(mymap)
+#change d
 }
 
