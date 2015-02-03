@@ -1,8 +1,18 @@
 #' Identify
 #' 
-#' Spatially select an sp object  and reutrn the data associated with it.
+#' Interactively select an \code{sp} or \code{raster} object and return the data 
+#' associated with it.
+#' 
+#' @param spdata an \code{sp} object from which to identify features
+#' @return  Returns a list that contains data for the selected object (data is
+#'          NULL if not a Spatial DataFrame object), the \code{sp} object, and 
+#'          additional information for each object (e.g. area and perimeter for
+#'          polygons).  
+#' 
 #' @export
 #' @import sp rgeos
+#' @examples
+#' qmap(list(lake,elev,samples))
 #' 
 i<-function(spdata){
   switch(EXPR=get_sp_type(spdata),

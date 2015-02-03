@@ -4,12 +4,13 @@
 #' visualization.
 #' 
 #' @param mapdata A list of spatial objects
-#' @param extent A \code{sp} or \code{raster} object to use as the initial extent of the map.  Defaults
-#'               to the maximum extent of all input object
+#' @param extent A \code{sp} or \code{raster} object to use as the initial extent 
+#'        of the map.  Defaults to the maximum extent of all input object
 #' @param order draw order of the spatial object. Defaults to order in mapdata
 #' @param colors line colors. Defaults to 1:length(mapdata)  
-#' @param prj Logical to check projections of input spatial objects.  Transformation, if needed, should be
-#'            done prior to mapping with \code{rgdal::spTransform()}.
+#' @param prj Logical to check projections of input spatial objects.  
+#'            Transformation, if needed, should be done prior to mapping with 
+#'            \code{rgdal::spTransform()}.
 #' @return Function displays a map from the input \code{mapdata} parameter and returns
 #'         a recorded plot.
 #' 
@@ -18,9 +19,10 @@
 #' 
 #' @examples
 #' data(lake)
-#' mymap<-list(elev,lake,buffer,length)
+#' mymap<-list(elev,lake,buffer,length,samples)
 #' qmap(mymap)
-#' #change d
+#' #change draw order and which data is displayed
+#' qmap(mymap,order=c(2,3,5))
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),fill=FALSE,prj=TRUE){
   if(!is.list(mapdata)){stop("mapdata must be a list")}
@@ -31,7 +33,10 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       if(length(unique(prjs))>1){
         stop("Projections do not match", call.=FALSE)
       } else if(length(unique(prjs))==0){
-        stop("No projection info.  Use prj=FALSE to override projection check", call.=FALSE)
+        stop("No projection info.  Use prj=FALSE to override projection check.  
+             If data are in different projections, the resultant map will not likely
+             be what you expect. Best to determine projection and re-project.", 
+             call.=FALSE)
       }
     }
     #Sets Extent to all entered extents or a specific one.
