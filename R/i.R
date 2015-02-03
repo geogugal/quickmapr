@@ -1,7 +1,7 @@
 #' Identify
 #' 
 #' Interactively select an \code{sp} or \code{raster} object and return the data 
-#' associated with it.
+#' associated with it. \code{i()} only accepts a single input point.
 #' 
 #' @param spdata an \code{sp} object from which to identify features
 #' @return  Returns a list that contains data for the selected object (data is
@@ -12,8 +12,13 @@
 #' @export
 #' @import sp rgeos
 #' @examples
+#' \dontrun{
+#' data(lake)
 #' qmap(list(lake,elev,samples))
-#' 
+#' i(lake)
+#' i(samples)
+#' i(elev)
+#' }
 i<-function(spdata){
   switch(EXPR=get_sp_type(spdata),
          polygon = i_poly(spdata),

@@ -1,16 +1,20 @@
 #' Zooms in on extent
 #' 
-#' This function uses the package \code{zoom} to provide zooming and panning functionality.  
-#' These are simply wrappers with shortened function names. This function zooms in on a
-#' selected area.
+#' Select a bounding box interactively and zoom to that extent. Click twice to 
+#' select corners of extent and ESC to quit.  This is a wrapper 
+#' function/shortcut for zoom::sq.zoom(...).  
 #' 
-#' @param ... arguments to be passed to zoom::out.zoom()
 #' 
+#' @param ... arguments to be passed to zoom::sq.zoom()
+#' @return NULL
 #' @export
 #' 
 #' @examples
+#' \dontrun{
 #' data(lake)
-#' qmap(list(lake,buffer,elev)) %>% zi()
+#' qmap(list(lake,buffer,elev))
+#' ze()
+#' }
 ze<-function(...){
   zoom::sq.zoom(...)
 }

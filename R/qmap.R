@@ -18,11 +18,13 @@
 #' @export
 #' 
 #' @examples
+#' \dontrun{
 #' data(lake)
 #' mymap<-list(elev,lake,buffer,length,samples)
 #' qmap(mymap)
 #' #change draw order and which data is displayed
 #' qmap(mymap,order=c(2,3,5))
+#' }
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),fill=FALSE,prj=TRUE){
   if(!is.list(mapdata)){stop("mapdata must be a list")}

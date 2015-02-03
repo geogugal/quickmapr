@@ -1,16 +1,18 @@
 #' Zooms out on current plot
 #' 
-#' This function uses the package \code{zoom} to provide zooming and panning functionality.  
-#' These are simply wrappers with shortened function names. This function zooms out by a set 
-#' amount.
+#' Interactively zoom out on the current plot. Click on location to zoom out from and 
+#' use ESC to quit. This is a wrapper function/shortcut for zoom::out.zoom(...).  
 #' 
-#' @param ... arguments to be passed to zoom::out.zoom()
-#' 
+#' @param ... arguments to be passed to zoom::out.zoom(...)
+#' @return NULL
 #' @export
 #' 
 #' @examples
+#' \dontrun{
 #' data(lake)
-#' qmap(list(lake,buffer,elev)) %>% zi()
+#' qmap(list(lake,buffer,elev))
+#' zo()
+#' }
 zo<-function(...){
   zoom::out.zoom(...)
 }
