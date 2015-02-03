@@ -2,21 +2,23 @@
 #' 
 #' Spatially select an sp object  and reutrn the data associated with it.
 #' @export
-#' @import sp
+#' @import sp rgeos
 #' 
-i<-function(spdata,...){
+i<-function(spdata){
   
   i.poly<-function(spdata){
     data<-spdata@data[over(spdata,SpatialPoints(locator(1),CRS(proj4string(spdata)))),]
     return(data)
   }
   
-  i.line<-function(spdata,...){
-    
+  i.line<-function(spdata){
+    loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
+    data<-spdata@data[gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T),]
+    return(data)
   }
   
-  i.point<-function(spdata,...){
-    
+  i.point<-function(spdata){
+    i.line(spdata)
   }
     
   i.grid<-function(spdata){

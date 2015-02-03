@@ -4,7 +4,7 @@
 \alias{i}
 \title{Identify}
 \usage{
-i(spdata, ...)
+i(spdata)
 }
 \description{
 Spatially select an sp object  and reutrn the data associated with it.
