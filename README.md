@@ -11,7 +11,6 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `zi()`: zooms in
 - `zo()`: zooms out
 - `p()`: pans
-- `lab()`: adds labels
-- `i()`: identify polygons and returns data
+- `l()`: adds labels
+- `i()`: identify features
 
-If I can figure it out I will try to include an identify function as well.
