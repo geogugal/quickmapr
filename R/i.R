@@ -44,8 +44,8 @@ i_line<-function(spdata){
     data<-NULL
   }
   idata<-list(data=data,
-              spobj=spdata[idx],
-              length=gLength(spdata[idx]))
+              spobj=spdata[which(idx),],
+              length=gLength(spdata[which(idx),]))
   return(idata)
 }
 
@@ -54,8 +54,15 @@ i_line<-function(spdata){
 #' @import sp rgeos
 #' @keywords internal
 i_point<-function(spdata){
-  idata<-list(data=i_line(spdata)$data,
-              spobj=i_line(spdata)$spobj)
+  loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
+  idx<-gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T)
+  if(regexpr("DataFrame",class(spdata))>0){
+    data<-spdata@data[idx,]
+  } else {
+    data<-NULL
+  }
+  idata<-list(data=data,
+              spobj=spdata[which(idx),])
   return(idata)
 }
 
