@@ -12,9 +12,13 @@ i<-function(spdata){
   }
   
   i.line<-function(spdata){
-    loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
-    data<-spdata@data[gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T),]
-    return(data)
+    if(regexpr("DataFrame",class(spdata))>0{
+      loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
+      data<-spdata@data[gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T),]
+      return(data)
+    } else {
+      
+    }
   }
   
   i.point<-function(spdata){
