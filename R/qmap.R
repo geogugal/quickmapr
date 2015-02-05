@@ -8,6 +8,8 @@
 #'        of the map.  Defaults to the maximum extent of all input object
 #' @param order draw order of the spatial object. Defaults to order in mapdata
 #' @param colors line colors. Defaults to 1:length(mapdata)  
+#' @param fill Logical to determine if polygons should be filled (using colors) or just
+#'             the border colored.
 #' @param prj Logical to check projections of input spatial objects.  
 #'            Transformation, if needed, should be done prior to mapping with 
 #'            \code{rgdal::spTransform()}.

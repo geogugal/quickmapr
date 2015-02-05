@@ -22,8 +22,6 @@ Description: Visualizing spatial data in R has received a lot of attention and
     identifying of spatial objects.
 Imports:
     sp,
-    rgdal,
-    raster,
     zoom,
     rgeos
 Suggests:

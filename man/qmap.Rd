@@ -17,6 +17,9 @@ of the map.  Defaults to the maximum extent of all input object}
 
 \item{colors}{line colors. Defaults to 1:length(mapdata)}
 
+\item{fill}{Logical to determine if polygons should be filled (using colors) or just
+the border colored.}
+
 \item{prj}{Logical to check projections of input spatial objects.
 Transformation, if needed, should be done prior to mapping with
 \code{rgdal::spTransform()}.}
