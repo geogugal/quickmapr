@@ -10,7 +10,19 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `qmap()`: creates the map
 - `zi()`: zooms in
 - `zo()`: zooms out
+- `ze()`: zoom in to an extent
 - `p()`: pans
 - `l()`: adds labels
 - `i()`: identify features
+
+##Installation
+This package is not yet on CRAN.  To install
+
+```r
+install.packages("devtools")
+library("devtools")
+install_github("jhollist/quickmapr")
+```
+
+
 
