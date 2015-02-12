@@ -16,5 +16,5 @@
 #' l(lake,"COMID")
 #' }
 l<-function(spdata,spfield){
-  
+  text(coordinates(spdata)[,1],coordinates(spdata)[,2],labels=spdata[[spfield]])
 }
