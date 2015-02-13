@@ -29,7 +29,12 @@
 #' }
 qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),fill=FALSE,prj=TRUE){
-  if(!is.list(mapdata)){stop("mapdata must be a list")}
+  
+  if(!is.list(mapdata)){
+    mapdata<-list(mapdata)
+  } #else if(!is.list(mapdata)){
+    #stop("mapdata must be a list")
+  #}
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
