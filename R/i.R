@@ -32,7 +32,8 @@ i<-function(spdata){
 #' @import sp rgeos
 #' @keywords internal
 i_poly<-function(spdata){
-  idx<-over(spdata,SpatialPoints(locator(1),CRS(proj4string(spdata))))
+  idx<-rgeos::gWithin(SpatialPoints(locator(1),CRS(proj4string(spdata))),spdata,byid=TRUE)[,1]
+  #Need to handle no overlay more gracefully
   if(regexpr("DataFrame",class(spdata))>0){
     data<-spdata@data[idx,]
   } else {
