@@ -33,7 +33,10 @@ i<-function(spdata){
 #' @keywords internal
 i_poly<-function(spdata){
   idx<-rgeos::gWithin(SpatialPoints(locator(1),CRS(proj4string(spdata))),spdata,byid=TRUE)[,1]
-  #Need to handle no overlay more gracefully
+  if(sum(idx)==0){
+    message("No polygon features at that location.")
+    return(NULL)
+  }
   if(regexpr("DataFrame",class(spdata))>0){
     data<-spdata@data[idx,]
   } else {
