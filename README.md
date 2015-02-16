@@ -17,6 +17,10 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `l()`: adds labels
 - `i()`: identify features
 
+In addition other functions provide the ability to interactively work with spatial data. These include:
+
+- TBD
+
 ##Installation
 This package is not yet on CRAN.  To install
 
