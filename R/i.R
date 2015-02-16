@@ -57,6 +57,10 @@ i_poly<-function(spdata){
 i_line<-function(spdata){
   loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
   idx<-gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T)
+  if(sum(idx)==0){
+    message("No line features at that location.")
+    return(NULL)
+  }
   if(regexpr("DataFrame",class(spdata))>0){
     data<-spdata@data[idx,]
   } else {
@@ -75,6 +79,10 @@ i_line<-function(spdata){
 i_point<-function(spdata){
   loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
   idx<-gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T)
+  if(sum(idx)==0){
+    message("No point features at that location.")
+    return(NULL)
+  }
   if(regexpr("DataFrame",class(spdata))>0){
     data<-spdata@data[idx,]
   } else {
