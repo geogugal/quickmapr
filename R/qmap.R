@@ -1,7 +1,7 @@
-#' Display spatial data from a list.
+#' Build qmap object
 #'
-#' This function genarates a call to \code{ggplot2} and builds the quick map
-#' visualization.
+#' This function builds the qmap object that forms the basis for the rest of 
+#' the \code{quickmapr} package.
 #' 
 #' @param mapdata A list of spatial objects
 #' @param extent A \code{sp} or \code{raster} object to use as the initial extent 
@@ -89,7 +89,8 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
 
 #' Default plotting of a qmap object
 #' 
-#' Plots the qmap class
+#' Plots the qmap class and uses the order, colors, extent, and fill option 
+#' from \code{qmap}.
 #' 
 #' @param qmap_obj input qmap class to plot
 #' @method plot qmap
@@ -138,6 +139,17 @@ plot.qmap<-function(qmap_obj){
     }
   }
   
+  
   return(recordPlot())
 }
 
+#' Default plotting of a qmap object
+#' 
+#' Prints the qmap class
+#' 
+#' @param qmap_obj input qmap class to print
+#' @method print qmap
+#' @export
+#print.qmap<-function(qmap_obj){
+#  return(qmap_obj[[-6]])
+#}

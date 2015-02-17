@@ -16,6 +16,7 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `p()`: pans
 - `l()`: adds labels
 - `i()`: identify features
+- `f()`: returns to originally created map
 
 ##Installation
 This package is not yet on CRAN.  To install

@@ -4,8 +4,12 @@
 #' examining the results of given analysis.  This function adds labels for a 
 #' given layer.  
 #' 
-#' @param spdata a sp object from which to take the labels
-#' @param spfield a field in the spdata object to use to label the features
+#' @param qmap_obj a qmap object from which to pull the labels.  Raster layers 
+#'        are ignored.  Will also accept \code{sp} objects.
+#' @param lab_order identify which sp layer to label.  Defaults to first object
+#'        in qmap_obj$map_data.
+#' @param field a field in the sp object to use to label the features.  Defaults 
+#'        to row.names().
 #' 
 #' @export
 #' 
@@ -15,6 +19,28 @@
 #' qmap(list(lake,width))
 #' l(lake,"COMID")
 #' }
-l<-function(spdata,spfield){
-  text(coordinates(spdata)[,1],coordinates(spdata)[,2],labels=spdata[[spfield]])
+l<-function(qmap_obj,lab_order=1,field=NULL){
+  if(class(qmap_obj)=="qmap"){
+    while(get_sp_type(qmap_obj$map_data[[lab_order]])=="grid"){
+      warning("Labelling for raster data not supported. Labeling first non-raster data")
+      lab_order<-lab_order+1
+    }
+    spdata<-qmap_obj$map_data[[lab_order]]
+    x<-coordinates(spdata)[,1]
+    y<-coordinates(spdata)[,2]
+  } else {
+    x<-coordinates(qmap_obj)[,1]
+    y<-coordinates(qmap_obj)[,2]
+  }
+    
+  if(is.null(field)){
+    labs<-row.names(spdata)
+  } else {
+    labs<-spdata[[field]]
+  }
+  text(x=x,y=y,labels=labs)
+  obj<-paste(substitute(qmap_obj))
+  qmap_obj<-c(qmap_obj,label=list(x=x,y=y,labs=labs))
+  class(qmap_obj)<-"qmap"
+  assign(obj,qmap_obj,envir = .GlobalEnv)
 }

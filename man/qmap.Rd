@@ -2,7 +2,7 @@
 % Please edit documentation in R/qmap.R
 \name{qmap}
 \alias{qmap}
-\title{Display spatial data from a list.}
+\title{Build qmap object}
 \usage{
 qmap(mapdata, extent = NULL, order = 1:length(mapdata),
   colors = 1:length(mapdata), fill = FALSE, prj = TRUE)
@@ -29,8 +29,8 @@ Function displays a map from the input \code{mapdata} parameter and returns
         a recorded plot.
 }
 \description{
-This function genarates a call to \code{ggplot2} and builds the quick map
-visualization.
+This function builds the qmap object that forms the basis for the rest of
+the \code{quickmapr} package.
 }
 \examples{
 \dontrun{

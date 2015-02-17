@@ -4,12 +4,17 @@
 \alias{l}
 \title{Label features}
 \usage{
-l(spdata, spfield)
+l(qmap_obj, lab_order = 1, field = NULL)
 }
 \arguments{
-\item{spdata}{a sp object from which to take the labels}
+\item{qmap_obj}{a qmap object from which to pull the labels.  Raster layers
+are ignored.  Will also accept \code{sp} objects.}
 
-\item{spfield}{a field in the spdata object to use to label the features}
+\item{lab_order}{identify which sp layer to label.  Defaults to first object
+in qmap_obj$map_data.}
+
+\item{field}{a field in the sp object to use to label the features.  Defaults
+       to row.names().}
 }
 \description{
 It is useful to be able to provide labels to features on your map when
