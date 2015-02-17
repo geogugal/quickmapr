@@ -32,9 +32,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   
   if(!is.list(mapdata)){
     mapdata<-list(mapdata)
-  } #else if(!is.list(mapdata)){
-    #stop("mapdata must be a list")
-  #}
+  } 
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
@@ -78,6 +76,31 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
   #match colors to length of mapdata
   colors<-rep(colors,length(mapdata))[1:length(mapdata)]
   
+  qmap_obj<-list(map_data=mapdata,
+                 map_extent=bbx,
+                 draw_order=order,
+                 colors=colors,
+                 fill=fill,
+                 map=NULL)
+  class(qmap_obj)<-"qmap"
+  qmap_obj$map=plot.qmap(qmap_obj)
+  return(qmap_obj)
+}
+
+#' Default plotting of a qmap object
+#' 
+#' Plots the qmap class
+#' 
+#' @param qmap_obj input qmap class to plot
+#' @method plot qmap
+#' @export
+plot.qmap<-function(qmap_obj){
+  order<-qmap_obj$draw_order
+  mapdata<-qmap_obj$map_data
+  fill<-qmap_obj$fill
+  colors<-qmap_obj$colors
+  bbx<-qmap_obj$map_extent
+  
   #Creates the plot
   first<-TRUE
   for(i in 1:length(order)){
@@ -114,26 +137,7 @@ qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
       }
     }
   }
+  
   return(recordPlot())
 }
 
-#' Pull out essential info on sp class
-#' @param spdata an sp object
-#' @return character vector indicating point, line, polygon, or grid
-#' @keywords internal
-get_sp_type<-function(spdata){
-  spclass<-tolower(class(spdata)[1])
-  if(regexpr("polygon",spclass)>0){
-    return("polygon")
-  } else if (regexpr("line",spclass)>0){
-    return("line")
-  } else if (regexpr("point",spclass)>0){
-    return("point")
-  } else if (regexpr("grid",spclass)>0){
-    return("grid")
-  } else if (regexpr("pixel",spclass)>0){
-    return("grid")
-  } else if (regexpr("raster",spclass)>0){
-    return("grid")
-  }
-}

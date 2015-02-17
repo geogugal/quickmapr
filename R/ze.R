@@ -15,6 +15,14 @@
 #' qmap(list(lake,buffer,elev))
 #' ze()
 #' }
-ze<-function(...){
-  zoom::sq.zoom(...)
+ze<-function(qmap_obj=NULL,...){
+  if(is.null(qmap_obj)){
+    zoom::sq.zoom(...)
+  } else {
+    obj<-paste(substitute(qmap_obj))
+    qmap_obj$map_extent<-bbox(SpatialPoints(locator(2)))
+    assign(obj,qmap_obj,envir = .GlobalEnv)
+    return(plot.qmap(qmap_obj))
+  }
+  
 }
