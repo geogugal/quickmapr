@@ -43,9 +43,9 @@ i_poly<-function(spdata){
     data<-NULL
   }
   idata<-list(data=data,
-              spobj=spdata[idx],
-              area=gArea(spdata[idx]),
-              perim=gLength(spdata[idx]))
+              spobj=spdata[idx,],
+              area=gArea(spdata[idx,]),
+              perim=gLength(spdata[idx,]))
   
   return(idata)
 }
