@@ -144,13 +144,13 @@ plot.qmap<-function(qmap_obj){
   return(recordPlot())
 }
 
-#' Default plotting of a qmap object
+#' Default printing of a qmap object
 #' 
-#' Prints the qmap class
+#' Prints the summary of a qmap object
 #' 
 #' @param qmap_obj input qmap class to print
 #' @method print qmap
 #' @export
-#print.qmap<-function(qmap_obj){
-#  return(qmap_obj[[-6]])
-#}
+print.qmap<-function(qmap_obj){
+  return(summary(qmap_obj))
+}

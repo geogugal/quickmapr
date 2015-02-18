@@ -3,7 +3,10 @@
 #' Interactively select an \code{sp} or \code{raster} object and return the data 
 #' associated with it. \code{i()} only accepts a single input point.
 #' 
-#' @param spdata an \code{sp} object from which to identify features
+#' @param qmap_obj a \code{qmap} object from which to identify features.
+#'        An \code{sp} object may also be passed directly
+#' @param i_order a numeric value specifying which data layer to identify. 
+#'        Defaults to 1.
 #' @return  Returns a list that contains data for the selected object (data is
 #'          NULL if not a Spatial DataFrame object), the \code{sp} object, and 
 #'          additional information for each object (e.g. area and perimeter for
@@ -19,7 +22,8 @@
 #' i(samples)
 #' i(elev)
 #' }
-i<-function(spdata){
+i<-function(qmap_obj,i_order){
+  #add section to pull out spdata from qmap_obj or a sp object passed directly
   switch(EXPR=get_sp_type(spdata),
          polygon = i_poly(spdata),
          grid = i_grid(spdata),

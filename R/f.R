@@ -22,5 +22,8 @@ f<-function(qmap_obj){
   qmap_obj$map_extent[1,2]<-par("usr")[2]
   qmap_obj$map_extent[2,1]<-par("usr")[3]
   qmap_obj$map_extent[2,2]<-par("usr")[4]
+  if("label" %in% names(x)){
+    qmap_obj$label<-NULL
+  }
   assign(obj,qmap_obj,envir = .GlobalEnv)
 }

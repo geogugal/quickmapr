@@ -4,10 +4,14 @@
 \alias{i}
 \title{Identify}
 \usage{
-i(spdata)
+i(qmap_obj, i_order)
 }
 \arguments{
-\item{spdata}{an \code{sp} object from which to identify features}
+\item{qmap_obj}{a \code{qmap} object from which to identify features.
+An \code{sp} object may also be passed directly}
+
+\item{i_order}{a numeric value specifying which data layer to identify.
+Defaults to 1.}
 }
 \value{
 Returns a list that contains data for the selected object (data is
