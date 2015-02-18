@@ -138,8 +138,9 @@ plot.qmap<-function(qmap_obj){
       }
     }
   }
-  
-  
+  if("label"%in%names(qmap_obj)){
+    text(x=qmap_obj$label$x,y=qmap_obj$label$y,labels=qmap_obj$label$labs)
+  }
   return(recordPlot())
 }
 

@@ -38,9 +38,15 @@ l<-function(qmap_obj,lab_order=1,field=NULL){
   } else {
     labs<-spdata[[field]]
   }
-  text(x=x,y=y,labels=labs)
   obj<-paste(substitute(qmap_obj))
-  qmap_obj<-c(qmap_obj,label=list(x=x,y=y,labs=labs))
+  label<-list(label=list(x=x,y=y,labs=labs))
+  if("label"%in%names(qmap_obj)){
+    #qmap_obj$label<-NULL
+    qmap_obj$label<-label$label
+  } else {
+    qmap_obj<-c(qmap_obj,label)
+  }
   class(qmap_obj)<-"qmap"
   assign(obj,qmap_obj,envir = .GlobalEnv)
+  plot(qmap_obj)
 }
