@@ -32,7 +32,7 @@ zi<-function(qmap_obj=NULL,zoom_perc=0.5,...){
   } else {
     continue<-0
     obj<-paste(substitute(qmap_obj))
-    message("Click on plot to zoom.")
+    message("Click on plot to zoom in.")
     while(continue!="q"){ 
       rng<-get_range(qmap_obj)*(1-zoom_perc)
       loc<-locator(1)

@@ -27,14 +27,19 @@ p<-function(qmap_obj=NULL,...){
   if(is.null(qmap_obj)){
     zoom::move.to.click.zoom(...)
   } else {
+    continue<-0
     obj<-paste(substitute(qmap_obj))
-    rng<-get_range(qmap_obj)
-    loc<-locator(1)
-    qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
-    qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
-    qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
-    qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
-    assign(obj,qmap_obj,envir = .GlobalEnv)
-    return(plot.qmap(qmap_obj))
+    message("Click on plot to pan.")
+    while(continue!="q"){ 
+      rng<-get_range(qmap_obj)
+      loc<-locator(1)
+      qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
+      qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
+      qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
+      qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
+      plot.qmap(qmap_obj)
+      continue<-readline(message("Press 'Enter' to continue, 'q' to stop: ",appendLF=FALSE))
+    }
+  assign(obj,qmap_obj,envir = .GlobalEnv)
   }
 }

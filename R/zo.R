@@ -28,14 +28,19 @@ zo<-function(qmap_obj=NULL,zoom_perc=0.5,...){
   if(is.null(qmap_obj)){
     zoom::out.zoom(...)
   } else {
+    continue<-0
     obj<-paste(substitute(qmap_obj))
-    rng<-get_range(qmap_obj)*(1+zoom_perc)
-    loc<-locator(1)
-    qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
-    qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
-    qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
-    qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
+    message("Click on plot to zoom out.")
+    while(continue!="q"){ 
+      rng<-get_range(qmap_obj)*(1+zoom_perc)
+      loc<-locator(1)
+      qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
+      qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
+      qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
+      qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
+      plot(qmap_obj)
+      continue<-readline(message("Press 'Enter' to continue, 'q' to stop: ",appendLF=FALSE))
+    }
     assign(obj,qmap_obj,envir = .GlobalEnv)
-    plot(qmap_obj)
   }
 }
