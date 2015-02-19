@@ -4,10 +4,12 @@
 \alias{print.qmap}
 \title{Default printing of a qmap object}
 \usage{
-\method{print}{qmap}(qmap_obj)
+\method{print}{qmap}(x, ...)
 }
 \arguments{
-\item{qmap_obj}{input qmap class to print}
+\item{x}{input qmap class to print}
+
+\item{...}{options passed to summary}
 }
 \description{
 Prints the summary of a qmap object

@@ -3,7 +3,8 @@
 #' This function builds the qmap object that forms the basis for the rest of 
 #' the \code{quickmapr} package.
 #' 
-#' @param mapdata A list of spatial objects
+#' @param ... Spatial objects to map.  Maybe passed as objects, a list of 
+#'            spatial objects, or a \code{qmap} object
 #' @param extent A \code{sp} or \code{raster} object to use as the initial extent 
 #'        of the map.  Defaults to the maximum extent of all input object
 #' @param order draw order of the spatial object. Defaults to order in mapdata
@@ -29,21 +30,7 @@
 #' }
 qmap<-function(...,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),fill=FALSE,prj=TRUE){
-  #Need to get this working when a pre-existing list is passed.
-  #look at lapply(list(...),class)
-  #assign names to those that aren't lists
-  #for lists with one name after parsing name = pre-existing
-  #for lists with num names - num objects, defined when function called
-  #see how this works for existing lists with names.
-  mapdata<-unlist(list(...))
-  name<-paste(substitute(list(...)))
-  name<-name[!name%in%"list"]
-  name<-unlist(strsplit(name,","))
-  name<-gsub("list\\(","",name)
-  name<-gsub("\\)","",name)
-  names(mapdata)<-name
-  
-
+  mapdata<-build_map_data(...)
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
@@ -103,15 +90,16 @@ qmap<-function(...,extent=NULL,order=1:length(mapdata),
 #' Plots the qmap class and uses the order, colors, extent, and fill option 
 #' from \code{qmap}.
 #' 
-#' @param qmap_obj input qmap class to plot
+#' @param x input qmap class to plot
+#' @param ... options passed to image or plot
 #' @method plot qmap
 #' @export
-plot.qmap<-function(qmap_obj){
-  order<-qmap_obj$draw_order
-  mapdata<-qmap_obj$map_data
-  fill<-qmap_obj$fill
-  colors<-qmap_obj$colors
-  bbx<-qmap_obj$map_extent
+plot.qmap<-function(x,...){
+  order<-x$draw_order
+  mapdata<-x$map_data
+  fill<-x$fill
+  colors<-x$colors
+  bbx<-x$map_extent
   
   #Creates the plot
   first<-TRUE
@@ -119,15 +107,15 @@ plot.qmap<-function(qmap_obj){
     if(first){
       if(get_sp_type(mapdata[[order[i]]])=="grid"){
         image(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
-              axes=TRUE)
+              axes=TRUE,...)
         first<-FALSE
       } else if(get_sp_type(mapdata[[order[i]]])=="polygon"){
         if(fill){
           plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
-               axes=TRUE,col=colors[i])
+               axes=TRUE,col=colors[i],...)
         } else {
           plot(mapdata[[order[i]]],xlim=as.numeric(bbx[1,]),ylim=as.numeric(bbx[2,]),
-               axes=TRUE,border=colors[i])
+               axes=TRUE,border=colors[i],...)
         }
         first<-FALSE
       } else if(!get_sp_type(mapdata[[order[i]]])=="polygon"){
@@ -149,8 +137,8 @@ plot.qmap<-function(qmap_obj){
       }
     }
   }
-  if("label"%in%names(qmap_obj)){
-    text(x=qmap_obj$label$x,y=qmap_obj$label$y,labels=qmap_obj$label$labs)
+  if("label"%in%names(x)){
+    text(x=x$label$x,y=x$label$y,labels=x$label$labs)
   }
   return(recordPlot())
 }
@@ -159,9 +147,10 @@ plot.qmap<-function(qmap_obj){
 #' 
 #' Prints the summary of a qmap object
 #' 
-#' @param qmap_obj input qmap class to print
+#' @param x input qmap class to print
+#' @param ... options passed to summary
 #' @method print qmap
 #' @export
-print.qmap<-function(qmap_obj){
-  return(summary(qmap_obj))
+print.qmap<-function(x,...){
+  return(summary(x,...))
 }

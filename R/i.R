@@ -5,8 +5,8 @@
 #' 
 #' @param qmap_obj a \code{qmap} object from which to identify features.
 #'        An \code{sp} object may also be passed directly
-#' @param i_order a numeric value specifying which data layer to identify. 
-#'        Defaults to 1.
+#' @param i_idx a numeric value specifying which data layer to identify or a 
+#'        character string indicating the name of the layer. Defaults to 1.
 #' @return  Returns a list that contains data for the selected object (data is
 #'          NULL if not a Spatial DataFrame object), the \code{sp} object, and 
 #'          additional information for each object (e.g. area and perimeter for
@@ -22,8 +22,13 @@
 #' i(samples)
 #' i(elev)
 #' }
-i<-function(qmap_obj,i_order){
+i<-function(qmap_obj,i_idx=1){
   #add section to pull out spdata from qmap_obj or a sp object passed directly
+  if(class(qmap_obj)=="qmap"){
+    spdata<-qmap_obj$map_data[[i_idx]]
+  } else {
+    spdata<-qmap_obj
+  }
   switch(EXPR=get_sp_type(spdata),
          polygon = i_poly(spdata),
          grid = i_grid(spdata),

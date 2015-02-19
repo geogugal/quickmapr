@@ -4,10 +4,12 @@
 \alias{plot.qmap}
 \title{Default plotting of a qmap object}
 \usage{
-\method{plot}{qmap}(qmap_obj)
+\method{plot}{qmap}(x, ...)
 }
 \arguments{
-\item{qmap_obj}{input qmap class to plot}
+\item{x}{input qmap class to plot}
+
+\item{...}{options passed to image or plot}
 }
 \description{
 Plots the qmap class and uses the order, colors, extent, and fill option

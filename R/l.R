@@ -47,6 +47,6 @@ l<-function(qmap_obj,lab_order=1,field=NULL){
     qmap_obj<-c(qmap_obj,label)
   }
   class(qmap_obj)<-"qmap"
-  assign(obj,qmap_obj,envir = .GlobalEnv)
+  assign(obj,qmap_obj,envir = parent.frame())
   plot(qmap_obj)
 }

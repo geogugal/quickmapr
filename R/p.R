@@ -40,6 +40,6 @@ p<-function(qmap_obj=NULL,...){
       plot.qmap(qmap_obj)
       continue<-readline(message("Press 'Enter' to continue, 'q' to stop: ",appendLF=FALSE))
     }
-  assign(obj,qmap_obj,envir = .GlobalEnv)
+  assign(obj,qmap_obj,envir = parent.frame())
   }
 }

@@ -10,8 +10,6 @@ ze(qmap_obj = NULL, ...)
 \item{qmap_obj}{A qmap object.  Optional, but performs better with larger
 data sets.}
 
-\item{...}{arguments to be passed to zoom::in.zoom(...)}
-
 \item{...}{arguments to be passed to zoom::sq.zoom()}
 }
 \description{

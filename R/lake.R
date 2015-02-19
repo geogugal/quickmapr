@@ -70,3 +70,28 @@ NULL
 #' @name width
 
 NULL 
+
+#' Lakes from the National Lakes Morphometry Dataset for \code{quickmapr} 
+#' examples
+#' 
+#' This example data is a polygon dataset of many lakes in New Hampshire.  Data
+#' for each lake are from the first version of the \href{https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7B7DF16BCC-F72D-422F-B5CE-4886AAC6109C%7D}{National Lakes Morphometry 
+#' Dataset}.
+#' 
+#' @docType data
+#' @keywords datasets
+#' @format SpatialPolygonsDataFrame
+#' @name examp_lakes
+
+NULL 
+
+#' Samples points for \code{quickmapr} examples
+#' 
+#' This example data is a fabricated point dataset with data for each location.
+#' 
+#' @docType data
+#' @keywords datasets
+#' @format SpatialPointsDataFrame
+#' @name samples
+
+NULL 

@@ -11,9 +11,6 @@
 #' 
 #' @param qmap_obj A qmap object.  Optional, but performs better with larger 
 #'                  data sets.
-#' @param ... arguments to be passed to zoom::in.zoom(...)
-#' 
-#' 
 #' @param ... arguments to be passed to zoom::sq.zoom()
 #' @return NULL
 #' @export
@@ -30,7 +27,7 @@ ze<-function(qmap_obj=NULL,...){
   } else {
     obj<-paste(substitute(qmap_obj))
     qmap_obj$map_extent<-bbox(SpatialPoints(locator(2)))
-    assign(obj,qmap_obj,envir = .GlobalEnv)
+    assign(obj,qmap_obj,envir = parent.frame())
     return(plot.qmap(qmap_obj))
   }
   

@@ -8,6 +8,8 @@
 \description{
 This is a fabricated point dataset for what might be a common type of data
 collected for a lake.
+
+This example data is a fabricated point dataset with data for each location.
 }
 \keyword{datasets}
 

@@ -4,14 +4,14 @@
 \alias{i}
 \title{Identify}
 \usage{
-i(qmap_obj, i_order)
+i(qmap_obj, i_idx = 1)
 }
 \arguments{
 \item{qmap_obj}{a \code{qmap} object from which to identify features.
 An \code{sp} object may also be passed directly}
 
-\item{i_order}{a numeric value specifying which data layer to identify.
-Defaults to 1.}
+\item{i_idx}{a numeric value specifying which data layer to identify or a
+character string indicating the name of the layer. Defaults to 1.}
 }
 \value{
 Returns a list that contains data for the selected object (data is
