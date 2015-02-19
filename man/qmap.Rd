@@ -4,12 +4,10 @@
 \alias{qmap}
 \title{Build qmap object}
 \usage{
-qmap(mapdata, extent = NULL, order = 1:length(mapdata),
+qmap(..., extent = NULL, order = 1:length(mapdata),
   colors = 1:length(mapdata), fill = FALSE, prj = TRUE)
 }
 \arguments{
-\item{mapdata}{A list of spatial objects}
-
 \item{extent}{A \code{sp} or \code{raster} object to use as the initial extent
 of the map.  Defaults to the maximum extent of all input object}
 
@@ -23,6 +21,8 @@ the border colored.}
 \item{prj}{Logical to check projections of input spatial objects.
 Transformation, if needed, should be done prior to mapping with
 \code{rgdal::spTransform()}.}
+
+\item{mapdata}{A list of spatial objects}
 }
 \value{
 Function displays a map from the input \code{mapdata} parameter and returns

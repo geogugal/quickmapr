@@ -27,12 +27,23 @@
 #' #change draw order and which data is displayed
 #' qmap(mymap,order=c(2,3,5))
 #' }
-qmap<-function(mapdata,extent=NULL,order=1:length(mapdata),
+qmap<-function(...,extent=NULL,order=1:length(mapdata),
                colors=1:length(mapdata),fill=FALSE,prj=TRUE){
+  #Need to get this working when a pre-existing list is passed.
+  #look at lapply(list(...),class)
+  #assign names to those that aren't lists
+  #for lists with one name after parsing name = pre-existing
+  #for lists with num names - num objects, defined when function called
+  #see how this works for existing lists with names.
+  mapdata<-unlist(list(...))
+  name<-paste(substitute(list(...)))
+  name<-name[!name%in%"list"]
+  name<-unlist(strsplit(name,","))
+  name<-gsub("list\\(","",name)
+  name<-gsub("\\)","",name)
+  names(mapdata)<-name
   
-  if(!is.list(mapdata)){
-    mapdata<-list(mapdata)
-  } 
+
   if(length(mapdata)>1){
     #Test Projections
     if(prj){
