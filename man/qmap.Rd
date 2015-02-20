@@ -9,9 +9,9 @@ qmap(..., extent = NULL, order = 1:length(mapdata),
 }
 \arguments{
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of
-spatial objects, or a \code{qmap} object}
+spatial objects, or a \code{\link{qmap}} object}
 
-\item{extent}{A \code{sp} or \code{raster} object to use as the initial extent
+\item{extent}{A \code{\link{sp}} or \code{\link{raster}} object to use as the initial extent
 of the map.  Defaults to the maximum extent of all input object}
 
 \item{order}{draw order of the spatial object. Defaults to order in mapdata}
@@ -23,7 +23,7 @@ the border colored.}
 
 \item{prj}{Logical to check projections of input spatial objects.
 Transformation, if needed, should be done prior to mapping with
-\code{rgdal::spTransform()}.}
+\code{sp::spTransform()}.}
 }
 \value{
 Function displays a map from the input \code{mapdata} parameter and returns
@@ -31,7 +31,7 @@ Function displays a map from the input \code{mapdata} parameter and returns
 }
 \description{
 This function builds the qmap object that forms the basis for the rest of
-the \code{quickmapr} package.
+the \code{\link{quickmapr}} package.
 }
 \examples{
 \dontrun{

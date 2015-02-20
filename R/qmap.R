@@ -1,11 +1,11 @@
 #' Build qmap object
 #'
 #' This function builds the qmap object that forms the basis for the rest of 
-#' the \code{quickmapr} package.
+#' the \code{\link{quickmapr}} package.
 #' 
 #' @param ... Spatial objects to map.  Maybe passed as objects, a list of 
-#'            spatial objects, or a \code{qmap} object
-#' @param extent A \code{sp} or \code{raster} object to use as the initial extent 
+#'            spatial objects, or a \code{\link{qmap}} object
+#' @param extent A \code{\link{sp}} or \code{\link{raster}} object to use as the initial extent 
 #'        of the map.  Defaults to the maximum extent of all input object
 #' @param order draw order of the spatial object. Defaults to order in mapdata
 #' @param colors line colors. Defaults to 1:length(mapdata)  
@@ -13,7 +13,7 @@
 #'             the border colored.
 #' @param prj Logical to check projections of input spatial objects.  
 #'            Transformation, if needed, should be done prior to mapping with 
-#'            \code{rgdal::spTransform()}.
+#'            \code{sp::spTransform()}.
 #' @return Function displays a map from the input \code{mapdata} parameter and returns
 #'         a recorded plot.
 #' 
@@ -92,7 +92,6 @@ qmap<-function(...,extent=NULL,order=1:length(mapdata),
 #' 
 #' @param x input qmap class to plot
 #' @param ... options passed to image or plot
-#' @method plot qmap
 #' @export
 plot.qmap<-function(x,...){
   order<-x$draw_order
@@ -149,7 +148,6 @@ plot.qmap<-function(x,...){
 #' 
 #' @param x input qmap class to print
 #' @param ... options passed to summary
-#' @method print qmap
 #' @export
 print.qmap<-function(x,...){
   return(summary(x,...))
