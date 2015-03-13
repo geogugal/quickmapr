@@ -11,11 +11,11 @@ BugReports: https://github.com/jhollist/quickmapr/issues
 Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
 License: CC0
 Description: Visualizing spatial data in R has received a lot of attention and
-    their are many packages to provide production quality maps and many
-    packages that offer interactivity (zoom, pan, and identify) .  To do this,
-    these packages utilize javascript and/or require data to be in geographic 
-    coordinates, thus requiring several additional steps to produce a map.
-    During the analytical process, however, a quick and easy visualization is
+    their are many packages to provide production quality maps and offer 
+    interactivity (zoom, pan, and identify) .  To do this,these packages 
+    utilize javascript and/or require data to be in geographic coordinates, 
+    thus requiring several additional steps to produce a map. During the 
+    analytical process, however, a quick and easy visualization is often 
     needed that allows for quick plotting, and simple, but easy interactivity.
     \code{quickmapr} fills this gap by providing a simple method to visualize
     sp and raster objects as well as allow for basic zooming, panning and
