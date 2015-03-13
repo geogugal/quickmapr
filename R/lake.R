@@ -75,7 +75,8 @@ NULL
 #' examples
 #' 
 #' This example data is a polygon dataset of many lakes in New Hampshire.  Data
-#' for each lake are from the first version of the \href{https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=%7B7DF16BCC-F72D-422F-B5CE-4886AAC6109C%7D}{National Lakes Morphometry 
+#' for each lake are from the first version of the 
+#' \href{https://edg.epa.gov/metadata/catalog/search/resource/details.page?uuid=\%7B7DF16BCC-F72D-422F-B5CE-4886AAC6109C\%7D}{National Lakes Morphometry 
 #' Dataset}.
 #' 
 #' @docType data
