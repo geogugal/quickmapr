@@ -1,6 +1,6 @@
 Package: quickmapr
 Type: Package
-Title: Quickly map and explore spatial data.
+Title: Quickly Map and Explore Spatial Data
 Version: 0.0.0.9000
 Date: 2015-03-13
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
