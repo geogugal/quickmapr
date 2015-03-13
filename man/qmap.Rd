@@ -11,7 +11,7 @@ qmap(..., extent = NULL, order = 1:length(mapdata),
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of
 spatial objects, or a \code{\link{qmap}} object}
 
-\item{extent}{A \code{\link{sp}} or \code{\link{raster}} object to use as the initial extent
+\item{extent}{A \code{\link{sp}} or \code{\link[raster]{raster}} object to use as the initial extent
 of the map.  Defaults to the maximum extent of all input object}
 
 \item{order}{draw order of the spatial object. Defaults to order in mapdata}

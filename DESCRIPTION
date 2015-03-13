@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly map and explore spatial data.
-Version: 0.1
-Date: 2015-02-19
+Version: 0.0.0.9000
+Date: 2015-03-13
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -13,8 +13,8 @@ License: CC0
 Description: Visualizing spatial data in R has received a lot of attention and
     their are many packages to provide production quality maps and many
     packages that offer interactivity (zoom, pan, and identify) .  To do this,
-    these packages utilize javascript and/or require data to be in a specific
-    projection thus requiring several additional steps to produce a map.
+    these packages utilize javascript and/or require data to be in geographic 
+    coordinates, thus requiring several additional steps to produce a map.
     During the analytical process, however, a quick and easy visualization is
     needed that allows for quick plotting, and simple, but easy interactivity.
     \code{quickmapr} fills this gap by providing a simple method to visualize
@@ -22,7 +22,8 @@ Description: Visualizing spatial data in R has received a lot of attention and
     identifying of spatial objects.
 Depends: R (>= 2.10)
 Imports:
+    rgeos,
     sp,
-    zoom,
-    rgeos
-
+    zoom
+Suggests:
+    raster

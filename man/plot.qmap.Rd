@@ -4,7 +4,7 @@
 \alias{plot.qmap}
 \title{Default plotting of a qmap object}
 \usage{
-plot.qmap(x, ...)
+\method{plot}{qmap}(x, ...)
 }
 \arguments{
 \item{x}{input qmap class to plot}
