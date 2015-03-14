@@ -25,8 +25,7 @@ Example data are available via:
 ##Installation
 This package is not yet on CRAN.  To install
 
-
-```r
+```{r,eval=FALSE}
 install.packages("devtools")
 library("devtools")
 install_github("jhollist/quickmapr")
@@ -38,37 +37,28 @@ Basic usage of `quickmapr` is built around a `qmap` object which is simply a lis
 
 To create a qmap object:
 
-
-```r
+```{r}
 #First some data
 data(lake)
 #Create your first quick map and object
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
-
 Calling the `qmap` object will replot the original plot (i.e. if you get zoomed in to far).  There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
 So for instance, if you want to zoom in to the extent of one of your layers you could do something like:
 
-
-```r
+```{r}
 #Zoom to the extent of the layer named width
 qmap(qm,extent=width)
 ```
-
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
 You can change colors (this is still a bit clunky).
 
-
-```r
+```{r}
 #draw samples and width in red and buffer with blue fill
 qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
 ```
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
