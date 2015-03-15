@@ -16,7 +16,7 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `p()`: pans
 - `l()`: adds labels
 - `i()`: identify features
-- `f()`: returns to originally created map
+- `f()`: returns to extent of originally created map
 
 Example data are available via:
 
@@ -48,7 +48,7 @@ qm <- qmap(elev,samples,buffer,width)
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
-Calling the `qmap` object will replot the original plot (i.e. if you get zoomed in to far).  There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
+There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
 So for instance, if you want to zoom in to the extent of one of your layers you could do something like:
 
@@ -59,6 +59,16 @@ qmap(qm,extent=width)
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+
+```
+## qm.elev
+
+## qm.samples
+
+## qm.buffer
+
+## qm.width
+```
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -71,4 +81,24 @@ qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+
+```
+## qm.elev
+
+## qm.samples
+
+## qm.buffer
+
+## qm.width
+```
+
+```
+## red
+
+## red
+
+## blue
+
+## red
+```
 
