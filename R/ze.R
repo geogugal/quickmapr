@@ -21,14 +21,14 @@
 #' qmap(list(lake,buffer,elev))
 #' ze()
 #' }
-ze<-function(qmap_obj=NULL,...){
-  if(is.null(qmap_obj)){
+ze <- function(qmap_obj = NULL, ...) {
+  if (is.null(qmap_obj)) {
     zoom::sq.zoom(...)
   } else {
-    obj<-paste(substitute(qmap_obj))
-    qmap_obj$map_extent<-bbox(SpatialPoints(locator(2)))
-    assign(obj,qmap_obj,envir = parent.frame())
+    obj <- paste(substitute(qmap_obj))
+    qmap_obj$map_extent <- bbox(SpatialPoints(locator(2)))
+    assign(obj, qmap_obj, envir = parent.frame())
     return(plot.qmap(qmap_obj))
   }
   
-}
+} 

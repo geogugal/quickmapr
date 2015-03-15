@@ -21,7 +21,7 @@ NULL
 #' @format RasterLayer of 455 x 246 and 30 meter resolution
 #' @name elev
 
-NULL 
+NULL
 
 #' Point data for \code{quickmapr} examples
 #' 
@@ -33,7 +33,7 @@ NULL
 #' @format SpatialPointsDataFrame
 #' @name samples
 
-NULL 
+NULL
 
 #' Buffer of Lake Sunapee for \code{quickmapr} examples
 #' 
@@ -45,7 +45,7 @@ NULL
 #' @format SpatialPolygonsDataFrame
 #' @name buffer
 
-NULL 
+NULL
 
 #' Maximum Lake Length line for \code{quickmapr} examples
 #' 
@@ -56,7 +56,7 @@ NULL
 #' @format SpatialLines
 #' @name length
 
-NULL 
+NULL
 
 #' Maximum lake width for \code{quickmapr} examples
 #' 
@@ -69,7 +69,7 @@ NULL
 #' @format SpatialLines
 #' @name width
 
-NULL 
+NULL
 
 #' Lakes from the National Lakes Morphometry Dataset for \code{quickmapr} 
 #' examples
@@ -84,7 +84,7 @@ NULL
 #' @format SpatialPolygonsDataFrame
 #' @name examp_lakes
 
-NULL 
+NULL
 
 #' Samples points for \code{quickmapr} examples
 #' 

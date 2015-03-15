@@ -22,39 +22,36 @@
 #' i(samples)
 #' i(elev)
 #' }
-i<-function(qmap_obj,i_idx=1){
-  #add section to pull out spdata from qmap_obj or a sp object passed directly
-  if(class(qmap_obj)=="qmap"){
-    spdata<-qmap_obj$map_data[[i_idx]]
+i <- function(qmap_obj, i_idx = 1) {
+  # add section to pull out spdata from qmap_obj or a sp object passed
+  # directly
+  if (class(qmap_obj) == "qmap") {
+    spdata <- qmap_obj$map_data[[i_idx]]
   } else {
-    spdata<-qmap_obj
+    spdata <- qmap_obj
   }
-  switch(EXPR=get_sp_type(spdata),
-         polygon = i_poly(spdata),
-         grid = i_grid(spdata),
-         line = i_line(spdata),
-         point = i_point(spdata))
+  switch(EXPR = get_sp_type(spdata), polygon = i_poly(spdata), grid = i_grid(spdata), 
+    line = i_line(spdata), point = i_point(spdata))
 }
 
 #' Identify Polys
 #' 
 #' @import sp rgeos
 #' @keywords internal
-i_poly<-function(spdata){
-  idx<-rgeos::gWithin(SpatialPoints(locator(1),CRS(proj4string(spdata))),spdata,byid=TRUE)[,1]
-  if(sum(idx)==0){
+i_poly <- function(spdata) {
+  idx <- rgeos::gWithin(SpatialPoints(locator(1), CRS(proj4string(spdata))), 
+    spdata, byid = TRUE)[, 1]
+  if (sum(idx) == 0) {
     message("No polygon features at that location.")
     return(NULL)
   }
-  if(regexpr("DataFrame",class(spdata))>0){
-    data<-spdata@data[idx,]
+  if (regexpr("DataFrame", class(spdata)) > 0) {
+    data <- spdata@data[idx, ]
   } else {
-    data<-NULL
+    data <- NULL
   }
-  idata<-list(data=data,
-              spobj=spdata[idx,],
-              area=gArea(spdata[idx,]),
-              perim=gLength(spdata[idx,]))
+  idata <- list(data = data, spobj = spdata[idx, ], area = gArea(spdata[idx, 
+    ]), perim = gLength(spdata[idx, ]))
   
   return(idata)
 }
@@ -63,21 +60,20 @@ i_poly<-function(spdata){
 #' 
 #' @import sp rgeos
 #' @keywords internal
-i_line<-function(spdata){
-  loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
-  idx<-gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T)
-  if(sum(idx)==0){
+i_line <- function(spdata) {
+  loc <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+  idx <- gWithinDistance(loc, spdata, gDistance(loc, spdata), byid = T)
+  if (sum(idx) == 0) {
     message("No line features at that location.")
     return(NULL)
   }
-  if(regexpr("DataFrame",class(spdata))>0){
-    data<-spdata@data[idx,]
+  if (regexpr("DataFrame", class(spdata)) > 0) {
+    data <- spdata@data[idx, ]
   } else {
-    data<-NULL
+    data <- NULL
   }
-  idata<-list(data=data,
-              spobj=spdata[which(idx),],
-              length=gLength(spdata[which(idx),]))
+  idata <- list(data = data, spobj = spdata[which(idx), ], length = gLength(spdata[which(idx), 
+    ]))
   return(idata)
 }
 
@@ -85,20 +81,19 @@ i_line<-function(spdata){
 #' 
 #' @import sp rgeos
 #' @keywords internal
-i_point<-function(spdata){
-  loc<-SpatialPoints(locator(1),CRS(proj4string(spdata)))
-  idx<-gWithinDistance(loc,spdata,gDistance(loc,spdata),byid=T)
-  if(sum(idx)==0){
+i_point <- function(spdata) {
+  loc <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+  idx <- gWithinDistance(loc, spdata, gDistance(loc, spdata), byid = T)
+  if (sum(idx) == 0) {
     message("No point features at that location.")
     return(NULL)
   }
-  if(regexpr("DataFrame",class(spdata))>0){
-    data<-spdata@data[idx,]
+  if (regexpr("DataFrame", class(spdata)) > 0) {
+    data <- spdata@data[idx, ]
   } else {
-    data<-NULL
+    data <- NULL
   }
-  idata<-list(data=data,
-              spobj=spdata[which(idx),])
+  idata <- list(data = data, spobj = spdata[which(idx), ])
   return(idata)
 }
 
@@ -106,8 +101,9 @@ i_point<-function(spdata){
 #' 
 #' @import sp rgeos
 #' @keywords internal
-i_grid<-function(spdata){
-  spdata2<-as(spdata,"SpatialGridDataFrame")
-  data<-over(SpatialPoints(locator(1),CRS(proj4string(spdata2))),spdata2)
+i_grid <- function(spdata) {
+  spdata2 <- as(spdata, "SpatialGridDataFrame")
+  data <- over(SpatialPoints(locator(1), CRS(proj4string(spdata2))), 
+    spdata2)
   return(data)
-}
+} 

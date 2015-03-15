@@ -9,10 +9,10 @@
 #' that object to \code{zi()}.  A single zoom in results and the extent of the
 #' \code{qmap} object is changed.  
 #' 
-#' @param qmap_obj A qmap object.  Optional, but performs better with larger 
+#' @param qmap_obj  A qmap object.  Optional, but performs better with larger 
 #'                  data sets.
 #' @param zoom_perc A proportion to determine the zoom level.  The x and y 
-#'                  axes are reduced by this amount.  Default is 0.5.
+#'                  axes are reduced by this amount.  Default is 0.5.        
 #' @param ... arguments to be passed to zoom::in.zoom(...)
 #' @return NULL
 #' @export
@@ -25,25 +25,28 @@
 #' ##Or
 #' zi(x)
 #' }
-zi<-function(qmap_obj=NULL,zoom_perc=0.5,...){
-  if(zoom_perc>=1||zoom_perc<0){stop("Argument, zoom_perc, needs to be between 0 and 1")}
-  if(is.null(qmap_obj)){
+zi <- function(qmap_obj = NULL, zoom_perc = 0.5, ...) {
+  if (zoom_perc >= 1 || zoom_perc < 0) {
+    stop("Argument, zoom_perc, needs to be between 0 and 1")
+  }
+  if (is.null(qmap_obj)) {
     zoom::in.zoom(...)
   } else {
-    continue<-0
-    obj<-paste(substitute(qmap_obj))
-    message("Click on plot to zoom in.")
-    while(continue!="q"){ 
-      rng<-get_range(qmap_obj)*(1-zoom_perc)
-      loc<-locator(1)
-      qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
-      qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
-      qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
-      qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
-      plot(qmap_obj)
-      continue<-readline(message("Press 'Enter' to continue, 'q' to stop: ",appendLF=FALSE))
+    continue <- 0
+    obj <- paste(substitute(qmap_obj))
+    message("Click on plot to zoom in. Press 'Esc' to exit.")
+    n <- 1
+    loc <- 1
+    while (!is.null(loc)) {
+      if (n == 1) {
+        loc <- locator(1)
+        qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
+        n <- 2
+      } else {
+        qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
+        loc <- locator(1)
+      }
     }
-    assign(obj,qmap_obj,envir = parent.frame())
+    assign(obj, qmap_obj, envir = parent.frame())
   }
-}
-
+} 

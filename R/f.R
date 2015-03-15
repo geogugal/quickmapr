@@ -15,15 +15,15 @@
 #' zi(x)
 #' f(x)
 #' }
-f<-function(qmap_obj){
-  obj<-paste(substitute(qmap_obj))
+f <- function(qmap_obj) {
+  obj <- paste(substitute(qmap_obj))
   replayPlot(qmap_obj$map)
-  qmap_obj$map_extent[1,1]<-par("usr")[1]
-  qmap_obj$map_extent[1,2]<-par("usr")[2]
-  qmap_obj$map_extent[2,1]<-par("usr")[3]
-  qmap_obj$map_extent[2,2]<-par("usr")[4]
-  if("label" %in% names(qmap_obj)){
-    qmap_obj$label<-NULL
+  qmap_obj$map_extent[1, 1] <- par("usr")[1]
+  qmap_obj$map_extent[1, 2] <- par("usr")[2]
+  qmap_obj$map_extent[2, 1] <- par("usr")[3]
+  qmap_obj$map_extent[2, 2] <- par("usr")[4]
+  if ("label" %in% names(qmap_obj)) {
+    qmap_obj$label <- NULL
   }
-  assign(obj,qmap_obj,envir = parent.frame())
-}
+  assign(obj, qmap_obj, envir = parent.frame())
+} 

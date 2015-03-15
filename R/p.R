@@ -23,23 +23,25 @@
 #' ## Or
 #' p(x)
 #' }
-p<-function(qmap_obj=NULL,...){
-  if(is.null(qmap_obj)){
+p <- function(qmap_obj = NULL, ...) {
+  if (is.null(qmap_obj)) {
     zoom::move.to.click.zoom(...)
   } else {
-    continue<-0
-    obj<-paste(substitute(qmap_obj))
-    message("Click on plot to pan.")
-    while(continue!="q"){ 
-      rng<-get_range(qmap_obj)
-      loc<-locator(1)
-      qmap_obj$map_extent[1,1]<-loc$x-(rng[1]/2)
-      qmap_obj$map_extent[1,2]<-loc$x+(rng[1]/2)
-      qmap_obj$map_extent[2,1]<-loc$y-(rng[2]/2)
-      qmap_obj$map_extent[2,2]<-loc$y+(rng[2]/2)
-      plot.qmap(qmap_obj)
-      continue<-readline(message("Press 'Enter' to continue, 'q' to stop: ",appendLF=FALSE))
+    continue <- 0
+    obj <- paste(substitute(qmap_obj))
+    message("Click on plot to zoom in. Press 'Esc' to exit.")
+    n <- 1
+    loc <- 1
+    while (!is.null(loc)) {
+      if (n == 1) {
+        loc <- locator(1)
+        qmap_obj <- zoom_it(qmap_obj, loc, 1, pan = TRUE)
+        n <- 2
+      } else {
+        qmap_obj <- zoom_it(qmap_obj, loc, 1, pan = TRUE)
+        loc <- locator(1)
+      }
     }
-  assign(obj,qmap_obj,envir = parent.frame())
+    assign(obj, qmap_obj, envir = parent.frame())
   }
-}
+} 

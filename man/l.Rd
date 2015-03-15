@@ -25,7 +25,7 @@ given layer.
 \dontrun{
 data(lake)
 qmap(list(lake,width))
-l(lake,"COMID")
+l(lake,'COMID')
 }
 }
 
