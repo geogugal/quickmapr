@@ -26,6 +26,7 @@ ze <- function(qmap_obj = NULL, ...) {
     zoom::sq.zoom(...)
   } else {
     obj <- paste(substitute(qmap_obj))
+    message("Select 2 points to define the zoom extent.")
     qmap_obj$map_extent <- bbox(SpatialPoints(locator(2)))
     assign(obj, qmap_obj, envir = parent.frame())
     return(plot.qmap(qmap_obj))
