@@ -18,6 +18,8 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `i()`: identify features
 - `f()`: returns to extent of originally created map
 
+A function for pulling in basemaps (aerials or topo-quads) from the USGS National Map is currently in development.
+
 Example data are available via:
 
 - `data(lake)`
