@@ -48,6 +48,11 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
+```
+## Loading required package: raster
+## Loading required package: sp
+```
+
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
@@ -57,20 +62,10 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 
 ```r
 #Zoom to the extent of the layer named width
-qmap(qm,extent=width)
+qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
-
-```
-## qm.elev
-
-## qm.samples
-
-## qm.buffer
-
-## qm.width
-```
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -79,28 +74,18 @@ You can change colors (this is still a bit clunky).
 
 ```r
 #draw samples and width in red and buffer with blue fill
-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
+qm<-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
+```
+
+```
+## Error in mapdata[[order[i]]]: subscript out of bounds
 ```
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
+Zooming in is done with:
+
+
+```r
+zi(qm)
 ```
-## qm.elev
-
-## qm.samples
-
-## qm.buffer
-
-## qm.width
-```
-
-```
-## red
-
-## red
-
-## blue
-
-## red
-```
-

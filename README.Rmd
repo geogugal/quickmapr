@@ -52,7 +52,7 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 
 ```{r}
 #Zoom to the extent of the layer named width
-qmap(qm,extent=width)
+qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
@@ -61,6 +61,11 @@ You can change colors (this is still a bit clunky).
 
 ```{r}
 #draw samples and width in red and buffer with blue fill
-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
+qm<-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
+Zooming in is done with:
+
+```{r, eval=FALSE}
+zi(qm)
+```
