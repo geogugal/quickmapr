@@ -1,7 +1,7 @@
 quickmapr
 =========
 
-[![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr)
 
 There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking for `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
@@ -46,11 +46,6 @@ To create a qmap object:
 data(lake)
 #Create your first quick map and object
 qm <- qmap(elev,samples,buffer,width)
-```
-
-```
-## Loading required package: raster
-## Loading required package: sp
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
