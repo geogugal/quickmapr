@@ -24,12 +24,12 @@
 #' \dontrun{
 #' data(lake)
 #' mymap<-list(elev,lake,buffer,length,samples)
-#' qmap(mymap)
+#' qmap(mymap,basemap="1m_aerial")
 #' #change draw order and which data is displayed
 #' qmap(mymap,order=c(2,3,5))
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
-  fill = FALSE, prj = TRUE) {
+                 fill = FALSE, prj = TRUE, basemap = NULL) {
   mapdata <- build_map_data(...)
   if (length(mapdata) > 1) {
     # Test Projections
@@ -41,7 +41,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
         stop("No projection info.  Use prj=FALSE to override projection check.  \n  
              If data are in different projections, the resultant map will not likely\n             
              be what you expect. Best to determine projection and re-project.", 
-          call. = FALSE)
+             call. = FALSE)
       }
     }
     # Sets Extent to all entered extents or a specific one.
@@ -49,16 +49,16 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
       bbx <- sp::bbox(mapdata[[1]])
       for (i in 1:length(mapdata)) {
         bbx[1, 1] <- min(c(bbx[1, 1], sp::bbox(mapdata[[i]])[1, 
-          1]))
+                                                             1]))
         bbx[1, 2] <- max(c(bbx[1, 2], sp::bbox(mapdata[[i]])[1, 
-          2]))
+                                                             2]))
         bbx[2, 1] <- min(c(bbx[2, 1], sp::bbox(mapdata[[i]])[2, 
-          1]))
+                                                             1]))
         bbx[2, 2] <- max(c(bbx[2, 2], sp::bbox(mapdata[[i]])[2, 
-          2]))
+                                                             2]))
       }
     }
-  }
+    }
   
   if (!exists("bbx") & is.null(extent)) {
     bbx <- bbox(mapdata[[1]])
@@ -66,7 +66,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
     #if(is.character(extent)) {
     #  bbx <- bbox(mapdata[[extent]])
     #} else {
-      bbx <- bbox(extent)
+    bbx <- bbox(extent)
     #}
   }
   bbx <- data.frame(bbx)
@@ -82,11 +82,20 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   colors <- rep(colors, length(mapdata))[1:length(mapdata)]
   
   qmap_obj <- list(map_data = mapdata, map_extent = bbx, draw_order = order, 
-    colors = colors, fill = fill, map = NULL)
+                   colors = colors, fill = fill, map = NULL)
+  if(!is.null(basemap)){
+    if(!basemap%in%c("1m_aerial","1ft_aerial","topo")){
+      warning("basemap not a valid option, has been set to NULL")
+      qmap_obj<-c(qmap_obj,basemap=NULL)
+    }
+    qmap_obj<-c(qmap_obj,basemap=get_basemap(bbx,proj4string(mapdata[[1]]),basemap))
+  } else {
+    qmap_obj<-c(qmap_obj,basemap=NULL)
+  }
   class(qmap_obj) <- "qmap"
   qmap_obj$map = plot.qmap(qmap_obj)
   return(qmap_obj)
-}
+    }
 
 #' Default plotting of a qmap object
 #' 
@@ -103,29 +112,35 @@ plot.qmap <- function(x, ...) {
   fill <- x$fill
   colors <- x$colors
   bbx <- x$map_extent
+  basemap <- x$basemap
   
   # Creates the plot
   first <- TRUE
+  if(!is.null(basemap)){
+    image(basemap,red=1,green=2,blue=3,xlim = as.numeric(bbx[1, ]), 
+          ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
+    first <- FALSE
+  }
   for (i in 1:length(order)) {
     if (first) {
       if (get_sp_type(mapdata[[order[i]]]) == "grid") {
         image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-          ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
+              ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
         first <- FALSE
       } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
         if (fill) {
           plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-          ylim = as.numeric(bbx[2, ]), axes = TRUE, col = colors[i], 
-          ...)
+               ylim = as.numeric(bbx[2, ]), axes = TRUE, col = colors[i], 
+               ...)
         } else {
           plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-          ylim = as.numeric(bbx[2, ]), axes = TRUE, border = colors[i], 
-          ...)
+               ylim = as.numeric(bbx[2, ]), axes = TRUE, border = colors[i], 
+               ...)
         }
         first <- FALSE
       } else if (!get_sp_type(mapdata[[order[i]]]) == "polygon") {
         plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-          ylim = as.numeric(bbx[2, ]), axes = TRUE, col = colors[i])
+             ylim = as.numeric(bbx[2, ]), axes = TRUE, col = colors[i])
         first <- FALSE
       }
     } else {
@@ -158,6 +173,45 @@ plot.qmap <- function(x, ...) {
 #' @export
 print.qmap <- function(x, ...) {
   print_it <- list(map_data = names(x$map_data), map_extent = x$map_extent, 
-    draw_order = x$draw_order, colors = x$colors, fill = x$fill, label = x$label)
+                   draw_order = x$draw_order, colors = x$colors, fill = x$fill, label = x$label)
   return(print_it)
 } 
+
+#' Get a basemap from USGS National Map
+#' 
+#' Uses the National Map Aerial Image REST API to return an aerial image to be
+#' used as a basemap.  May add functionality for 1m or 1ft images.  May also add
+#' topo-map.
+#' 
+#' @param bbx a bounding box from \code{qmap()}
+#' @param p4s a proj4string of projection to request image in.
+#' @examples
+#' \dontrun{
+#' data(lake)
+#' x<-qmap(lake,buffer)
+#' get_basemap(x$map_extent,proj4string(lake))
+#' }
+#' #@keywords internal
+#' @export
+get_basemap <- function(bbx, p4s, base=c("1m_aerial","1ft_aerial","topo")){
+  base<-match.arg(base)
+  if(base=="1m_aerial"){
+    server_url<-"http://raster.nationalmap.gov/arcgis/rest/services/Orthoimagery/USGS_EROS_Ortho_NAIP/ImageServer/exportImage?"
+  }
+  #bbx_url<-"bbox=-8026861,5361113,-8014736,5377674" #Needs to come from bbx
+  bbx_url<-paste("bbox=",bbx[1,1],",",bbx[2,1],",",bbx[1,2],",",bbx[2,2],sep="") #"#bbox=-8026861,5361113,-8014736,5377674" #Needs to come from bbx
+  format_url<-"&format=tiff"
+  pixel_url<-"&pixelType=U8&noDataInterpretation=esriNoDataMatchAny&interpolation=+RSP_BilinearInterpolation"
+  file_url<-"&f=image"
+  bbx_sr_url<-paste("&bboxSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
+  image_sr_url<-paste("&imageSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
+  comp_url<-"&compression=LZ77&compressionQuality=50"
+  #size_url<-paste("&size=",round(abs(bbx[1,1]-bbx[1,2]))/10,",",round(abs(bbx[2,1]-bbx[2,2]))/10,sep="")
+  #size_url<-"&size=600,800"
+  request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,format_url,pixel_url,file_url)
+  tmp<-tempfile()
+  download.file(request_url,tmp)            
+  img<-rgdal::readGDAL(tmp)
+  file.remove(tmp)
+  return(img)
+}
