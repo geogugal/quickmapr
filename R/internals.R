@@ -74,6 +74,14 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
   qmap_obj$map_extent[1, 2] <- loc$x + (rng[1]/2)
   qmap_obj$map_extent[2, 1] <- loc$y - (rng[2]/2)
   qmap_obj$map_extent[2, 2] <- loc$y + (rng[2]/2)
+  if(!is.null(qmap_obj$basemap.base)){
+    tmp_bm <- get_basemap(qmap_obj$map_extent,
+                                    proj4string(qmap_obj$map_data[[1]]),
+                                    qmap_obj$basemap.base,
+                                    qmap_obj$basemap.width)
+    qmap_obj$basemap.img<-tmp_bm$img
+    qmap_obj$basemap.base<-tmp_bm$base
+  }
   plot(qmap_obj)
   return(qmap_obj)
 } 

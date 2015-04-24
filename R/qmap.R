@@ -14,6 +14,11 @@
 #' @param prj Logical to check projections of input spatial objects.  
 #'            Transformation, if needed, should be done prior to mapping with 
 #'            \code{sp::spTransform()}.
+#' @param base a character indicating basemap to get (1m aerial or topo). Passed to
+#'        get_basemap().
+#' @param width width, in pixels of image exported from The National Map web service.  
+#'        Height is determined by width:height ratio of the extent of the qmap object.
+#'        Passed to get_basemap().
 #' @return Function displays a map from the input \code{mapdata} parameter and returns
 #'         a recorded plot.
 #' 
@@ -29,7 +34,7 @@
 #' qmap(mymap,order=c(2,3,5))
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
-                 fill = FALSE, prj = TRUE, basemap = NULL) {
+                 fill = FALSE, prj = TRUE, basemap = NULL, width = 300) {
   mapdata <- build_map_data(...)
   if (length(mapdata) > 1) {
     # Test Projections
@@ -88,14 +93,14 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
       warning("basemap not a valid option, has been set to NULL")
       qmap_obj<-c(qmap_obj,basemap=NULL)
     }
-    qmap_obj<-c(qmap_obj,basemap=get_basemap(bbx,proj4string(mapdata[[1]]),basemap))
+    qmap_obj<-c(qmap_obj,basemap=get_basemap(bbx,proj4string(mapdata[[1]]),basemap,width))
   } else {
     qmap_obj<-c(qmap_obj,basemap=NULL)
   }
   class(qmap_obj) <- "qmap"
   qmap_obj$map = plot.qmap(qmap_obj)
   return(qmap_obj)
-    }
+}
 
 #' Default plotting of a qmap object
 #' 
@@ -112,7 +117,7 @@ plot.qmap <- function(x, ...) {
   fill <- x$fill
   colors <- x$colors
   bbx <- x$map_extent
-  basemap <- x$basemap
+  basemap <- x$basemap.img
   
   # Creates the plot
   first <- TRUE
@@ -185,6 +190,9 @@ print.qmap <- function(x, ...) {
 #' 
 #' @param bbx a bounding box from \code{qmap()}
 #' @param p4s a proj4string of projection to request image in.
+#' @param base a character indicating basemap to get (1m aerial or topo)
+#' @param width width, in pixels of image exported from The National Map web service.  
+#'        Height is determined by width:height ratio of the extent of the qmap object.
 #' @examples
 #' \dontrun{
 #' data(lake)
@@ -193,25 +201,33 @@ print.qmap <- function(x, ...) {
 #' }
 #' #@keywords internal
 #' @export
-get_basemap <- function(bbx, p4s, base=c("1m_aerial","1ft_aerial","topo")){
+get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   base<-match.arg(base)
   if(base=="1m_aerial"){
     server_url<-"http://raster.nationalmap.gov/arcgis/rest/services/Orthoimagery/USGS_EROS_Ortho_NAIP/ImageServer/exportImage?"
   }
-  #bbx_url<-"bbox=-8026861,5361113,-8014736,5377674" #Needs to come from bbx
-  bbx_url<-paste("bbox=",bbx[1,1],",",bbx[2,1],",",bbx[1,2],",",bbx[2,2],sep="") #"#bbox=-8026861,5361113,-8014736,5377674" #Needs to come from bbx
+  
+  xdiff<-abs(bbx[1,1]-bbx[1,2])
+  ydiff<-abs(bbx[2,1]-bbx[2,2])
+  big_bbx<-matrix(c(bbx[1,1]-(xdiff*0.25),
+                  bbx[2,1]-(ydiff*0.25),
+                  bbx[1,2]+(xdiff*0.25),
+                  bbx[2,2]+(ydiff*0.25)),2,2)
+  ratio<-xdiff/ydiff
+  bbx_url<-paste("bbox=",big_bbx[1,1],",",big_bbx[2,1],",",big_bbx[1,2],",",big_bbx[2,2],sep="") 
   format_url<-"&format=tiff"
   pixel_url<-"&pixelType=U8&noDataInterpretation=esriNoDataMatchAny&interpolation=+RSP_BilinearInterpolation"
   file_url<-"&f=image"
   bbx_sr_url<-paste("&bboxSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
   image_sr_url<-paste("&imageSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
-  comp_url<-"&compression=LZ77&compressionQuality=50"
-  #size_url<-paste("&size=",round(abs(bbx[1,1]-bbx[1,2]))/10,",",round(abs(bbx[2,1]-bbx[2,2]))/10,sep="")
-  #size_url<-"&size=600,800"
-  request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,format_url,pixel_url,file_url)
+  comp_url<-paste0("&compression=LZ77")
+  
+  size_url<-paste("&size=",width,",",width*ratio,sep="")
+  request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,comp_url,size_url,format_url,pixel_url,file_url)
   tmp<-tempfile()
-  download.file(request_url,tmp)            
-  img<-rgdal::readGDAL(tmp)
+  download.file(request_url,tmp,quiet=TRUE)            
+  img<-rgdal::readGDAL(tmp,silent=TRUE)
   file.remove(tmp)
-  return(img)
+  out<-list(img=img,base=base,width=width)
+  return(out)
 }
