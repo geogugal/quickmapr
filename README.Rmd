@@ -64,8 +64,17 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-Zooming in is done with:
+Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
 ```{r, eval=FALSE}
+#Zoom in on selected point
 zi(qm)
+#Zoom in on a chosen extent
+ze(qm)
+#Zoom out form selected point
+zo(qm)
+#Go out to full extent
+f(qm)
+#pan
+p(qm)
 ```
