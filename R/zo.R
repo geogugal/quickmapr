@@ -1,34 +1,29 @@
 #' Zooms out on current plot
 #' 
-#' Interactively zoom out on the current plot. There are two methods for 
-#' zooming.  A purely interactive zoom where you simply click on location to 
-#' zoom out from and use ESC to quit. This is a wrapper function/shortcut for 
-#' zoom::out.zoom(...).  This works well with smaller data sets; however it lags
-#' as the data increases in size.  The second method performs better with 
-#' larger datasets and requires you to create a \code{qmap} object and pass 
-#' that object to \code{zo()}.  A single zoom in results and the extent of the
+#' Interactively zoom out on the current plot. Works on an existing
+#'  \code{qmap} object.  Simply pass that object to \code{zo()}.  A single zoom out 
+#'  results and the extent of the
 #' \code{qmap} object is changed.  
 #' 
 #' @param qmap_obj A qmap object.  Optional, but performs better with larger 
 #'                  data sets.
 #' @param zoom_perc A proportion to determine the zoom level.  The x and y 
 #'                  axes are increased by this amount.  Default is 0.5.     
-#' @param ... arguments to be passed to zoom::out.zoom(...)
 #' @return NULL
 #' @export
 #' 
 #' @examples
 #' \dontrun{
 #' data(lake)
-#' qmap(list(lake,buffer,elev))
-#' zo()
+#' qm<-qmap(list(lake,buffer,elev))
+#' zo(qm)
 #' }
-zo <- function(qmap_obj = NULL, zoom_perc = 0.5, ...) {
+zo <- function(qmap_obj = NULL, zoom_perc = 0.5) {
   if (zoom_perc >= 1 || zoom_perc < 0) {
     stop("Argument, zoom_perc, needs to be between 0 and 1")
   }
   if (is.null(qmap_obj)) {
-    zoom::out.zoom(...)
+    stop("Requires a valid qmap_obj.")
   } else {
     continue <- 0
     obj <- paste(substitute(qmap_obj))

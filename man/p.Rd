@@ -4,22 +4,15 @@
 \alias{p}
 \title{Pan the current plot}
 \usage{
-p(qmap_obj = NULL, ...)
+p(qmap_obj = NULL)
 }
 \arguments{
 \item{qmap_obj}{A qmap object.  Optional, but performs better with larger
 data sets.}
-
-\item{...}{arguments to be passed to zoom::move.to.click.zoom(...)}
 }
 \description{
-Interactively reposition the current plot. There are two methods for
-panning.  First, a purely interactive pane where you simply click on
-location to reposition the map and use ESC to quit. This is a wrapper
-function/shortcut for zoom::move.to.click.zoom(...).  This works well
-with smaller data sets; however it lags as the data increases in size.  The
-second method performs better with larger datasets and requires you to
-create a \code{qmap} object and pass that object to \code{p()}.  A single
+Interactively reposition the current plot.   Works on an existing
+ \code{qmap} object.  Simply pass that object to \code{p()}.  A single
 repositioning results and the extent of the \code{qmap} object is changed.
 }
 \examples{

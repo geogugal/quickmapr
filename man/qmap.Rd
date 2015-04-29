@@ -5,8 +5,7 @@
 \title{Build qmap object}
 \usage{
 qmap(..., extent = NULL, order = 1:length(mapdata),
-  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, basemap = NULL,
-  width = 300)
+  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, basemap = NULL)
 }
 \arguments{
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of
@@ -26,12 +25,7 @@ the border colored.}
 Transformation, if needed, should be done prior to mapping with
 \code{sp::spTransform()}.}
 
-\item{width}{width, in pixels of image exported from The National Map web service.
-Height is determined by width:height ratio of the extent of the qmap object.
-Passed to get_basemap().}
-
-\item{base}{a character indicating basemap to get (1m aerial or topo). Passed to
-get_basemap().}
+\item{basemap}{a basemap generated from \code{\link{get_basemap}}}
 }
 \value{
 Function displays a map from the input \code{mapdata} parameter and returns
@@ -45,9 +39,11 @@ the \code{\link{quickmapr}} package.
 \dontrun{
 data(lake)
 mymap<-list(elev,lake,buffer,length,samples)
-qmap(mymap,basemap="1m_aerial")
+qm<-qmap(mymap)
 #change draw order and which data is displayed
-qmap(mymap,order=c(2,3,5))
+qmap(qm,order=c(2,3,5))
+bmap<-get_basemap(qm$map_extent,proj4string(lake),width=1000)
+qmap(qm,basemap=bmap)
 }
 }
 

@@ -14,11 +14,7 @@
 #' @param prj Logical to check projections of input spatial objects.  
 #'            Transformation, if needed, should be done prior to mapping with 
 #'            \code{sp::spTransform()}.
-#' @param base a character indicating basemap to get (1m aerial or topo). Passed to
-#'        get_basemap().
-#' @param width width, in pixels of image exported from The National Map web service.  
-#'        Height is determined by width:height ratio of the extent of the qmap object.
-#'        Passed to get_basemap().
+#' @param basemap a basemap generated from \code{\link{get_basemap}}
 #' @return Function displays a map from the input \code{mapdata} parameter and returns
 #'         a recorded plot.
 #' 
@@ -29,12 +25,14 @@
 #' \dontrun{
 #' data(lake)
 #' mymap<-list(elev,lake,buffer,length,samples)
-#' qmap(mymap,basemap="1m_aerial")
+#' qm<-qmap(mymap)
 #' #change draw order and which data is displayed
-#' qmap(mymap,order=c(2,3,5))
+#' qmap(qm,order=c(2,3,5))
+#' bmap<-get_basemap(qm$map_extent,proj4string(lake),width=1000)
+#' qmap(qm,basemap=bmap)
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
-                 fill = FALSE, prj = TRUE, basemap = NULL, width = 300) {
+                 fill = FALSE, prj = TRUE, basemap = NULL) {
   mapdata <- build_map_data(...)
   if (length(mapdata) > 1) {
     # Test Projections
@@ -87,16 +85,8 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   colors <- rep(colors, length(mapdata))[1:length(mapdata)]
   
   qmap_obj <- list(map_data = mapdata, map_extent = bbx, draw_order = order, 
-                   colors = colors, fill = fill, map = NULL)
-  if(!is.null(basemap)){
-    if(!basemap%in%c("1m_aerial","1ft_aerial","topo")){
-      warning("basemap not a valid option, has been set to NULL")
-      qmap_obj<-c(qmap_obj,basemap=NULL)
-    }
-    qmap_obj<-c(qmap_obj,basemap=get_basemap(bbx,proj4string(mapdata[[1]]),basemap,width))
-  } else {
-    qmap_obj<-c(qmap_obj,basemap=NULL)
-  }
+                   colors = colors, fill = fill, map = NULL, basemap = basemap)
+  
   class(qmap_obj) <- "qmap"
   qmap_obj$map = plot.qmap(qmap_obj)
   return(qmap_obj)
@@ -117,7 +107,7 @@ plot.qmap <- function(x, ...) {
   fill <- x$fill
   colors <- x$colors
   bbx <- x$map_extent
-  basemap <- x$basemap.img
+  basemap <- x$basemap
   
   # Creates the plot
   first <- TRUE
@@ -228,6 +218,5 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   download.file(request_url,tmp,quiet=TRUE)            
   img<-rgdal::readGDAL(tmp,silent=TRUE)
   file.remove(tmp)
-  out<-list(img=img,base=base,width=width)
-  return(out)
+  return(img)
 }

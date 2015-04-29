@@ -48,9 +48,7 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
@@ -62,9 +60,7 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -73,12 +69,21 @@ You can change colors (this is still a bit clunky).
 
 ```r
 #draw samples and width in red and buffer with blue fill
-qm<-qmap(qm,order = c(2,4,3), colors = c("red","red","blue"), fill=TRUE)
+qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+
+Basemaps can be added from the USGS' National Map (still VERY experimental and slow)
+
+
+```r
+#Get The Basemap
+basem <- get_basemap(qm$map_extent,proj4string(qm$map_data[[1]]),width=1000)
+qm <- qmap(qm,basemap = basem)
 ```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
