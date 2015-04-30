@@ -90,3 +90,20 @@ bbox_to_sp<-function(sp){
   sp <- SpatialPolygons(list(ps), 1L, proj4string = CRS(proj4string(sp)))
   return(sp)
 }
+
+#' make jpeg world file
+#' @param file output file name
+#' @param bbx bounding box in map units
+#' @param width width in pixels 
+make_jpw <- function(file,bbx,width){
+  resolution <- abs(bbx[1,1]-bbx[1,2])/width
+  upper_left_x <- bbx[1,1]
+  upper_left_y <- bbx[2,2]
+  con<-file(file,"w")
+  writeLines(as.character(resolution),con)
+  writeLines("0",con)
+  writeLines("0",con)
+  writeLines(as.character(upper_left_x),con)
+  writeLines(as.character(upper_left_y),con)
+  close(con)
+}

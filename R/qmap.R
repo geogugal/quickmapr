@@ -187,7 +187,7 @@ print.qmap <- function(x, ...) {
 #' \dontrun{
 #' data(lake)
 #' x<-qmap(lake,buffer)
-#' get_basemap(x$map_extent,proj4string(lake))
+#' get_basemap(x$map_extent,proj4string(lake),"topo")
 #' }
 #' #@keywords internal
 #' @export
@@ -195,6 +195,8 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   base<-match.arg(base)
   if(base=="1m_aerial"){
     server_url<-"http://raster.nationalmap.gov/arcgis/rest/services/Orthoimagery/USGS_EROS_Ortho_NAIP/ImageServer/exportImage?"
+  } else if(base=="topo"){
+    server_url<-"http://services.arcgisonline.com/arcgis/rest/services/USA_Topo_Maps/MapServer/export?"
   }
   
   xdiff<-abs(bbx[1,1]-bbx[1,2])
@@ -210,13 +212,14 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   file_url<-"&f=image"
   bbx_sr_url<-paste("&bboxSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
   image_sr_url<-paste("&imageSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
-  comp_url<-paste0("&compression=LZ77")
-  
   size_url<-paste("&size=",width,",",width*ratio,sep="")
-  request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,comp_url,size_url,format_url,pixel_url,file_url)
+  request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,size_url,format_url,pixel_url,file_url)
   tmp<-tempfile()
-  download.file(request_url,tmp,quiet=TRUE)            
-  img<-rgdal::readGDAL(tmp,silent=TRUE)
+  tmp_jpg<-paste0(tmp,".jpg")
+  tmp_jpgw<-paste0(tmp,".jpgw")
+  download.file(request_url,tmp,quiet=TRUE)
+  make_jpw(tmp_jpgw,bbx,width)
+  img<-rgdal::readGDAL(tmp,silent=TRUE,p4s=p4s)
   file.remove(tmp)
   return(img)
 }

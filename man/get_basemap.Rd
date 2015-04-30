@@ -25,7 +25,7 @@ topo-map.
 \dontrun{
 data(lake)
 x<-qmap(lake,buffer)
-get_basemap(x$map_extent,proj4string(lake))
+get_basemap(x$map_extent,proj4string(lake),"topo")
 }
 #
 }
