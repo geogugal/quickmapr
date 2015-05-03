@@ -103,6 +103,7 @@ make_jpw <- function(file,bbx,width){
   writeLines(as.character(resolution),con)
   writeLines("0",con)
   writeLines("0",con)
+  writeLines(as.character(-resolution),con)
   writeLines(as.character(upper_left_x),con)
   writeLines(as.character(upper_left_y),con)
   close(con)
