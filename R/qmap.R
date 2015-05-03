@@ -218,9 +218,8 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   tmp_jpg<-paste0(tmp,".jpg")
   tmp_jpgw<-paste0(tmp,".jpgw")
   download.file(request_url,tmp_jpg,quiet=TRUE)
-  browser()
   make_jpw(tmp_jpgw,bbx,width)
-  img<-rgdal::readGDAL(tmp,silent=TRUE,p4s=p4s)
+  img<-rgdal::readGDAL(tmp_jpg,silent=TRUE,p4s=p4s)
   file.remove(tmp)
   return(img)
 }
