@@ -96,7 +96,7 @@ bbox_to_sp<-function(sp){
 #' @param bbx bounding box in map units
 #' @param width width in pixels 
 make_jpw <- function(file,bbx,width){
-  resolution <- abs(bbx[1,1]-bbx[1,2])/width
+  resolution <- abs(bbx[2,1]-bbx[2,2])/width
   upper_left_x <- bbx[1,1]
   upper_left_y <- bbx[2,2]
   con<-file(file,"w")

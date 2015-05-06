@@ -207,7 +207,7 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
                   bbx[2,2]+(ydiff*0.25)),2,2)
   ratio<-xdiff/ydiff
   bbx_url<-paste("bbox=",big_bbx[1,1],",",big_bbx[2,1],",",big_bbx[1,2],",",big_bbx[2,2],sep="") 
-  format_url<-"&format=tiff"
+  format_url<-"&format=jpg"
   pixel_url<-"&pixelType=U8&noDataInterpretation=esriNoDataMatchAny&interpolation=+RSP_BilinearInterpolation"
   file_url<-"&f=image"
   bbx_sr_url<-paste("&bboxSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
@@ -220,6 +220,7 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   download.file(request_url,tmp_jpg,quiet=TRUE)
   make_jpw(tmp_jpgw,bbx,width)
   img<-rgdal::readGDAL(tmp_jpg,silent=TRUE,p4s=p4s)
-  file.remove(tmp)
+  browser()
+  file.remove(tmp_jpg,tmp_jpgw)
   return(img)
 }
