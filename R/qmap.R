@@ -187,7 +187,8 @@ print.qmap <- function(x, ...) {
 #' \dontrun{
 #' data(lake)
 #' x<-qmap(lake,buffer)
-#' get_basemap(x$map_extent,proj4string(lake),"topo")
+#' x_base<-get_basemap(x$map_extent,proj4string(lake),"1m_aerial",width=1000)
+#' x<-qmap(x,basemap=x_base)
 #' }
 #' #@keywords internal
 #' @export
@@ -212,15 +213,14 @@ get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
   file_url<-"&f=image"
   bbx_sr_url<-paste("&bboxSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
   image_sr_url<-paste("&imageSR={'wkt':'",rgdal::showWKT(p4s),"'}",sep="")
-  size_url<-paste("&size=",width,",",width*ratio,sep="")
+  size_url<-paste("&size=",width,",",width/ratio,sep="")
   request_url<-paste0(server_url,bbx_url,bbx_sr_url,image_sr_url,size_url,format_url,pixel_url,file_url)
   tmp<-tempfile()
   tmp_jpg<-paste0(tmp,".jpg")
   tmp_jpgw<-paste0(tmp,".jpgw")
   download.file(request_url,tmp_jpg,quiet=TRUE)
-  make_jpw(tmp_jpgw,bbx,width)
+  make_jpw(tmp_jpgw,big_bbx,width)
   img<-rgdal::readGDAL(tmp_jpg,silent=TRUE,p4s=p4s)
-  browser()
   file.remove(tmp_jpg,tmp_jpgw)
   return(img)
 }
