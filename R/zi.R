@@ -28,18 +28,12 @@ zi <- function(qmap_obj = NULL, zoom_perc = 0.5) {
     continue <- 0
     obj <- paste(substitute(qmap_obj))
     message("Click on plot to zoom in. Press 'Esc' to exit.")
-    n <- 1
-    loc <- 1
+    loc <- locator(1)
     while (!is.null(loc)) {
-      if (n == 1) {
-        loc <- locator(1)
-        qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
-        n <- 2
-      } else {
-        qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
-        loc <- locator(1)
-      }
+      qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
+      loc <- locator(1)
     }
-    assign(obj, qmap_obj, envir = parent.frame())
   }
-} 
+  assign(obj, qmap_obj, envir = parent.frame())
+}
+

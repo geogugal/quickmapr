@@ -197,7 +197,7 @@ get_basemap <- function(qmap_obj=NULL, base=c("1m_aerial","topo"),width=300){
   if(is.null(qmap_obj)){
     stop("A qmap_obj is required to fetch a basemap")
   } else if(class(qmap_obj)!="qmap"){
-    stop("qmap_obj is not of class 'qmap'")
+    stop("Requires a valid qmap_obj.")
   } else {
     bbx<-qmap_obj$map_extent
     p4s<-proj4string(qmap_obj$map_data[[1]])
