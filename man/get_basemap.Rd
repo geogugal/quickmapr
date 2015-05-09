@@ -4,17 +4,17 @@
 \alias{get_basemap}
 \title{Get a basemap from USGS National Map}
 \usage{
-get_basemap(bbx, p4s, base = c("1m_aerial", "topo"), width = 300)
+get_basemap(qmap_obj = NULL, base = c("1m_aerial", "topo"), width = 300)
 }
 \arguments{
-\item{bbx}{a bounding box from \code{qmap()}}
-
-\item{p4s}{a proj4string of projection to request image in.}
-
 \item{base}{a character indicating basemap to get (1m aerial or topo)}
 
 \item{width}{width, in pixels of image exported from The National Map web service.
 Height is determined by width:height ratio of the extent of the qmap object.}
+
+\item{bbx}{a bounding box from \code{qmap()}}
+
+\item{p4s}{a proj4string of projection to request image in.}
 }
 \description{
 Uses the National Map Aerial Image REST API to return an aerial image to be
@@ -25,7 +25,7 @@ topo-map.
 \dontrun{
 data(lake)
 x<-qmap(lake,buffer)
-x_base<-get_basemap(x$map_extent,proj4string(lake),"1m_aerial",width=1000)
+x_base<-get_basemap(x,"1m_aerial",width=1000)
 x<-qmap(x,basemap=x_base)
 }
 #

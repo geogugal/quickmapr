@@ -187,13 +187,21 @@ print.qmap <- function(x, ...) {
 #' \dontrun{
 #' data(lake)
 #' x<-qmap(lake,buffer)
-#' x_base<-get_basemap(x$map_extent,proj4string(lake),"1m_aerial",width=1000)
+#' x_base<-get_basemap(x,"1m_aerial",width=1000)
 #' x<-qmap(x,basemap=x_base)
 #' }
 #' #@keywords internal
 #' @export
-get_basemap <- function(bbx, p4s, base=c("1m_aerial","topo"),width=300){
+get_basemap <- function(qmap_obj=NULL, base=c("1m_aerial","topo"),width=300){
   base<-match.arg(base)
+  if(is.null(qmap_obj)){
+    stop("A qmap_obj is required to fetch a basemap")
+  } else if(class(qmap_obj)!="qmap"){
+    stop("qmap_obj is not of class 'qmap'")
+  } else {
+    bbx<-qmap_obj$map_extent
+    p4s<-proj4string(qmap_obj$map_data[[1]])
+  }
   if(base=="1m_aerial"){
     server_url<-"http://raster.nationalmap.gov/arcgis/rest/services/Orthoimagery/USGS_EROS_Ortho_NAIP/ImageServer/exportImage?"
   } else if(base=="topo"){
