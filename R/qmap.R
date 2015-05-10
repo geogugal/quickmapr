@@ -28,8 +28,8 @@
 #' qm<-qmap(mymap)
 #' #change draw order and which data is displayed
 #' qmap(qm,order=c(2,3,5))
-#' bmap<-get_basemap(qm$map_extent,proj4string(lake),width=1000)
-#' qmap(qm,basemap=bmap)
+#' #add a basemap
+#' qm<-qmap(qm,basemap=get_basemap(qm,width=800))
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
                  fill = FALSE, prj = TRUE, basemap = NULL) {

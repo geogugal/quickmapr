@@ -42,8 +42,8 @@ mymap<-list(elev,lake,buffer,length,samples)
 qm<-qmap(mymap)
 #change draw order and which data is displayed
 qmap(qm,order=c(2,3,5))
-bmap<-get_basemap(qm$map_extent,proj4string(lake),width=1000)
-qmap(qm,basemap=bmap)
+#add a basemap
+qm<-qmap(qm,basemap=get_basemap(qm,width=800))
 }
 }
 
