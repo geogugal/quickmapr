@@ -21,9 +21,10 @@ Description: Visualizing spatial data in R has received a lot of attention and
     sp and raster objects as well as allow for basic zooming, panning and
     identifying of spatial objects.
 Depends: R (>= 2.10)
-Imports:
+Imports: 
     rgeos,
     sp,
     rgdal
-Suggests:
-    raster
+Suggests: 
+    raster,
+    testthat
