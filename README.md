@@ -1,7 +1,7 @@
 quickmapr
 =========
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) [![Coverage Status](https://img.shields.io/coveralls/jhollist/quickmapr.svg)](https://coveralls.io/r/jhollist/quickmapr?branch=master)
 
 There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking for `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
@@ -80,10 +80,19 @@ Basemaps can be added from the USGS' National Map (still VERY experimental and s
 ```r
 #Get The Basemap
 basem <- get_basemap(qm$map_extent,proj4string(qm$map_data[[1]]),width=1000)
+```
+
+```
+## Error in match.arg(base): 'arg' should be one of "1m_aerial", "topo"
+```
+
+```r
 qm <- qmap(qm,basemap = basem)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+```
+## Error in qmap(qm, basemap = basem): object 'basem' not found
+```
 
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
