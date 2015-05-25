@@ -1,0 +1,10 @@
+---
+title: "Introduction to quickmapr"
+author: Jeffrey W. Hollister"
+date: "`r Sys.Date()`"
+---
+<!--
+%\VignetteIndexEntry{Introduction to quickmapr}
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteEncoding{UTF-8}
+-->

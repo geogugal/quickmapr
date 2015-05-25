@@ -27,4 +27,6 @@ Imports:
     rgdal
 Suggests: 
     raster,
-    testthat
+    testthat,
+    knitr
+VignetteBuilder: knitr
