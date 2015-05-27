@@ -64,11 +64,16 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-Basemaps can be added from the USGS' National Map (still VERY experimental and slow)
+Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
+and United States Specific)
 
 ```{r}
-#Get The Basemap
-basem <- get_basemap(qm$map_extent,proj4string(qm$map_data[[1]]),width=1000)
+#Get a Topo Basemap
+basem <- get_basemap(qm,"topo",width=1000)
+qm <- qmap(qm,basemap = basem)
+
+#Get an Aerial Basemap
+basem <- get_basemap(qm,"1m_aerial",width=1000)
 qm <- qmap(qm,basemap = basem)
 ```
 

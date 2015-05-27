@@ -74,25 +74,25 @@ qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), f
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
-Basemaps can be added from the USGS' National Map (still VERY experimental and slow)
+Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
+and United States Specific)
 
 
 ```r
-#Get The Basemap
-basem <- get_basemap(qm$map_extent,proj4string(qm$map_data[[1]]),width=1000)
-```
-
-```
-## Error in match.arg(base): 'arg' should be one of "1m_aerial", "topo"
-```
-
-```r
+#Get a Topo Basemap
+basem <- get_basemap(qm,"topo",width=1000)
 qm <- qmap(qm,basemap = basem)
 ```
 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+
+```r
+#Get an Aerial Basemap
+basem <- get_basemap(qm,"1m_aerial",width=1000)
+qm <- qmap(qm,basemap = basem)
 ```
-## Error in qmap(qm, basemap = basem): object 'basem' not found
-```
+
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png) 
 
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
