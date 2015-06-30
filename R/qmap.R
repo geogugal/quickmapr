@@ -77,6 +77,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   # converts rasterlayers to spatialgriddf
   for (i in 1:length(mapdata)) {
     if (class(mapdata[[i]]) == "RasterLayer") {
+     
       if(length(mapdata[[i]]@legend@colortable)>1){
         values <- sort(unique(mapdata[[i]]@data@values)) 
         col_tbl <-  mapdata[[i]]@legend@colortable[values+1]
@@ -94,7 +95,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   
   qmap_obj <- list(map_data = mapdata, map_extent = bbx, draw_order = order, 
                    colors = colors, fill = fill, map = NULL, basemap = basemap,
-                   col_tbl = col_tbl, values = c(0, values))
+                   col_tbl = col_tbl, values = values)
   
   class(qmap_obj) <- "qmap"
   qmap_obj$map = plot.qmap(qmap_obj)
@@ -130,9 +131,11 @@ plot.qmap <- function(x, ...) {
   for (i in 1:length(order)) {
     if (first) {
       if (get_sp_type(mapdata[[order[i]]]) == "grid") {
+        
         if(!is.null(values)){
         image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-              ylim = as.numeric(bbx[2, ]), axes = TRUE, col = col_tbl, breaks = values, ...)
+              ylim = as.numeric(bbx[2, ]), axes = TRUE, col = col_tbl, 
+              breaks = c(0, values), ...)
         } else {
           image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
                 ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
@@ -157,7 +160,8 @@ plot.qmap <- function(x, ...) {
     } else {
       if (get_sp_type(mapdata[[order[i]]]) == "grid") {
         if(!is.null(values)){
-          image(mapdata[[order[i]]], add = TRUE, col = col_tbl, breaks = values, ...)
+          image(mapdata[[order[i]]], add = TRUE, col = col_tbl, 
+                breaks = c(0, values), ...)
         } else {
           image(mapdata[[order[i]]], add = TRUE, ...)
         }
