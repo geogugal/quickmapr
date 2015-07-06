@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.0.3.9000
-Date: 2015-04-29
+Version: 0.0.4.9000
+Date: 2015-07-06
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
