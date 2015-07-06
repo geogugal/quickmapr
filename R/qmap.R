@@ -74,6 +74,9 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   }
   bbx <- data.frame(bbx)
   
+  values <- NULL
+  col_tbl <- NULL
+
   # converts rasterlayers to spatialgriddf
   for (i in 1:length(mapdata)) {
     if (class(mapdata[[i]]) == "RasterLayer") {
@@ -81,10 +84,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
       if(length(mapdata[[i]]@legend@colortable)>1){
         values <- sort(unique(mapdata[[i]]@data@values)) 
         col_tbl <-  mapdata[[i]]@legend@colortable[values+1]
-      } else {
-        values <- NULL
-        col_tbl <- NULL
-      }
+      } 
       mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
       
     }

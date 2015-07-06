@@ -17,7 +17,7 @@
 #' ze()
 #' }
 ze <- function(qmap_obj = NULL) {
-  if (is.null(qmap_obj)) {
+  if (class(qmap_obj)!="qmap") {
     stop("Requires a valid qmap_obj.")
   } else {
     obj <- paste(substitute(qmap_obj))
