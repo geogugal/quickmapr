@@ -33,6 +33,9 @@
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
                  fill = FALSE, prj = TRUE, basemap = NULL) {
+  if(length(list(...))==0){
+    stop("No data passed to qmap")
+  }
   mapdata <- build_map_data(...)
   if (length(mapdata) > 1) {
     # Test Projections

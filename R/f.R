@@ -15,7 +15,7 @@
 #' zi(x)
 #' f(x)
 #' }
-f <- function(qmap_obj) {
+f <- function(qmap_obj=NULL) {
   if (class(qmap_obj)!="qmap") {
     stop("Requires a valid qmap_obj.")
   }
