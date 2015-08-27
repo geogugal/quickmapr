@@ -47,9 +47,7 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
@@ -61,9 +59,7 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -75,9 +71,7 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
 and United States Specific)
@@ -86,36 +80,18 @@ and United States Specific)
 ```r
 #Get a Topo Basemap
 basem <- get_basemap(qm,"topo",width=1000)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "get_basemap"
-```
-
-```r
 qm <- qmap(qm,basemap = basem)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 ```r
 #Get an Aerial Basemap
 basem <- get_basemap(qm,"1m_aerial",width=1000)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "get_basemap"
-```
-
-```r
 qm <- qmap(qm,basemap = basem)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "qmap"
-```
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png) 
 
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
