@@ -1,4 +1,7 @@
+#setup
 context("qmap")
+library(rgdal)
+library(sp)
 data(lake)
 x<-qmap(elev,lake,samples,width)
 samp_diff_proj <- spTransform(samples,
@@ -7,6 +10,7 @@ samp_diff_proj <- spTransform(samples,
 lake_no_proj <- lake
 proj4string(lake_no_proj)<-""
 
+#Tests
 test_that("qmap works", {
   expect_is(x, "qmap")
 })
@@ -29,6 +33,10 @@ test_that("zoom and pan fail correctly", {
 
 test_that("zoom by extent zooms with sp", {
   expect_is(ze(x,samples),"recordedplot")
+})
+
+test_that("f() returns qmap", {
+  expect_is(f(x),"qmap")
 })
 
 test_that("projection checks work",{
