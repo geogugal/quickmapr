@@ -12,6 +12,7 @@
 #'        to row.names().
 #' 
 #' @export
+#' @import sp
 #' 
 #' @examples
 #' \dontrun{
