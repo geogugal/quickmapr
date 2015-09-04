@@ -3,5 +3,6 @@
 .travis.yml
 appveyor.yml
 README.Rmd
+README.md
 figure/
 CONTRIBUTING.md

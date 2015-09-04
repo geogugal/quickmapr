@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.0.5.9000
-Date: 2015-07-07
+Version: 0.0.6.9000
+Date: 2015-09-04
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -29,4 +29,4 @@ Suggests:
     raster,
     testthat,
     knitr
-VignetteBuilder: knitr
+

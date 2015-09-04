@@ -4,11 +4,13 @@
 \alias{ze}
 \title{Zooms in on extent}
 \usage{
-ze(qmap_obj = NULL)
+ze(qmap_obj = NULL, extent = NULL)
 }
 \arguments{
 \item{qmap_obj}{A qmap object.  Optional, but performs better with larger
 data sets.}
+
+\item{extent}{A Spatial* object to specify extent to zoom into.}
 }
 \description{
 Select a bounding box interactively and zoom to that extent. Works on an existing

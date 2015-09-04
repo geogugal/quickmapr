@@ -82,7 +82,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   # converts rasterlayers to spatialgriddf
   for (i in 1:length(mapdata)) {
     if (class(mapdata[[i]]) == "RasterLayer") {
-     
       if(length(mapdata[[i]]@legend@colortable)>1){
         values <- sort(unique(mapdata[[i]]@data@values)) 
         col_tbl <-  mapdata[[i]]@legend@colortable[values+1]

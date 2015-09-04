@@ -25,6 +25,10 @@ test_that("zoom and pan fail correctly", {
   expect_error(zo(x,zoom_perc = 2), "Argument, zoom_perc, needs to be between 0 and 1")
 })
 
+test_that("zoom by extent zooms with sp", {
+  expect_is(ze(x,samples),"recordedplot")
+})
+
 test_that("projection checks work",{
   expect_error(qmap(samp_diff_proj,lake), "Projections do not match. Use prj=FALSE to override projection check.\n
            This is not recommended. Re-project to common projection instead.")
