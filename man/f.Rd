@@ -4,7 +4,7 @@
 \alias{f}
 \title{Returns qmap object to original extent}
 \usage{
-f(qmap_obj)
+f(qmap_obj = NULL)
 }
 \arguments{
 \item{qmap_obj}{a qmap_obj to restore}

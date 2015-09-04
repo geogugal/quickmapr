@@ -18,7 +18,7 @@
 #' p(x)
 #' }
 p <- function(qmap_obj = NULL) {
-  if (is.null(qmap_obj)) {
+  if (class(qmap_obj)!="qmap") {
     stop("Requires a valid qmap_obj.")
   } else {
     continue <- 0

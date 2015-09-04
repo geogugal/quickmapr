@@ -33,6 +33,9 @@
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:length(mapdata), 
                  fill = FALSE, prj = TRUE, basemap = NULL) {
+  if(length(list(...))==0){
+    stop("No data passed to qmap")
+  }
   mapdata <- build_map_data(...)
   if (length(mapdata) > 1) {
     # Test Projections
@@ -74,10 +77,19 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   }
   bbx <- data.frame(bbx)
   
+  values <- NULL
+  col_tbl <- NULL
+
   # converts rasterlayers to spatialgriddf
   for (i in 1:length(mapdata)) {
     if (class(mapdata[[i]]) == "RasterLayer") {
+     
+      if(length(mapdata[[i]]@legend@colortable)>1){
+        values <- sort(unique(mapdata[[i]]@data@values)) 
+        col_tbl <-  mapdata[[i]]@legend@colortable[values+1]
+      } 
       mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
+      
     }
   }
   
@@ -85,7 +97,8 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
   colors <- rep(colors, length(mapdata))[1:length(mapdata)]
   
   qmap_obj <- list(map_data = mapdata, map_extent = bbx, draw_order = order, 
-                   colors = colors, fill = fill, map = NULL, basemap = basemap)
+                   colors = colors, fill = fill, map = NULL, basemap = basemap,
+                   col_tbl = col_tbl, values = values)
   
   class(qmap_obj) <- "qmap"
   qmap_obj$map = plot.qmap(qmap_obj)
@@ -108,6 +121,8 @@ plot.qmap <- function(x, ...) {
   colors <- x$colors
   bbx <- x$map_extent
   basemap <- x$basemap
+  col_tbl <- x$col_tbl
+  values <- x$values
   
   # Creates the plot
   first <- TRUE
@@ -119,8 +134,15 @@ plot.qmap <- function(x, ...) {
   for (i in 1:length(order)) {
     if (first) {
       if (get_sp_type(mapdata[[order[i]]]) == "grid") {
+        
+        if(!is.null(values)){
         image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-              ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
+              ylim = as.numeric(bbx[2, ]), axes = TRUE, col = col_tbl, 
+              breaks = c(0, values), ...)
+        } else {
+          image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
+                ylim = as.numeric(bbx[2, ]), axes = TRUE, ...)
+        }
         first <- FALSE
       } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
         if (fill) {
@@ -140,7 +162,12 @@ plot.qmap <- function(x, ...) {
       }
     } else {
       if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-        image(mapdata[[order[i]]], add = TRUE)
+        if(!is.null(values)){
+          image(mapdata[[order[i]]], add = TRUE, col = col_tbl, 
+                breaks = c(0, values), ...)
+        } else {
+          image(mapdata[[order[i]]], add = TRUE, ...)
+        }
       } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
         if (fill) {
           plot(mapdata[[order[i]]], col = colors[i], add = TRUE)

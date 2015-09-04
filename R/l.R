@@ -31,6 +31,10 @@ l <- function(qmap_obj, lab_order = 1, field = NULL) {
   } else {
     x <- coordinates(qmap_obj)[, 1]
     y <- coordinates(qmap_obj)[, 2]
+  } 
+  
+  if (class(qmap_obj)!="qmap") {
+    stop("Requires a valid qmap_obj.")
   }
   
   if (is.null(field)) {

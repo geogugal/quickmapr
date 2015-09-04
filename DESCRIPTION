@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.0.3.9000
-Date: 2015-04-29
+Version: 0.0.5.9000
+Date: 2015-07-07
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -20,7 +20,7 @@ Description: Visualizing spatial data in R has received a lot of attention and
     \code{quickmapr} fills this gap by providing a simple method to visualize
     sp and raster objects as well as allow for basic zooming, panning and
     identifying of spatial objects.
-Depends: R (>= 2.10)
+Depends: R (>= 3.0.0)
 Imports: 
     rgeos,
     sp,

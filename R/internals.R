@@ -29,6 +29,24 @@ get_range <- function(qmap_obj) {
   return(c(x_range, y_range))
 }
 
+#' gets color from input qmap
+#' @param ... list, sp, or qmap objects
+#' @return vector of colors
+#' @keywords internal
+get_colors<-function(...){
+  mapdata <- list(...)
+  # Deal with qmaps
+  qmap_idx <- na.omit(match(lapply(mapdata, class), "qmap"))[1]
+  if (!is.na(qmap_idx)) {
+    for (i in qmap_idx) {
+      colors <- mapdata[[i]]$colors
+    }
+  }
+  return(colors)
+}
+
+
+#' 
 #' builds a map_data from many input types
 #' @param ... list, sp, or qmap objects
 #' @return list of spatial objects with names

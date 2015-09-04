@@ -15,7 +15,10 @@
 #' zi(x)
 #' f(x)
 #' }
-f <- function(qmap_obj) {
+f <- function(qmap_obj=NULL) {
+  if (class(qmap_obj)!="qmap") {
+    stop("Requires a valid qmap_obj.")
+  }
   obj <- paste(substitute(qmap_obj))
   replayPlot(qmap_obj$map)
   qmap_obj$map_extent[1, 1] <- par("usr")[1]
