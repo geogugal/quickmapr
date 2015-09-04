@@ -37,19 +37,19 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
     stop("No data passed to qmap")
   }
   mapdata <- build_map_data(...)
-  if (length(mapdata) > 1) {
-    # Test Projections
-    if (prj) {
-      prjs <- lapply(mapdata, sp::proj4string)
-      if (length(unique(prjs)) > 1) {
-        stop("Projections do not match", call. = FALSE)
-      } else if (length(unique(prjs)) == 0) {
-        stop("No projection info.  Use prj=FALSE to override projection check.  \n  
-             If data are in different projections, the resultant map will not likely\n             
-             be what you expect. Best to determine projection and re-project.", 
-             call. = FALSE)
-      }
+  # Test Projections
+  if (prj) {
+    prjs <- lapply(mapdata, sp::proj4string)
+    if (length(unique(prjs)) > 1) {
+      stop("Projections do not match. Use prj=FALSE to override projection check.\n
+           This is not recommended. Re-project to common projection instead.",
+           call. = FALSE)
+    } else if(any(is.na(prjs))) {
+      stop("No projection info.  Use prj=FALSE to override projection check.", 
+           call. = FALSE)
     }
+  }
+  if(length(mapdata) > 1) {
     # Sets Extent to all entered extents or a specific one.
     if (is.null(extent)) {
       bbx <- sp::bbox(mapdata[[1]])
