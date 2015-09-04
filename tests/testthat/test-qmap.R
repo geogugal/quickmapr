@@ -30,4 +30,9 @@ test_that("projection checks work",{
            This is not recommended. Re-project to common projection instead.")
   expect_error(qmap(lake_no_proj),"No projection info.  Use prj=FALSE to override projection check.")
 })
-#need to test returns fromm zoom
+
+test_that("identify fails correctly", {
+  expect_error(i(),"argument "qmap_obj" is missing, with no default")
+  expect_error(i(samples),"A 'qmap' object is expected. Create with qmap().")
+})
+#need to test returns from zoom

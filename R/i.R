@@ -28,7 +28,7 @@ i <- function(qmap_obj, i_idx = 1) {
   if (class(qmap_obj) == "qmap") {
     spdata <- qmap_obj$map_data[[i_idx]]
   } else {
-    spdata <- qmap_obj
+    stop("A 'qmap' object is expected. Create with qmap().")
   }
   switch(EXPR = get_sp_type(spdata), polygon = i_poly(spdata), grid = i_grid(spdata), 
     line = i_line(spdata), point = i_point(spdata))
