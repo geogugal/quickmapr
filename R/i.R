@@ -22,14 +22,14 @@
 #' i(samples)
 #' i(elev)
 #' }
-i <- function(qmap_obj, i_idx = 1) {
+i <- function(qmap_obj = NULL, i_idx = 1) {
   # add section to pull out spdata from qmap_obj or a sp object passed
   # directly
-  if (class(qmap_obj) == "qmap") {
-    spdata <- qmap_obj$map_data[[i_idx]]
+  if (class(qmap_obj)!="qmap") {
+    stop("Requires a valid qmap_obj.")
   } else {
-    stop("A 'qmap' object is expected. Create with qmap().")
-  }
+    spdata <- qmap_obj$map_data[[i_idx]]
+  } 
   switch(EXPR = get_sp_type(spdata), polygon = i_poly(spdata), grid = i_grid(spdata), 
     line = i_line(spdata), point = i_point(spdata))
 }

@@ -31,8 +31,12 @@ test_that("projection checks work",{
   expect_error(qmap(lake_no_proj),"No projection info.  Use prj=FALSE to override projection check.")
 })
 
+test_that("map_extent is assigned correctly with single input",{
+  expect_is(qmap(lake)$map_extent,"data.frame")
+  expect_is(qmap(lake,extent = samples)$map_extent,"data.frame")
+})
+
 test_that("identify fails correctly", {
-  expect_error(i(),"argument "qmap_obj" is missing, with no default")
-  expect_error(i(samples),"A 'qmap' object is expected. Create with qmap().")
+  expect_error(i(),"Requires a valid qmap_obj.")
 })
 #need to test returns from zoom

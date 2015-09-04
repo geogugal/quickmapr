@@ -4,7 +4,7 @@
 \alias{i}
 \title{Identify}
 \usage{
-i(qmap_obj, i_idx = 1)
+i(qmap_obj = NULL, i_idx = 1)
 }
 \arguments{
 \item{qmap_obj}{a \code{qmap} object from which to identify features.

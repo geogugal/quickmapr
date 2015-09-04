@@ -65,7 +65,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
       }
     }
     }
-  
   if (!exists("bbx") & is.null(extent)) {
     bbx <- bbox(mapdata[[1]])
   } else if (!is.null(extent)) {
