@@ -15,6 +15,8 @@ test_that("qmap fails correctly", {
   expect_error(qmap(), "No data passed to qmap")
 })
 
+
+
 test_that("zoom and pan fail correctly", {
   expect_error(zi(), "Requires a valid qmap_obj.")
   expect_error(zo(), "Requires a valid qmap_obj.")

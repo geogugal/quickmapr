@@ -87,7 +87,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata), colors = 1:lengt
         col_tbl <-  mapdata[[i]]@legend@colortable[values+1]
       } 
       mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
-      
     }
   }
   
