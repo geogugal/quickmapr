@@ -9,5 +9,3 @@ r_github_packages:
 
 after_success:
 - Rscript -e 'library(covr); coveralls()'
-
-sudo: false
