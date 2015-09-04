@@ -24,7 +24,7 @@ given layer.
 \examples{
 \dontrun{
 data(lake)
-qmap(list(lake,width))
+qmap(lake,width)
 l(lake,'COMID')
 }
 }

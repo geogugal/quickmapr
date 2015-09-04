@@ -16,14 +16,13 @@
 #' @examples
 #' \dontrun{
 #' data(lake)
-#' qmap(list(lake,width))
+#' qmap(lake,width)
 #' l(lake,'COMID')
 #' }
 l <- function(qmap_obj, lab_order = 1, field = NULL) {
   if (class(qmap_obj) == "qmap") {
     while (get_sp_type(qmap_obj$map_data[[lab_order]]) == "grid") {
-      warning("Labelling for raster data not supported. Labeling first non-raster data")
-      lab_order <- lab_order + 1
+      stop("Labelling for raster data not supported.")
     }
     spdata <- qmap_obj$map_data[[lab_order]]
     x <- coordinates(spdata)[, 1]
