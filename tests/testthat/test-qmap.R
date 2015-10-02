@@ -11,7 +11,7 @@ samp_diff_proj <- spTransform(samples,
                               CRSobj = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
 lake_no_proj <- lake
 proj4string(lake_no_proj)<-""
-
+location <- list(x=1804247, y=629156.8)
 #Tests
 test_that("qmap works", {
   expect_is(x, "qmap")
@@ -31,9 +31,13 @@ test_that("zoom and pan fail correctly", {
   expect_error(zo(x,zoom_perc = 2), "Argument, zoom_perc, needs to be between 0 and 1")
 })
 
-test_that("zoom by extent zooms with sp", {
+test_that("interactivity works", {
   expect_is(ze(x,samples),"recordedplot")
+  expect_is(zi(x,loc=location),"qmap")
+  expect_is(zo(x,loc=location),"qmap")
+  expect_is(p(x,loc=location),"qmap")
 })
+
 
 test_that("f() returns qmap", {
   expect_is(f(x),"qmap")
@@ -58,7 +62,10 @@ test_that("map_extent is assigned correctly with single input",{
   expect_is(qmap(lake,extent = samples)$map_extent,"data.frame")
 })
 
-test_that("identify fails correctly", {
+test_that("i() works", {
   expect_error(i(),"Requires a valid qmap_obj.")
+  expect_is(i(x,"lake",loc=location),"list")
+  expect_is(i(x,"samples",loc=location),"list")
+  expect_is(i(x,"elev",loc=location),"data.frame")
+  expect_is(i(x,"width",loc=location),"list")
 })
-#need to test returns from zoom
