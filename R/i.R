@@ -83,7 +83,8 @@ i_line <- function(spdata) {
 #' @import sp rgeos
 #' @keywords internal
 i_point <- function(spdata) {
-    loc <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+    coords <- locator(1)
+    loc <- SpatialPoints(coords, CRS(proj4string(spdata)))
     idx <- gWithinDistance(loc, spdata, gDistance(loc, spdata), byid = T)
     if (sum(idx) == 0) {
         message("No point features at that location.")

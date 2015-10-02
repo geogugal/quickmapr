@@ -43,13 +43,10 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     if (prj) {
         prjs <- lapply(mapdata, sp::proj4string)
         if (length(unique(prjs)) > 1) {
-            stop("Projections do not match. Use prj=FALSE to override projection 
-                 check.\n\n This is not recommended. Re-project to common 
-                 projection instead.", 
+            stop("Projections do not match. Use prj=FALSE to override projection check.\n\n This is not recommended. Re-project to common projection instead.", 
                 call. = FALSE)
         } else if (any(is.na(prjs))) {
-            stop("No projection info.  Use prj=FALSE to override projection 
-                 check.", 
+            stop("No projection info.  Use prj=FALSE to override projection check.", 
                 call. = FALSE)
         }
     }

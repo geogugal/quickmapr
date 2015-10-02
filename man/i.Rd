@@ -29,7 +29,7 @@ data(lake)
 qm<-qmap(list(lake,elev,samples))
 i(qm,"lake")
 i(qm,"samples")
-i(qm,3)
+i(qm,2)
 }
 }
 
