@@ -11,15 +11,16 @@ qmap(..., extent = NULL, order = 1:length(mapdata),
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of
 spatial objects, or a \code{\link{qmap}} object}
 
-\item{extent}{A \code{\link{sp}} or \code{\link[raster]{raster}} object to use as the initial extent
-of the map.  Defaults to the maximum extent of all input object}
+\item{extent}{A \code{\link{sp}} or \code{\link[raster]{raster}} object to
+use as the initial extent of the map.  Defaults to the maximum
+extent of all input object}
 
 \item{order}{draw order of the spatial object. Defaults to order in mapdata}
 
 \item{colors}{line colors. Defaults to 1:length(mapdata)}
 
-\item{fill}{Logical to determine if polygons should be filled (using colors) or just
-the border colored.}
+\item{fill}{Logical to determine if polygons should be filled (using colors)
+or just the border colored.}
 
 \item{prj}{Logical to check projections of input spatial objects.
 Transformation, if needed, should be done prior to mapping with
@@ -28,8 +29,8 @@ Transformation, if needed, should be done prior to mapping with
 \item{basemap}{a basemap generated from \code{\link{get_basemap}}}
 }
 \value{
-Function displays a map from the input \code{mapdata} parameter and returns
-        a recorded plot.
+Function displays a map from the input \code{mapdata} parameter and
+        returns a recorded plot.
 }
 \description{
 This function builds the qmap object that forms the basis for the rest of

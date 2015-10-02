@@ -19,21 +19,20 @@
 #' zi(x)
 #' }
 zi <- function(qmap_obj = NULL, zoom_perc = 0.5) {
-  if (zoom_perc >= 1 || zoom_perc < 0) {
-    stop("Argument, zoom_perc, needs to be between 0 and 1")
-  }
-  if (class(qmap_obj)!="qmap") {
-    stop("Requires a valid qmap_obj.")
-  } else {
-    continue <- 0
-    obj <- paste(substitute(qmap_obj))
-    message("Click on plot to zoom in. Press 'Esc' to exit.")
-    loc <- locator(1)
-    while (!is.null(loc)) {
-      qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
-      loc <- locator(1)
+    if (zoom_perc >= 1 || zoom_perc < 0) {
+        stop("Argument, zoom_perc, needs to be between 0 and 1")
     }
-  }
-  assign(obj, qmap_obj, envir = parent.frame())
-}
-
+    if (class(qmap_obj) != "qmap") {
+        stop("Requires a valid qmap_obj.")
+    } else {
+        continue <- 0
+        obj <- paste(substitute(qmap_obj))
+        message("Click on plot to zoom in. Press 'Esc' to exit.")
+        loc <- locator(1)
+        while (!is.null(loc)) {
+            qmap_obj <- zoom_it(qmap_obj, loc, zoom_perc)
+            loc <- locator(1)
+        }
+    }
+    assign(obj, qmap_obj, envir = parent.frame())
+} 

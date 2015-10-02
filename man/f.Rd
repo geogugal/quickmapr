@@ -10,9 +10,8 @@ f(qmap_obj = NULL)
 \item{qmap_obj}{a qmap_obj to restore}
 }
 \description{
-Allows for restoring map to originally set extent.  The originally recorded plot
-is replayed and the map extent of the object is reset to match the current
-display.
+Allows for restoring map to original extent.  The inital map is replayed and
+the map extent of the object is reset to match the current display.
 }
 \examples{
 \dontrun{

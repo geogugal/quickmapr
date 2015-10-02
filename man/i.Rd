@@ -20,16 +20,16 @@ Returns a list that contains data for the selected object (data is
          polygons).
 }
 \description{
-Interactively select an \code{sp} or \code{raster} object and return the data
-associated with it. \code{i()} only accepts a single input point.
+Interactively select an \code{sp} or \code{raster} object and return the
+data associated with it. \code{i()} only accepts a single input point.
 }
 \examples{
 \dontrun{
 data(lake)
-qmap(list(lake,elev,samples))
-i(lake)
-i(samples)
-i(elev)
+qm<-qmap(list(lake,elev,samples))
+i(qm,"lake")
+i(qm,"samples")
+i(qm,3)
 }
 }
 

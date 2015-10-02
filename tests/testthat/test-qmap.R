@@ -7,9 +7,8 @@ x<-qmap(elev,lake,samples,width)
 x2<-qmap(samples,lake)
 x3<-x2
 l(x3)
-samp_diff_proj <- spTransform(samples,
-                              CRSobj = 
-                                CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
+samp_diff_proj <- spTransform(samples, 
+                              CRSobj = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
 lake_no_proj <- lake
 proj4string(lake_no_proj)<-""
 
@@ -21,8 +20,6 @@ test_that("qmap works", {
 test_that("qmap fails correctly", {
   expect_error(qmap(), "No data passed to qmap")
 })
-
-
 
 test_that("zoom and pan fail correctly", {
   expect_error(zi(), "Requires a valid qmap_obj.")

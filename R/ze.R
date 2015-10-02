@@ -17,18 +17,18 @@
 #' qmap(list(lake,buffer,elev))
 #' ze()
 #' }
-ze <- function(qmap_obj = NULL,extent=NULL) {
-  if (class(qmap_obj)!="qmap") {
-    stop("Requires a valid qmap_obj.")
-  } else {
-    obj <- paste(substitute(qmap_obj))
-    if(is.null(extent)){
-      message("Select 2 points to define the zoom extent.")
-      qmap_obj$map_extent <- bbox(SpatialPoints(locator(2)))
+ze <- function(qmap_obj = NULL, extent = NULL) {
+    if (class(qmap_obj) != "qmap") {
+        stop("Requires a valid qmap_obj.")
     } else {
-      qmap_obj$map_extent <- bbox(extent)
+        obj <- paste(substitute(qmap_obj))
+        if (is.null(extent)) {
+            message("Select 2 points to define the zoom extent.")
+            qmap_obj$map_extent <- bbox(SpatialPoints(locator(2)))
+        } else {
+            qmap_obj$map_extent <- bbox(extent)
+        }
+        assign(obj, qmap_obj, envir = parent.frame())
+        return(plot.qmap(qmap_obj))
     }
-    assign(obj, qmap_obj, envir = parent.frame())
-    return(plot.qmap(qmap_obj))
-  }
 } 

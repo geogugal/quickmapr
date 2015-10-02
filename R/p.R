@@ -18,18 +18,17 @@
 #' p(x)
 #' }
 p <- function(qmap_obj = NULL) {
-  if (class(qmap_obj)!="qmap") {
-    stop("Requires a valid qmap_obj.")
-  } else {
-    continue <- 0
-    obj <- paste(substitute(qmap_obj))
-    message("Click on plot to pan. Press 'Esc' to exit.")
-    loc <- locator(1)
-    while (!is.null(loc)) {       
-      qmap_obj <- zoom_it(qmap_obj, loc, 1, pan = TRUE)
-      loc <- locator(1)
+    if (class(qmap_obj) != "qmap") {
+        stop("Requires a valid qmap_obj.")
+    } else {
+        continue <- 0
+        obj <- paste(substitute(qmap_obj))
+        message("Click on plot to pan. Press 'Esc' to exit.")
+        loc <- locator(1)
+        while (!is.null(loc)) {
+            qmap_obj <- zoom_it(qmap_obj, loc, 1, pan = TRUE)
+            loc <- locator(1)
+        }
     }
-  }
-  assign(obj, qmap_obj, envir = parent.frame())
-}
-
+    assign(obj, qmap_obj, envir = parent.frame())
+} 
