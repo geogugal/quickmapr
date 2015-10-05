@@ -12,6 +12,7 @@
 #'            to interactively get loc value until escaped.  
 #' @return NULL
 #' @export
+#' @importFrom graphics locator
 #' 
 #' @examples
 #' \dontrun{

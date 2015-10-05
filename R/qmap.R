@@ -20,6 +20,7 @@
 #'         returns a recorded plot.
 #' 
 #' @import sp
+#' @importFrom methods as
 #' @export
 #' 
 #' @examples
@@ -104,6 +105,8 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' @param x input qmap class to plot
 #' @param ... options passed to image or plot
 #' @method plot qmap
+#' @importFrom grDevices recordPlot
+#' @importFrom graphics image text
 #' @export
 plot.qmap <- function(x, ...) {
     order <- x$draw_order
@@ -212,6 +215,7 @@ print.qmap <- function(x, ...) {
 #' x<-qmap(x,basemap=x_base)
 #' }
 #' #@keywords internal
+#' @importFrom utils download.file
 #' @export
 get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"), 
                         width = 300) {

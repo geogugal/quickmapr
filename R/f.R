@@ -6,7 +6,8 @@
 #' @param qmap_obj a qmap_obj to restore
 #' @return NULL
 #' @export
-#' 
+#' @importFrom grDevices replayPlot
+#' @importFrom graphics par
 #' @examples
 #' \dontrun{
 #' data(lake)

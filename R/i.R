@@ -40,6 +40,7 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
 #' Identify Polys
 #' 
 #' @import sp rgeos
+#' @importFrom graphics locator
 #' @keywords internal
 i_poly <- function(spdata, loc) {
     if(is.null(loc)){
@@ -67,6 +68,7 @@ i_poly <- function(spdata, loc) {
 #' Identify Lines
 #' 
 #' @import sp rgeos
+#' @importFrom graphics locator
 #' @keywords internal
 i_line <- function(spdata, loc) {
     if (is.null(loc)){ 
@@ -92,6 +94,7 @@ i_line <- function(spdata, loc) {
 #' Identify Points
 #' 
 #' @import sp rgeos
+#' @importFrom graphics locator
 #' @keywords internal
 i_point <- function(spdata, loc) {
     if (is.null(loc)){
@@ -117,6 +120,8 @@ i_point <- function(spdata, loc) {
 #' Identify Rasters
 #' 
 #' @import sp rgeos
+#' @importFrom methods as
+#' @importFrom graphics locator
 #' @keywords internal
 i_grid <- function(spdata, loc) {
     spdata2 <- as(spdata, "SpatialGridDataFrame")

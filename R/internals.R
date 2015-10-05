@@ -32,6 +32,7 @@ get_range <- function(qmap_obj) {
 #' gets color from input qmap
 #' @param ... list, sp, or qmap objects
 #' @return vector of colors
+#' @importFrom stats na.omit
 #' @keywords internal
 get_colors <- function(...) {
     mapdata <- list(...)
@@ -50,6 +51,7 @@ get_colors <- function(...) {
 #' builds a map_data from many input types
 #' @param ... list, sp, or qmap objects
 #' @return list of spatial objects with names
+#' @importFrom stats na.omit
 #' @keywords internal
 build_map_data <- function(...) {
     mapdata <- list(...)

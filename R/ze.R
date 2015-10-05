@@ -10,6 +10,7 @@
 #' @param extent A Spatial* object to specify extent to zoom into.
 #' @return NULL
 #' @export
+#' @importFrom graphics locator
 #' 
 #' @examples
 #' \dontrun{
