@@ -3,7 +3,7 @@
 .travis.yml
 ^\.travis\.yml$
 ^NEWS.md$
-^cran-comments\.md$
+^cran_comments\.md$
 ^appveyor\.yml$
 ^CONTRIBUTING.md$
 ^README\.Rmd$
