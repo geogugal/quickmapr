@@ -1,8 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 .travis.yml
-appveyor.yml
-README.Rmd
-README.md
-figure/
-CONTRIBUTING.md
+^\.travis\.yml$
+^NEWS.md$
+^cran-comments\.md$
+^appveyor\.yml$
+^CONTRIBUTING.md$
+^README\.Rmd$
+^figure$
