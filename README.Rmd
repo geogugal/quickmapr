@@ -77,6 +77,16 @@ basem <- get_basemap(qm,"1m_aerial",width=1000)
 qm <- qmap(qm,basemap = basem)
 ```
 
+Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
+
+
+```{r eval=FALSE}
+#identify
+i(qm,"samples")
+i(qm,"lake")
+```
+
+
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
 ```{r, eval=FALSE}
