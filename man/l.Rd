@@ -4,28 +4,30 @@
 \alias{l}
 \title{Label features}
 \usage{
-l(qmap_obj, lab_order = 1, field = NULL)
+l(qmap_obj, field = NULL, layer = 1)
 }
 \arguments{
 \item{qmap_obj}{a qmap object from which to pull the labels.  Raster layers
 are ignored.  Will also accept \code{sp} objects.}
 
-\item{lab_order}{identify which sp layer to label.  Defaults to first object
-in qmap_obj$map_data.}
-
 \item{field}{a field in the sp object to use to label the features.  Defaults
-       to row.names().}
+to row.names().}
+
+\item{layer}{identify which sp layer to label.  Defaults to first layer
+       in qmap_obj$map_data.}
 }
 \description{
 It is useful to be able to provide labels to features on your map when
 examining the results of given analysis.  This function adds labels for a
-given layer.
+given layer (currently just point or polygon layers).
 }
 \examples{
 \dontrun{
 data(lake)
-qmap(lake,width)
-l(lake,'COMID')
+qm<-qmap(lake,width,buffer)
+l(qm,'COMID')
+l(qm, layer = 2)
+l(qm, layer = "buffer")
 }
 }
 

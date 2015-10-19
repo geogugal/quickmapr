@@ -2,14 +2,14 @@
 #' 
 #' It is useful to be able to provide labels to features on your map when 
 #' examining the results of given analysis.  This function adds labels for a 
-#' given layer.  
+#' given layer (currently just point or polygon layers).  
 #' 
 #' @param qmap_obj a qmap object from which to pull the labels.  Raster layers 
 #'        are ignored.  Will also accept \code{sp} objects.
-#' @param lab_order identify which sp layer to label.  Defaults to first object
-#'        in qmap_obj$map_data.
 #' @param field a field in the sp object to use to label the features.  Defaults 
 #'        to row.names().
+#' @param layer identify which sp layer to label.  Defaults to first layer
+#'        in qmap_obj$map_data.
 #' 
 #' @export
 #' @import sp
@@ -17,24 +17,27 @@
 #' @examples
 #' \dontrun{
 #' data(lake)
-#' qmap(lake,width)
-#' l(lake,'COMID')
+#' qm<-qmap(lake,width,buffer)
+#' l(qm,'COMID')
+#' l(qm, layer = 2)
+#' l(qm, layer = "buffer")
 #' }
-l <- function(qmap_obj, lab_order = 1, field = NULL) {
-    if (class(qmap_obj) == "qmap") {
-        while (get_sp_type(qmap_obj$map_data[[lab_order]]) == "grid") {
-            stop("Labelling for raster data not supported.")
-        }
-        spdata <- qmap_obj$map_data[[lab_order]]
-        x <- coordinates(spdata)[, 1]
-        y <- coordinates(spdata)[, 2]
-    } else {
-        x <- coordinates(qmap_obj)[, 1]
-        y <- coordinates(qmap_obj)[, 2]
+l <- function(qmap_obj, field = NULL, layer = 1) {
+    if (get_sp_type(qmap_obj$map_data[[layer]]) == "grid") {
+      stop("Labelling for raster data not supported.")
     }
     
     if (class(qmap_obj) != "qmap") {
-        stop("Requires a valid qmap_obj.")
+      stop("Requires a valid qmap_obj.")
+    } 
+    
+    spdata <- qmap_obj$map_data[[layer]]
+    
+    if (get_sp_type(spdata) == "line") {
+      stop("Line labelling not yet supported")  
+    } else {
+      x <- coordinates(spdata)[, 1]
+      y <- coordinates(spdata)[, 2]
     }
     
     if (is.null(field)) {
