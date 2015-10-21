@@ -46,7 +46,8 @@ test_that("f() returns qmap", {
 test_that("l() works",{
   expect_error(l(qmap(elev)),"Labelling for raster data not supported.")
   expect_error(l(lake,"COMID"), "Requires a valid qmap_obj.")
-  expect_is(l(x,"samples"),"recordedplot")
+  expect_error(l(qmap(width,lake)),"Line labelling not yet supported")
+  expect_is(l(x,layer="samples"),"recordedplot")
   expect_is(l(qmap(samples,lake)),"recordedplot")
   expect_is(l(x2),"recordedplot")
   expect_is(l(x3),"recordedplot") #tests is qmap obj already has labels

@@ -7,15 +7,13 @@
 get_basemap(qmap_obj = NULL, base = c("1m_aerial", "topo"), width = 300)
 }
 \arguments{
+\item{qmap_obj}{A valid \code{qmap()} object}
+
 \item{base}{A character indicating basemap to get (1m aerial or topo)}
 
 \item{width}{Width, in pixels of image exported from The National Map web
 service. Height is determined by width:height ratio of the
 extent of the qmap object.}
-
-\item{bbx}{A bounding box from \code{qmap()}}
-
-\item{p4s}{A proj4string of projection to request image in.}
 }
 \description{
 Uses the National Map Aerial Image REST API to return an aerial image to be
@@ -29,7 +27,5 @@ x<-qmap(lake,buffer)
 x_base<-get_basemap(x,'1m_aerial',width=1000)
 x<-qmap(x,basemap=x_base)
 }
-#
 }
-\keyword{internal}
 

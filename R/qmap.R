@@ -201,8 +201,7 @@ print.qmap <- function(x, ...) {
 #' used as a basemap.  May add functionality for 1m or 1ft images.  May also add
 #' topo-map.
 #' 
-#' @param bbx A bounding box from \code{qmap()}
-#' @param p4s A proj4string of projection to request image in.
+#' @param qmap_obj A valid \code{qmap()} object
 #' @param base A character indicating basemap to get (1m aerial or topo)
 #' @param width Width, in pixels of image exported from The National Map web 
 #'              service. Height is determined by width:height ratio of the 
@@ -214,8 +213,8 @@ print.qmap <- function(x, ...) {
 #' x_base<-get_basemap(x,'1m_aerial',width=1000)
 #' x<-qmap(x,basemap=x_base)
 #' }
-#' #@keywords internal
-#' @importFrom utils download.file
+#' 
+#' @importFrom httr GET
 #' @export
 get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"), 
                         width = 300) {
@@ -255,7 +254,7 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
     tmp <- tempfile()
     tmp_jpg <- paste0(tmp, ".jpg")
     tmp_jpgw <- paste0(tmp, ".jpgw")
-    download.file(request_url, tmp_jpg, quiet = TRUE)
+    r<-GET(request_url, httr::write_disk(tmp_jpg,overwrite=T))
     make_jpw(tmp_jpgw, big_bbx, width)
     img <- rgdal::readGDAL(tmp_jpg, silent = TRUE, p4s = p4s)
     file.remove(tmp_jpg, tmp_jpgw)

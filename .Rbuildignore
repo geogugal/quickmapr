@@ -7,4 +7,5 @@
 ^appveyor\.yml$
 ^CONTRIBUTING.md$
 ^README\.Rmd$
+^README\.pdf$
 ^figure$

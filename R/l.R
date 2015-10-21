@@ -23,14 +23,14 @@
 #' l(qm, layer = "buffer")
 #' }
 l <- function(qmap_obj, field = NULL, layer = 1) {
-    if (get_sp_type(qmap_obj$map_data[[layer]]) == "grid") {
-      stop("Labelling for raster data not supported.")
-    }
-    
     if (class(qmap_obj) != "qmap") {
       stop("Requires a valid qmap_obj.")
-    } 
-    
+    }   
+  
+    if (get_sp_type(qmap_obj$map_data[[layer]]) == "grid") {
+        stop("Labelling for raster data not supported.")
+    }
+
     spdata <- qmap_obj$map_data[[layer]]
     
     if (get_sp_type(spdata) == "line") {
@@ -45,7 +45,7 @@ l <- function(qmap_obj, field = NULL, layer = 1) {
     } else {
         labs <- spdata[[field]]
     }
-    obj <- paste(substitute(qmap_obj))
+    obj <- deparse(substitute(qmap_obj))
     label <- list(label = list(x = x, y = y, labs = labs))
     if ("label" %in% names(qmap_obj)) {
         # qmap_obj$label<-NULL

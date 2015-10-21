@@ -28,8 +28,8 @@ Imports:
     stats,
     grDevices,
     graphics,
-    utils,
-    methods
+    methods,
+    httr
 Suggests: 
     raster,
     testthat,
