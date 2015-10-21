@@ -94,6 +94,17 @@ qm <- qmap(qm,basemap = basem)
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png) 
 
+Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
+
+
+
+```r
+#identify
+i(qm,"samples")
+i(qm,"lake")
+```
+
+
 Zooming and panning are accomplished with zi(),ze(),zo(),f(), and p():
 
 
