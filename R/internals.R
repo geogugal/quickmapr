@@ -90,12 +90,19 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     } else {
         rng <- get_range(qmap_obj) * (1 - zoom_perc)
     }
+    if(rng_test(qmap_obj,rng)){stop("zoom limit has been reached")}
     qmap_obj$map_extent[1, 1] <- loc$x - (rng[1]/2)
     qmap_obj$map_extent[1, 2] <- loc$x + (rng[1]/2)
     qmap_obj$map_extent[2, 1] <- loc$y - (rng[2]/2)
     qmap_obj$map_extent[2, 2] <- loc$y + (rng[2]/2)
     plot(qmap_obj)
     return(qmap_obj)
+}
+
+#'Test range of zoom to ensure it isn't less than 1% of initial range
+#'@keywords internal
+rng_test<-function(qmap_obj,rng){
+  
 }
 
 #' sp bbox to poly
