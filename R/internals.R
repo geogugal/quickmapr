@@ -99,10 +99,15 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     return(qmap_obj)
 }
 
-#'Test range of zoom to ensure it isn't less than 1% of initial range
-#'@keywords internal
+#' Test range of zoom 
+#' @keywords internal
 rng_test<-function(qmap_obj,rng){
-  
+  orig_x<-abs(diff(range(qmap_obj$map[[1]][[length(qmap_obj$map[[1]])]][[2]][[2]])))
+  orig_y<-abs(diff(range(qmap_obj$map[[1]][[length(qmap_obj$map[[1]])]][[2]][[3]])))
+  resp<-FALSE
+  if(rng[1]/orig_x<0.01){resp<-TRUE}
+  if(rng[2]/orig_y<0.01){resp<-TRUE}
+  return(resp)
 }
 
 #' sp bbox to poly
