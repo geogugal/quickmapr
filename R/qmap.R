@@ -35,7 +35,7 @@
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), 
                  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, 
-                 basemap = NULL) {
+                 basemap = NULL,width = 300) {
     if (length(list(...)) == 0) {
         stop("No data passed to qmap")
     }
@@ -76,24 +76,26 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     col_tbl <- NULL
     
     # converts rasterlayers to spatialgriddf
-    for (i in 1:length(mapdata)) {
-        if (class(mapdata[[i]]) == "RasterLayer") {
-            if (length(mapdata[[i]]@legend@colortable) > 1) {
-                values <- sort(unique(mapdata[[i]]@data@values))
-                col_tbl <- mapdata[[i]]@legend@colortable[values + 1]
-            }
-            mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
-        }
-    }
+    #for (i in 1:length(mapdata)) {
+    #    if (class(mapdata[[i]]) == "RasterLayer") {
+    #        if (length(mapdata[[i]]@legend@colortable) > 1) {
+    #            values <- sort(unique(mapdata[[i]]@data@values))
+    #            col_tbl <- mapdata[[i]]@legend@colortable[values + 1]
+    #        }
+    #        mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
+    #    }
+    #}
     
     # match colors to length of mapdata
     colors <- rep(colors, length(mapdata))[1:length(mapdata)]
     
-    qmap_obj <- list(map_data = mapdata, map_extent = bbx, draw_order = order, 
+    qmap_obj <- list(map_data = mapdata, map_extent = bbx, orig_extent = bbx, 
+                     draw_order = order, 
                      colors = colors, fill = fill, map = NULL, 
                      basemap = basemap, col_tbl = col_tbl, values = values)
     class(qmap_obj) <- "qmap"
-    qmap_obj$map = plot.qmap(qmap_obj)
+    #qmap_obj$map = plot.qmap(qmap_obj)
+    plot.qmap(qmap_obj,width)
     return(qmap_obj)
 }
 
@@ -108,7 +110,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' @importFrom grDevices recordPlot
 #' @importFrom graphics image text
 #' @export
-plot.qmap <- function(x, ...) {
+plot.qmap <- function(x, width=300, ...) {
     order <- x$draw_order
     mapdata <- x$map_data
     fill <- x$fill
@@ -121,23 +123,28 @@ plot.qmap <- function(x, ...) {
     # Creates the plot
     first <- TRUE
     if (!is.null(basemap)) {
-        image(basemap, red = 1, green = 2, blue = 3, 
-              xlim = as.numeric(bbx[1, ]), ylim = as.numeric(bbx[2, ]), 
-              axes = TRUE, ...)
+        #image(basemap, red = 1, green = 2, blue = 3, 
+        #      xlim = as.numeric(bbx[1, ]), ylim = as.numeric(bbx[2, ]), 
+        #      axes = TRUE, ...)
+        bm<-get_basemap(x,basemap,width=width)
+        plotRGB(bm, ext = extent(c(as.numeric(bbx[1, ]),
+                                        as.numeric(bbx[2, ]))),
+                axes=TRUE)
         first <- FALSE
     }
     for (i in 1:length(order)) {
         if (first) {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                
-                if (!is.null(values)) {
-                  image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-                        ylim = as.numeric(bbx[2,]), axes = TRUE, col = col_tbl, 
-                        breaks = c(0, values), ...)
-                } else {
-                  image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-                        ylim = as.numeric(bbx[2,]), axes = TRUE, ...)
-                }
+                #browser()
+                #if (!is.null(values)) {
+                #  image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
+                #        ylim = as.numeric(bbx[2,]), axes = TRUE, col = col_tbl, 
+                #        breaks = c(0, values), ...)
+                #} else {
+                  plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
+                        ylim = as.numeric(bbx[2,]), axes = TRUE, legend=FALSE,
+                       ...)
+                #}
                 first <- FALSE
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
@@ -157,12 +164,12 @@ plot.qmap <- function(x, ...) {
             }
         } else {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                if (!is.null(values)) {
-                  image(mapdata[[order[i]]], add = TRUE, col = col_tbl, 
-                        breaks = c(0, values), ...)
-                } else {
-                  image(mapdata[[order[i]]], add = TRUE, ...)
-                }
+                #if (!is.null(values)) {
+                #  image(mapdata[[order[i]]], add = TRUE, col = col_tbl, 
+                #        breaks = c(0, values), ...)
+                #} else {
+                  plot(mapdata[[order[i]]], add = TRUE, legend=FALSE, ...)
+                #}
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
                   plot(mapdata[[order[i]]], col = colors[i], add = TRUE)
@@ -177,7 +184,7 @@ plot.qmap <- function(x, ...) {
     if ("label" %in% names(x)) {
         text(x = x$label$x, y = x$label$y, labels = x$label$labs)
     }
-    return(recordPlot())
+    #return(recordPlot())
 }
 
 #' Default printing of a qmap object
@@ -217,7 +224,7 @@ print.qmap <- function(x, ...) {
 #' @importFrom httr GET
 #' @export
 get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"), 
-                        width = 300) {
+                        width = 300, outfile = tempfile()) {
     base <- match.arg(base)
     if (is.null(qmap_obj)) {
         stop("A qmap_obj is required to fetch a basemap")
@@ -251,12 +258,13 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
     request_url <- paste0(server_url, bbx_url, bbx_sr_url, image_sr_url, 
                           size_url, 
         format_url, pixel_url, file_url)
-    tmp <- tempfile()
+    tmp <- outfile
     tmp_jpg <- paste0(tmp, ".jpg")
     tmp_jpgw <- paste0(tmp, ".jpgw")
     r<-GET(request_url, httr::write_disk(tmp_jpg,overwrite=T))
     make_jpw(tmp_jpgw, big_bbx, width)
-    img <- rgdal::readGDAL(tmp_jpg, silent = TRUE, p4s = p4s)
-    file.remove(tmp_jpg, tmp_jpgw)
+    #img <- rgdal::readGDAL(tmp_jpg, silent = TRUE, p4s = p4s)
+    img <- stack(tmp_jpg) #some goofiness with zooming and plotRGB
+    #file.remove(tmp_jpg, tmp_jpgw)
     return(img)
 } 

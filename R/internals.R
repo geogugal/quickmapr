@@ -24,8 +24,8 @@ get_sp_type <- function(spdata) {
 #' @return numeric vector indicating the size of the x and y extent
 #' @keywords internal
 get_range <- function(qmap_obj) {
-    x_range <- diff(as.numeric(qmap_obj$map_extent[1, ]))
-    y_range <- diff(as.numeric(qmap_obj$map_extent[2, ]))
+    x_range <- diff(as.numeric(c(par("usr")[1:2])))
+    y_range <- diff(as.numeric(c(par("usr")[3:4])))
     return(c(x_range, y_range))
 }
 
@@ -55,6 +55,7 @@ get_colors <- function(...) {
 #' @keywords internal
 build_map_data <- function(...) {
     mapdata <- list(...)
+
     # Deal with qmaps
     qmap_idx <- na.omit(match(lapply(mapdata, class), "qmap"))[1]
     if (!is.na(qmap_idx)) {
@@ -62,6 +63,15 @@ build_map_data <- function(...) {
             mapdata[[i]] <- mapdata[[i]]$map_data
         }
     }
+    
+    # Deal with RasterStacks - unstacks into individual layers
+    stck_idx <- na.omit(match(lapply(mapdata, class), "RasterStack"))[1]
+    if (!is.na(stck_idx)) {
+      for (i in stck_idx) {
+        mapdata[[i]] <- unstack(mapdata[[i]])
+      }
+    }
+    
     
     name <- paste(substitute(list(...)))
     name <- name[!name %in% "list"]
@@ -90,7 +100,10 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     } else {
         rng <- get_range(qmap_obj) * (1 - zoom_perc)
     }
-    if(rng_test(qmap_obj,rng)){stop("zoom limit has been reached")}
+    if(rng_test(qmap_obj,rng)){
+      message("zoom limit has been reached")
+      return(qmap_obj)
+    }
     qmap_obj$map_extent[1, 1] <- loc$x - (rng[1]/2)
     qmap_obj$map_extent[1, 2] <- loc$x + (rng[1]/2)
     qmap_obj$map_extent[2, 1] <- loc$y - (rng[2]/2)
@@ -102,11 +115,22 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
 #' Test range of zoom 
 #' @keywords internal
 rng_test<-function(qmap_obj,rng){
-  orig_x<-abs(diff(range(qmap_obj$map[[1]][[length(qmap_obj$map[[1]])]][[2]][[2]])))
-  orig_y<-abs(diff(range(qmap_obj$map[[1]][[length(qmap_obj$map[[1]])]][[2]][[3]])))
+  orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
+  orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
   resp<-FALSE
   if(rng[1]/orig_x<0.01){resp<-TRUE}
   if(rng[2]/orig_y<0.01){resp<-TRUE}
+  return(resp)
+}
+
+#' Test range of zoom 
+#' @keywords internal
+rng_test_e<-function(qmap_obj,bbx){
+  orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
+  orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
+  resp<-FALSE
+  if(abs(diff(bbx[1,]))/orig_x<0.01){resp<-TRUE}
+  if(abs(diff(bbx[2,]))/orig_y<0.01){resp<-TRUE}
   return(resp)
 }
 

@@ -5,7 +5,8 @@
 \title{Build qmap object}
 \usage{
 qmap(..., extent = NULL, order = 1:length(mapdata),
-  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, basemap = NULL)
+  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, basemap = NULL,
+  width = 300)
 }
 \arguments{
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of

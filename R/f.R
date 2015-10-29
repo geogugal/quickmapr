@@ -20,13 +20,15 @@ f <- function(qmap_obj = NULL) {
         stop("Requires a valid qmap_obj.")
     }
     obj <- paste(substitute(qmap_obj))
-    replayPlot(qmap_obj$map)
-    qmap_obj$map_extent[1, 1] <- par("usr")[1]
-    qmap_obj$map_extent[1, 2] <- par("usr")[2]
-    qmap_obj$map_extent[2, 1] <- par("usr")[3]
-    qmap_obj$map_extent[2, 2] <- par("usr")[4]
+    #replayPlot(qmap_obj$map)
+    #qmap_obj$map_extent[1, 1] <- par("usr")[1]
+    #qmap_obj$map_extent[1, 2] <- par("usr")[2]
+    #qmap_obj$map_extent[2, 1] <- par("usr")[3]
+    #qmap_obj$map_extent[2, 2] <- par("usr")[4]
+    qmap_obj$map_extent <- qmap_obj$orig_extent
     if ("label" %in% names(qmap_obj)) {
         qmap_obj$label <- NULL
     }
+    plot.qmap(qmap_obj)
     assign(obj, qmap_obj, envir = parent.frame())
 } 
