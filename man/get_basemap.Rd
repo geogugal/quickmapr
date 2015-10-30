@@ -15,6 +15,8 @@ get_basemap(qmap_obj = NULL, base = c("1m_aerial", "topo"), width = 300,
 \item{width}{Width, in pixels of image exported from The National Map web
 service. Height is determined by width:height ratio of the
 extent of the qmap object.}
+
+\item{outfile}{an output file to save the resultant jpg.}
 }
 \description{
 Uses the National Map Aerial Image REST API to return an aerial image to be

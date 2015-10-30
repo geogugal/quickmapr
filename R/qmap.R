@@ -16,6 +16,11 @@
 #'            Transformation, if needed, should be done prior to mapping with 
 #'            \code{sp::spTransform()}.
 #' @param basemap a basemap generated from \code{\link{get_basemap}}
+#' @param resolution Specifies the width in pixels of the retrieved basemap.
+#'                    Larger values result in higher resolution images but since
+#'                    the images are downloaded for each zoom level can result
+#'                    in delays.  Default is 300, while ~600 is a decent 
+#'                    compromise for performance and image quality.
 #' @return Function displays a map from the input \code{mapdata} parameter and 
 #'         returns a recorded plot.
 #' 
@@ -106,11 +111,16 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' from \code{qmap}.
 #' 
 #' @param x input qmap class to plot
-#' @param resolution
+#' @param resolution resolution of the basemap to be plotted.  In practice this
+#'                   is usally set via \code{qmap} and passed to 
+#'                   \code{plot.qmap} and \code{get.basemap}.
+#'                   
 #' @param ... options passed to image or plot
 #' @method plot qmap
 #' @importFrom grDevices recordPlot
 #' @importFrom graphics image text
+#' @importFrom raster plotRGB extent
+#' 
 #' @export
 plot.qmap <- function(x, resolution, ...) {
     order <- x$draw_order
@@ -215,6 +225,7 @@ print.qmap <- function(x, ...) {
 #' @param width Width, in pixels of image exported from The National Map web 
 #'              service. Height is determined by width:height ratio of the 
 #'              extent of the qmap object.
+#' @param outfile an output file to save the resultant jpg.
 #' @examples
 #' \dontrun{
 #' data(lake)

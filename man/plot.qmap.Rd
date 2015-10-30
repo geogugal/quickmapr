@@ -9,7 +9,9 @@
 \arguments{
 \item{x}{input qmap class to plot}
 
-\item{resolution}{}
+\item{resolution}{resolution of the basemap to be plotted.  In practice this
+                  is usally set via \code{qmap} and passed to
+                  \code{plot.qmap} and \code{get.basemap}.}
 
 \item{...}{options passed to image or plot}
 }

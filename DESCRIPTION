@@ -29,9 +29,9 @@ Imports:
     grDevices,
     graphics,
     methods,
-    httr
+    httr,
+    raster
 Suggests: 
-    raster,
     testthat,
     knitr
 

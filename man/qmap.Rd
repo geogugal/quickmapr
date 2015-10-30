@@ -28,6 +28,12 @@ Transformation, if needed, should be done prior to mapping with
 \code{sp::spTransform()}.}
 
 \item{basemap}{a basemap generated from \code{\link{get_basemap}}}
+
+\item{resolution}{Specifies the width in pixels of the retrieved basemap.
+Larger values result in higher resolution images but since
+the images are downloaded for each zoom level can result
+in delays.  Default is 300, while ~600 is a decent
+compromise for performance and image quality.}
 }
 \value{
 Function displays a map from the input \code{mapdata} parameter and
