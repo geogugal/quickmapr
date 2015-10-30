@@ -26,7 +26,7 @@ ze <- function(qmap_obj = NULL, extent = NULL) {
         if (is.null(extent)) {
             message("Select 2 points to define the zoom extent.")
             bbx <- bbox(SpatialPoints(locator(2)))
-            if(zoom_test(qmap_obj)){
+            if(zoom_test(qmap_obj,bbx)){
               message("zoom limit has been reached")
               return(qmap_obj)
             }
@@ -34,8 +34,9 @@ ze <- function(qmap_obj = NULL, extent = NULL) {
         } else {
             qmap_obj$map_extent <- bbox(extent)
         }
+        plot.qmap(qmap_obj,qmap_obj$resolution)
         assign(obj, qmap_obj, envir = parent.frame())
-        return(plot.qmap(qmap_obj,qmap_obj$resolution))
+        
     }
   
 } 

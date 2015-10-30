@@ -4,7 +4,7 @@
 \alias{zoom_test}
 \title{Test range of zoom}
 \usage{
-zoom_test(qmap_obj)
+zoom_test(qmap_obj, map_extent)
 }
 \description{
 Test range of zoom

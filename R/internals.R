@@ -100,33 +100,36 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     } else {
         rng <- get_range(qmap_obj) * (1 - zoom_perc)
     }
-    if(zoom_test(qmap_obj)&&!out&&!pan){
+    
+    me <- data.frame(min =  c(loc$x - (rng[1]/2), loc$y - (rng[2]/2)),
+             max =  c(loc$x + (rng[1]/2), loc$y + (rng[2]/2)),
+             row.names = c("x","y"))
+  
+    if(zoom_test(qmap_obj, me)&&!out&&!pan){
       message("zoom limit has been reached")
       return(qmap_obj)
     }
-    qmap_obj$map_extent[1, 1] <- loc$x - (rng[1]/2)
-    qmap_obj$map_extent[1, 2] <- loc$x + (rng[1]/2)
-    qmap_obj$map_extent[2, 1] <- loc$y - (rng[2]/2)
-    qmap_obj$map_extent[2, 2] <- loc$y + (rng[2]/2)
+    
+    qmap_obj$map_extent <- me
     plot(qmap_obj,qmap_obj$resolution)
     return(qmap_obj)
 }
 
 #' Test range of zoom 
 #' @keywords internal
-zoom_test<-function(qmap_obj){
+zoom_test<-function(qmap_obj,map_extent){
   resp<-FALSE
   #need to have check happen before zoom not on old zoom
   prj<-proj4string(qmap_obj$map_data[[1]])
   if(is.na(prj)){
     orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
     orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
-    curr_x<-abs(diff(as.numeric(qmap_obj$map_extent[1,])))
-    curr_y<-abs(diff(as.numeric(qmap_obj$map_extent[2,])))
+    curr_x<-abs(diff(as.numeric(map_extent[1,])))
+    curr_y<-abs(diff(as.numeric(map_extent[2,])))
     if(curr_x/orig_x<0.01){resp<-TRUE}
     if(curr_y/orig_y<0.01){resp<-TRUE}
   } else {
-    poly<-qmap_obj$map_extent
+    poly<-map_extent
     x <- c(poly[1, 1], poly[1, 1], poly[1, 2], poly[1, 2], poly[1, 1])
     y <- c(poly[2, 1], poly[2, 2], poly[2, 2], poly[2, 1], poly[2, 1])
     p <- Polygon(cbind(x, y))
@@ -157,6 +160,7 @@ bbox_to_sp <- function(sp) {
 #' @param file output file name
 #' @param bbx bounding box in map units
 #' @param width width in pixels 
+#' @keywords internal
 make_jpw <- function(file, bbx, width) {
     res <- abs(bbx[1, 1] - bbx[1, 2])/width
     upper_left_x <- bbx[1, 1]

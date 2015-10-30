@@ -54,6 +54,7 @@ l <- function(qmap_obj, field = NULL, layer = 1) {
         qmap_obj <- c(qmap_obj, label)
     }
     class(qmap_obj) <- "qmap"
+    plot(qmap_obj,qmap_obj$resolution)
     assign(obj, qmap_obj, envir = parent.frame())
-    plot(qmap_obj)
+    
 } 
