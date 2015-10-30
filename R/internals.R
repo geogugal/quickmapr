@@ -100,7 +100,7 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     } else {
         rng <- get_range(qmap_obj) * (1 - zoom_perc)
     }
-    if(rng_test(qmap_obj,rng)){
+    if(zoom_test(qmap_obj)&&!out&&!pan){
       message("zoom limit has been reached")
       return(qmap_obj)
     }
@@ -108,29 +108,35 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     qmap_obj$map_extent[1, 2] <- loc$x + (rng[1]/2)
     qmap_obj$map_extent[2, 1] <- loc$y - (rng[2]/2)
     qmap_obj$map_extent[2, 2] <- loc$y + (rng[2]/2)
-    plot(qmap_obj)
+    plot(qmap_obj,qmap_obj$resolution)
     return(qmap_obj)
 }
 
 #' Test range of zoom 
 #' @keywords internal
-rng_test<-function(qmap_obj,rng){
-  orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
-  orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
+zoom_test<-function(qmap_obj){
   resp<-FALSE
-  if(rng[1]/orig_x<0.01){resp<-TRUE}
-  if(rng[2]/orig_y<0.01){resp<-TRUE}
-  return(resp)
-}
-
-#' Test range of zoom 
-#' @keywords internal
-rng_test_e<-function(qmap_obj,bbx){
-  orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
-  orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
-  resp<-FALSE
-  if(abs(diff(bbx[1,]))/orig_x<0.01){resp<-TRUE}
-  if(abs(diff(bbx[2,]))/orig_y<0.01){resp<-TRUE}
+  #need to have check happen before zoom not on old zoom
+  prj<-proj4string(qmap_obj$map_data[[1]])
+  if(is.na(prj)){
+    orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
+    orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
+    curr_x<-abs(diff(as.numeric(qmap_obj$map_extent[1,])))
+    curr_y<-abs(diff(as.numeric(qmap_obj$map_extent[2,])))
+    if(curr_x/orig_x<0.01){resp<-TRUE}
+    if(curr_y/orig_y<0.01){resp<-TRUE}
+  } else {
+    poly<-qmap_obj$map_extent
+    x <- c(poly[1, 1], poly[1, 1], poly[1, 2], poly[1, 2], poly[1, 1])
+    y <- c(poly[2, 1], poly[2, 2], poly[2, 2], poly[2, 1], poly[2, 1])
+    p <- Polygon(cbind(x, y))
+    ps <- Polygons(list(p), "p1")
+    poly <- SpatialPolygons(list(ps), 1L, proj4string = CRS(prj))
+    poly<-sp::spTransform(poly,CRS("+proj=aea +lat_1=20 +lat_2=60 +lat_0=40 
+                               +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m 
+                               +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+    if(rgeos::gArea(poly)<=10000){resp<-TRUE}
+  }
   return(resp)
 }
 

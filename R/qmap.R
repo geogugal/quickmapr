@@ -35,7 +35,7 @@
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), 
                  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, 
-                 basemap = NULL,width = 300) {
+                 basemap = NULL,resolution = 300) {
     if (length(list(...)) == 0) {
         stop("No data passed to qmap")
     }
@@ -92,10 +92,11 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     qmap_obj <- list(map_data = mapdata, map_extent = bbx, orig_extent = bbx, 
                      draw_order = order, 
                      colors = colors, fill = fill, map = NULL, 
-                     basemap = basemap, col_tbl = col_tbl, values = values)
+                     basemap = basemap, col_tbl = col_tbl, values = values,
+                     resolution = resolution)
     class(qmap_obj) <- "qmap"
     #qmap_obj$map = plot.qmap(qmap_obj)
-    plot.qmap(qmap_obj,width)
+    plot.qmap(qmap_obj,resolution)
     return(qmap_obj)
 }
 
@@ -105,12 +106,13 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' from \code{qmap}.
 #' 
 #' @param x input qmap class to plot
+#' @param resolution
 #' @param ... options passed to image or plot
 #' @method plot qmap
 #' @importFrom grDevices recordPlot
 #' @importFrom graphics image text
 #' @export
-plot.qmap <- function(x, width=300, ...) {
+plot.qmap <- function(x, resolution, ...) {
     order <- x$draw_order
     mapdata <- x$map_data
     fill <- x$fill
@@ -126,7 +128,7 @@ plot.qmap <- function(x, width=300, ...) {
         #image(basemap, red = 1, green = 2, blue = 3, 
         #      xlim = as.numeric(bbx[1, ]), ylim = as.numeric(bbx[2, ]), 
         #      axes = TRUE, ...)
-        bm<-get_basemap(x,basemap,width=width)
+        bm<-get_basemap(x,basemap,width=resolution)
         plotRGB(bm, ext = extent(c(as.numeric(bbx[1, ]),
                                         as.numeric(bbx[2, ]))),
                 axes=TRUE)

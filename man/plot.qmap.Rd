@@ -4,10 +4,12 @@
 \alias{plot.qmap}
 \title{Default plotting of a qmap object}
 \usage{
-\method{plot}{qmap}(x, width = 300, ...)
+\method{plot}{qmap}(x, resolution, ...)
 }
 \arguments{
 \item{x}{input qmap class to plot}
+
+\item{resolution}{}
 
 \item{...}{options passed to image or plot}
 }
