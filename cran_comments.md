@@ -6,6 +6,6 @@
 ##R CMD check results
 - No ERRORS or WARNINGS.  
 
--  1 Note: 
+-  1 Note on Ubuntu/Travis: 
     - Maintainer: ‘Jeffrey W. Hollister <hollister.jeff@epa.gov>’
       New submission
