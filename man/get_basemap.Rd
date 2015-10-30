@@ -25,10 +25,11 @@ topo-map.
 }
 \examples{
 \dontrun{
+#Can be run alone to get jpg, but best if run through qmap()
 data(lake)
 x<-qmap(lake,buffer)
 x_base<-get_basemap(x,'1m_aerial',width=1000)
-x<-qmap(x,basemap=x_base)
+x<-qmap(x_base)
 }
 }
 

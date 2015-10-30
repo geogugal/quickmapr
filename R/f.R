@@ -29,6 +29,6 @@ f <- function(qmap_obj = NULL) {
     if ("label" %in% names(qmap_obj)) {
         qmap_obj$label <- NULL
     }
-    plot.qmap(qmap_obj,qmap_obj$resolution)
+    plot.qmap(qmap_obj)
     assign(obj, qmap_obj, envir = parent.frame())
 } 

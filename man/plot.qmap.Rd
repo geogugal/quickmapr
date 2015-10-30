@@ -4,14 +4,10 @@
 \alias{plot.qmap}
 \title{Default plotting of a qmap object}
 \usage{
-\method{plot}{qmap}(x, resolution, ...)
+\method{plot}{qmap}(x, ...)
 }
 \arguments{
-\item{x}{input qmap class to plot}
-
-\item{resolution}{resolution of the basemap to be plotted.  In practice this
-                  is usally set via \code{qmap} and passed to
-                  \code{plot.qmap} and \code{get.basemap}.}
+\item{x}{input qmap class to plotS}
 
 \item{...}{options passed to image or plot}
 }

@@ -54,6 +54,7 @@ get_colors <- function(...) {
 #' @importFrom stats na.omit
 #' @keywords internal
 build_map_data <- function(...) {
+   
     mapdata <- list(...)
 
     # Deal with qmaps
@@ -111,7 +112,7 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     }
     
     qmap_obj$map_extent <- me
-    plot(qmap_obj,qmap_obj$resolution)
+    plot(qmap_obj)
     return(qmap_obj)
 }
 

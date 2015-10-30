@@ -36,14 +36,18 @@
 #' #change draw order and which data is displayed
 #' qmap(qm,order=c(2,3,5))
 #' #add a basemap
-#' qm<-qmap(qm,basemap=get_basemap(qm,width=800))
+#' qm<-qmap(qm,basemap="1m_aerial", resolution = 800))
 #' }
 qmap <- function(..., extent = NULL, order = 1:length(mapdata), 
                  colors = 1:length(mapdata), fill = FALSE, prj = TRUE, 
-                 basemap = NULL,resolution = 300) {
+                 basemap = c("none","1m_aerial","topo"),resolution = 300) {
     if (length(list(...)) == 0) {
         stop("No data passed to qmap")
     }
+    
+    basemap <- match.arg(basemap)
+    if(basemap == "none") {basemap <- NULL}
+    
     mapdata <- build_map_data(...)
     # Test Projections
     if (prj) {
@@ -56,6 +60,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
                 call. = FALSE)
         }
     }
+
     if (length(mapdata) > 1) {
         # Sets Extent to all entered extents or a specific one.
         if (is.null(extent)) {
@@ -80,16 +85,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     values <- NULL
     col_tbl <- NULL
     
-    # converts rasterlayers to spatialgriddf
-    #for (i in 1:length(mapdata)) {
-    #    if (class(mapdata[[i]]) == "RasterLayer") {
-    #        if (length(mapdata[[i]]@legend@colortable) > 1) {
-    #            values <- sort(unique(mapdata[[i]]@data@values))
-    #            col_tbl <- mapdata[[i]]@legend@colortable[values + 1]
-    #        }
-    #        mapdata[[i]] <- as(mapdata[[i]], "SpatialGridDataFrame")
-    #    }
-    #}
+    
     
     # match colors to length of mapdata
     colors <- rep(colors, length(mapdata))[1:length(mapdata)]
@@ -101,7 +97,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
                      resolution = resolution)
     class(qmap_obj) <- "qmap"
     #qmap_obj$map = plot.qmap(qmap_obj)
-    plot.qmap(qmap_obj,resolution)
+    plot.qmap(qmap_obj)
     return(qmap_obj)
 }
 
@@ -110,10 +106,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' Plots the qmap class and uses the order, colors, extent, and fill option 
 #' from \code{qmap}.
 #' 
-#' @param x input qmap class to plot
-#' @param resolution resolution of the basemap to be plotted.  In practice this
-#'                   is usally set via \code{qmap} and passed to 
-#'                   \code{plot.qmap} and \code{get.basemap}.
+#' @param x input qmap class to plotS
 #'                   
 #' @param ... options passed to image or plot
 #' @method plot qmap
@@ -122,7 +115,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
 #' @importFrom raster plotRGB extent
 #' 
 #' @export
-plot.qmap <- function(x, resolution, ...) {
+plot.qmap <- function(x, ...) {
     order <- x$draw_order
     mapdata <- x$map_data
     fill <- x$fill
@@ -131,6 +124,7 @@ plot.qmap <- function(x, resolution, ...) {
     basemap <- x$basemap
     col_tbl <- x$col_tbl
     values <- x$values
+    resolution <- x$resolution
     
     # Creates the plot
     first <- TRUE
@@ -196,7 +190,7 @@ plot.qmap <- function(x, resolution, ...) {
     if ("label" %in% names(x)) {
         text(x = x$label$x, y = x$label$y, labels = x$label$labs)
     }
-    #return(recordPlot())
+    
 }
 
 #' Default printing of a qmap object
@@ -228,10 +222,11 @@ print.qmap <- function(x, ...) {
 #' @param outfile an output file to save the resultant jpg.
 #' @examples
 #' \dontrun{
+#' #Can be run alone to get jpg, but best if run through qmap()
 #' data(lake)
 #' x<-qmap(lake,buffer)
 #' x_base<-get_basemap(x,'1m_aerial',width=1000)
-#' x<-qmap(x,basemap=x_base)
+#' x<-qmap(x_base)
 #' }
 #' 
 #' @importFrom httr GET

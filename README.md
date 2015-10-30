@@ -80,16 +80,14 @@ and United States Specific)
 
 ```r
 #Get a Topo Basemap
-basem <- get_basemap(qm,"topo",width=1000)
-qm <- qmap(qm,basemap = basem)
+qm <- qmap(qm,basemap = "topo", resolution = 1000)
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 ```r
 #Get an Aerial Basemap
-basem <- get_basemap(qm,"1m_aerial",width=1000)
-qm <- qmap(qm,basemap = basem)
+qm <- qmap(qm, basemap = "1m_aerial", resolution = 1000)
 ```
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png) 
