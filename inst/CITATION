@@ -1,0 +1,10 @@
+utils::citHeader("To cite quickmapr:")
+
+utils::citEntry(entry = "manual",
+  author = "Jeffrey W. Hollister",
+  title = "quickmapr: Quickly map and explore spatial data",
+  year = "2015",
+  note = {"R package version 0.1.0, doi: 10.5281/zenodo.32971"},
+  url = "http://github.com/jhollist/quickmapr",
+  textVersion = "Hollister, J.W. (2015). quickmapr: Quickly map and explore spatial data. CRAN v0.010. 10.5281/zenodo.32971 "
+)
