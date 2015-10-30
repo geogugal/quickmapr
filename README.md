@@ -3,13 +3,13 @@ quickmapr
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) [![Coverage Status](https://coveralls.io/repos/jhollist/quickmapr/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhollist/quickmapr?branch=master) [![DOI](https://zenodo.org/badge/4384/jhollist/quickmapr.svg)](https://zenodo.org/badge/latestdoi/4384/jhollist/quickmapr)
 
-There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking for `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
+There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking behind `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
-Planned functionality for the first release is for easy mapping of multiple layers, simple zooming, panning, and labelling.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
+Functionality for the current release is for easy mapping of multiple layers, simple zooming, panning, labelling, and identifying.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` is built as a series of wrapper functions for the default `sp` plotting functions and currently utilizes either the `zoom` packages for zooming and panning or simply re-plots the maps with new x and y limits. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for the default `sp` and 'raster' plotting functions. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
-- `qmap()`: creates the map
+- `qmap()`: creates the map and controls options
 - `zi()`: zooms in
 - `zo()`: zooms out
 - `ze()`: zoom in to an extent
@@ -18,20 +18,28 @@ Planned functionality for the first release is for easy mapping of multiple laye
 - `i()`: identify features
 - `f()`: returns to extent of originally created map
 
-A function for pulling in basemaps (aerials or topo-quads) from the USGS National Map is currently in development.
+A function for pulling in basemaps (aerials or topo-quads) from the USGS National Map is included but should be considered experimental.
 
 Example data are available via:
 
 - `data(lake)`
 
 ##Installation
-This package is not yet on CRAN.  To install
+To install the development version:
 
 
 ```r
 install.packages("devtools")
 library("devtools")
 install_github("jhollist/quickmapr")
+library("quickmapr")
+```
+
+To install from CRAN:
+
+
+```r
+install.packages("quickmapr")
 library("quickmapr")
 ```
 
@@ -48,7 +56,7 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
@@ -60,7 +68,7 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -72,7 +80,7 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
 and United States Specific)
@@ -83,14 +91,14 @@ and United States Specific)
 qm <- qmap(qm,basemap = "topo", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
 
 ```r
 #Get an Aerial Basemap
 qm <- qmap(qm, basemap = "1m_aerial", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-2.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-2.png) 
 
 Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
 
