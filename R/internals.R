@@ -52,6 +52,7 @@ get_colors <- function(...) {
 #' @param ... list, sp, or qmap objects
 #' @return list of spatial objects with names
 #' @importFrom stats na.omit
+#' @importFrom raster unstack
 #' @keywords internal
 build_map_data <- function(...) {
    

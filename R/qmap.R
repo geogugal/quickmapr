@@ -230,6 +230,7 @@ print.qmap <- function(x, ...) {
 #' }
 #' 
 #' @importFrom httr GET
+#' @importFrom raster stack
 #' @export
 get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"), 
                         width = 300, outfile = tempfile()) {
