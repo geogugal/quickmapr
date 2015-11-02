@@ -9,3 +9,9 @@
 -  1 Note on Ubuntu/Travis: 
     - Maintainer: ‘Jeffrey W. Hollister <hollister.jeff@epa.gov>’
       New submission
+
+##Changes made to address CRAN feedback
+- Edited description of package to focus just on quickmapr
+- Single quoted all package names
+- Corrected spelling mistakes
+- Bumped date and version for second submission
