@@ -1,3 +1,10 @@
+##Resubmission
+Changes made in resubmission:
+- Edited description of package to focus just on quickmapr
+- Single quoted all package names
+- Corrected spelling mistakes
+- Bumped date and version for second submission
+
 ##Test Environments
 - Win 7, Local, R 3.2.2
 - Ubuntu 12.04, travis-ci, R 3.2.2
@@ -10,8 +17,3 @@
     - Maintainer: ‘Jeffrey W. Hollister <hollister.jeff@epa.gov>’
       New submission
 
-##Changes made to address CRAN feedback
-- Edited description of package to focus just on quickmapr
-- Single quoted all package names
-- Corrected spelling mistakes
-- Bumped date and version for second submission
