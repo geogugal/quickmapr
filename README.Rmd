@@ -49,6 +49,9 @@ library("quickmapr")
 Basic usage of `quickmapr` is built around a `qmap` object which is simply a list of `sp` or `raster` objects and a recorded plot.  Most of the other `quickmpar` functions will work with a `qmap` object.
 
 To create a qmap object:
+```{r,echo=FALSE,message=FALSE}
+library(quickmapr)
+```
 
 ```{r}
 #First some data
