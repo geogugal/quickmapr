@@ -1,7 +1,7 @@
 quickmapr
 =========
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) [![Coverage Status](https://coveralls.io/repos/jhollist/quickmapr/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhollist/quickmapr?branch=master) [![DOI](https://zenodo.org/badge/4384/jhollist/quickmapr.svg)](https://zenodo.org/badge/latestdoi/4384/jhollist/quickmapr)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active)  [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) [![Coverage Status](https://coveralls.io/repos/jhollist/quickmapr/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhollist/quickmapr?branch=master) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.33135.svg)](http://dx.doi.org/10.5281/zenodo.33135)
 
 There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking behind `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
@@ -56,7 +56,9 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "qmap"
+```
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
@@ -68,7 +70,9 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "qmap"
+```
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -80,7 +84,9 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "qmap"
+```
 
 Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
 and United States Specific)
@@ -91,14 +97,18 @@ and United States Specific)
 qm <- qmap(qm,basemap = "topo", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "qmap"
+```
 
 ```r
 #Get an Aerial Basemap
 qm <- qmap(qm, basemap = "1m_aerial", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-2.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "qmap"
+```
 
 Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
 
