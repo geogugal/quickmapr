@@ -129,9 +129,6 @@ plot.qmap <- function(x, ...) {
     # Creates the plot
     first <- TRUE
     if (!is.null(basemap)) {
-        #image(basemap, red = 1, green = 2, blue = 3, 
-        #      xlim = as.numeric(bbx[1, ]), ylim = as.numeric(bbx[2, ]), 
-        #      axes = TRUE, ...)
         bm<-get_basemap(x,basemap,width=resolution)
         plotRGB(bm, ext = extent(c(as.numeric(bbx[1, ]),
                                         as.numeric(bbx[2, ]))),
@@ -141,16 +138,9 @@ plot.qmap <- function(x, ...) {
     for (i in 1:length(order)) {
         if (first) {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                #browser()
-                #if (!is.null(values)) {
-                #  image(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-                #        ylim = as.numeric(bbx[2,]), axes = TRUE, col = col_tbl, 
-                #        breaks = c(0, values), ...)
-                #} else {
                   plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
                         ylim = as.numeric(bbx[2,]), axes = TRUE, legend=FALSE,
                        ...)
-                #}
                 first <- FALSE
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
@@ -170,12 +160,7 @@ plot.qmap <- function(x, ...) {
             }
         } else {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                #if (!is.null(values)) {
-                #  image(mapdata[[order[i]]], add = TRUE, col = col_tbl, 
-                #        breaks = c(0, values), ...)
-                #} else {
                   plot(mapdata[[order[i]]], add = TRUE, legend=FALSE, ...)
-                #}
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
                   plot(mapdata[[order[i]]], col = colors[i], add = TRUE)
@@ -231,7 +216,7 @@ print.qmap <- function(x, ...) {
 #' 
 #' @importFrom httr GET
 #' @importFrom raster stack
-#' @export
+#' @keywords internal
 get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"), 
                         width = 300, outfile = tempfile()) {
     base <- match.arg(base)
@@ -272,8 +257,6 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
     tmp_jpgw <- paste0(tmp, ".jpgw")
     r<-GET(request_url, httr::write_disk(tmp_jpg,overwrite=T))
     make_jpw(tmp_jpgw, big_bbx, width)
-    #img <- rgdal::readGDAL(tmp_jpg, silent = TRUE, p4s = p4s)
     img <- stack(tmp_jpg) #some goofiness with zooming and plotRGB
-    #file.remove(tmp_jpg, tmp_jpgw)
     return(img)
 } 
