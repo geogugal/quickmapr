@@ -3,7 +3,6 @@
 S3method(plot,qmap)
 S3method(print,qmap)
 export(f)
-export(get_basemap)
 export(i)
 export(l)
 export(p)

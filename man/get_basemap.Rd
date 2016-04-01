@@ -32,4 +32,5 @@ x_base<-get_basemap(x,'1m_aerial',width=1000)
 x<-qmap(x_base)
 }
 }
+\keyword{internal}
 
