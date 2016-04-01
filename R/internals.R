@@ -113,7 +113,7 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
     }
     
     qmap_obj$map_extent <- me
-    plot(qmap_obj)
+    plot.qmap(qmap_obj)
     return(qmap_obj)
 }
 

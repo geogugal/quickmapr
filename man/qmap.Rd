@@ -51,7 +51,7 @@ qm<-qmap(mymap)
 #change draw order and which data is displayed
 qmap(qm,order=c(2,3,5))
 #add a basemap
-qm<-qmap(qm,basemap="1m_aerial", resolution = 800))
+qm<-qmap(qm,basemap="1m_aerial", resolution = 800)
 }
 }
 

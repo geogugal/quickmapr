@@ -138,9 +138,11 @@ plot.qmap <- function(x, ...) {
     for (i in 1:length(order)) {
         if (first) {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                  plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
-                        ylim = as.numeric(bbx[2,]), axes = TRUE, legend=FALSE,
-                       ...)
+              plot(mapdata[[order[i]]],ext=as.matrix(bbx), axes = TRUE, 
+                      ...)
+              #plot(mapdata[[order[i]]], xlim = as.numeric(bbx[1, ]), 
+              #     ylim = as.numeric(bbx[2,]), axes = TRUE, 
+              #     ...)
                 first <- FALSE
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
@@ -160,7 +162,8 @@ plot.qmap <- function(x, ...) {
             }
         } else {
             if (get_sp_type(mapdata[[order[i]]]) == "grid") {
-                  plot(mapdata[[order[i]]], add = TRUE, legend=FALSE, ...)
+                  plot(mapdata[[order[i]]],ext=as.matrix(bbx), add = TRUE, ...)
+                  #plot(mapdata[[order[i]]], add = TRUE, ...)
             } else if (get_sp_type(mapdata[[order[i]]]) == "polygon") {
                 if (fill) {
                   plot(mapdata[[order[i]]], col = colors[i], add = TRUE)
