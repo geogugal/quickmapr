@@ -2,7 +2,7 @@ language: r
 warnings_are_errors: true
 cache: packages
 apt_packages:
-- gdal-bin
+- libhdf5-serial-dev
 - libgdal-dev
 - libproj-dev
 r_binary_packages:
