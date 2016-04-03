@@ -6,7 +6,7 @@ env:
 before_install: 
   - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
   - sudo apt-get --yes --force-yes update -qq
-  - sudo apt-get install -y libhdf5-serial-dev gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev
+  - sudo apt-get install -y libhdf5-dev libhdf5-serial-dev gdal-bin libgdal-dev libgdal1-dev netcdf-bin libproj-dev
 r_binary_packages:
   - rgdal
 
