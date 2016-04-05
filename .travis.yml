@@ -2,7 +2,7 @@ language: r
 warnings_are_errors: true
 sudo: required
 apt_packages:
-_ libhdf5-7
+- libhdf5-7
 - libhdf5-dev
 - libhdf5-serial-dev
 - libgdal-dev
