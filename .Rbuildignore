@@ -9,3 +9,4 @@
 ^README\.Rmd$
 ^README\.pdf$
 ^figure$
+^NEWS\.md$

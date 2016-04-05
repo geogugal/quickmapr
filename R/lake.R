@@ -23,6 +23,18 @@ NULL
 
 NULL
 
+#' Land Cover Data for \code{quickmapr} examples
+#' 
+#' This example data is a RasterLayer of the National 
+#' Land Cover Dataset for a buffer of Lake Sunapee.
+#' 
+#' @docType data
+#' @keywords datasets
+#' @format RasterLayer of 467 x 262 and 30 meter resolution
+#' @name nlcd
+
+NULL
+
 #' Point data for \code{quickmapr} examples
 #' 
 #' This is a fabricated point dataset for what might be a common type of data

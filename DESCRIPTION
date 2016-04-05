@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.1.3
-Date: 2016-04-01
+Version: 0.1.2
+Date: 2016-04-05
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -10,15 +10,16 @@ URL: https://www.github.com/jhollist/quickmapr
 BugReports: https://github.com/jhollist/quickmapr/issues
 Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
 License: CC0
-Description: While analyzing geospatial data, easy visualization is often needed
-  that allows for quick plotting, and simple, but easy interactivity.
-  Additionally, visualizing geospatial data in projected coordinates is also
-  desirable.  The 'quickmapr' package provides a simple method to visualize 'sp'
-  and 'raster' objects, allows for basic zooming, panning, identifying, and
-  labeling of spatial objects, and does not require that the data be in
-  geographic coordinates.
-Depends: R (>= 3.0.0)
-Imports: 
+Description: While analyzing geospatial data, easy visualization is often
+    needed that allows for quick plotting, and simple, but easy interactivity.
+    Additionally, visualizing geospatial data in projected coordinates is also
+    desirable. The 'quickmapr' package provides a simple method to visualize 'sp'
+    and 'raster' objects, allows for basic zooming, panning, identifying, and
+    labeling of spatial objects, and does not require that the data be in geographic
+    coordinates.
+Depends:
+    R (>= 3.0.0)
+Imports:
     rgeos,
     sp,
     rgdal,
@@ -28,7 +29,7 @@ Imports:
     methods,
     httr,
     raster
-Suggests: 
+Suggests:
     testthat,
     knitr
-
+RoxygenNote: 5.0.1
