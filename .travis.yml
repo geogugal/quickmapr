@@ -1,23 +1,12 @@
 language: r
 warnings_are_errors: true
+dist: trusty
 cache: packages
-
-r_binary_packages:
-  - rgdal
-  - rmarkdown
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
 
 addons:
   apt:
     packages:
-      - gdal-bin
       - libgdal-dev
-      - libgdal1-dev
-      - netcdf-bin
       - libproj-dev
 
 r_github_packages:
@@ -25,3 +14,8 @@ r_github_packages:
 
 after_success:
   - Rscript -e 'library(covr); coveralls()'
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
