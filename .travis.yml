@@ -1,5 +1,6 @@
 language: r
 warnings_are_errors: true
+cache: packages
 
 r_binary_packages:
   - rgdal
@@ -9,19 +10,18 @@ notifications:
   email:
     on_success: change
     on_failure: change
-#addons:
-#  apt:
-#    packages:
-#      - libgdal-dev
-#      - libproj-dev
-#sudo: required
-#apt_packages:
-#- libhdf5-7
-#- libhdf5-dev
-#- libhdf5-serial-dev
-#- libgdal-dev
-#- libproj-dev
-#r_github_packages:
-#- jimhester/covr
-#after_success:
-#- Rscript -e 'library(covr); coveralls()'
+
+addons:
+  apt:
+    packages:
+      - gdal-bin
+      - libgdal-dev
+      - libgdal1-dev
+      - netcdf-bin
+      - libproj-dev
+
+r_github_packages:
+  - jimhester/covr
+
+after_success:
+  - Rscript -e 'library(covr); coveralls()'
