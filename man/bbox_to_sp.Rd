@@ -6,6 +6,9 @@
 \usage{
 bbox_to_sp(sp)
 }
+\arguments{
+\item{sp}{an sp object}
+}
 \description{
 sp bbox to poly
 }
