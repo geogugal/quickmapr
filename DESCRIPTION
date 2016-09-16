@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.1.2
-Date: 2016-04-05
+Version: 0.1.3
+Date: 2016-09-16
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -20,15 +20,15 @@ Description: While analyzing geospatial data, easy visualization is often
 Depends:
     R (>= 3.0.0)
 Imports:
-    rgeos,
+    raster,
     sp,
+    rgeos,
     rgdal,
+    httr,
     stats,
     grDevices,
     graphics,
-    methods,
-    httr,
-    raster
+    methods
 Suggests:
     testthat,
     knitr

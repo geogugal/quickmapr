@@ -47,7 +47,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     
     basemap <- match.arg(basemap)
     if(basemap == "none") {basemap <- NULL}
-    
     mapdata <- build_map_data(...)
     # Test Projections
     if (prj) {
@@ -88,7 +87,11 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     
     
     # match colors to length of mapdata
-    colors <- rep(colors, length(mapdata))[1:length(mapdata)]
+    
+    if(length(colors) != length(mapdata)){
+      message("number of specified colors does not match number of data layers and some colors are repeated.")
+      colors <- rep(colors, length(mapdata))[1:length(mapdata)]
+    }
     
     qmap_obj <- list(map_data = mapdata, map_extent = bbx, orig_extent = bbx, 
                      draw_order = order, 
