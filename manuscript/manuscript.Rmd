@@ -1,5 +1,5 @@
 ---
-title: "quickmapr: Simplified mapping and basic interactivy for `sp` and `raster` objects." 
+title: "`quickmapr`: Simplified mapping and basic interactivy for `sp` and `raster` objects." 
 author:
   - name: Jeffrey W. Hollister
     affiliation: U.S. Environmental Protection Agency, Office of Research and Development, National Health and Environmental Effects Research Laboratory, Atlantic Ecology Division

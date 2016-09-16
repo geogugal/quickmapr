@@ -11,7 +11,7 @@ There are many packages that already exist or are in active development that sup
 
 Functionality for the current release is for easy mapping of multiple layers, simple zooming, panning, labelling, and identifying.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` is built as a series of wrapper functions for the default `sp` and 'raster' plotting functions. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for the default `sp` and `raster` plotting functions. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
 - `qmap()`: creates the map and controls options
 - `zi()`: zooms in
