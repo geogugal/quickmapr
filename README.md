@@ -11,7 +11,7 @@ There are many packages that already exist or are in active development that sup
 
 Functionality for the current release is for easy mapping of multiple layers, simple zooming, panning, labelling, and identifying.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` is built as a series of wrapper functions for the default `sp` and `raster` plotting functions. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for the default `sp` and `raster` plotting functions. Currently there are 10 commands.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
 - `qmap()`: creates the map and controls options
 - `zi()`: zooms in
@@ -21,6 +21,8 @@ Functionality for the current release is for easy mapping of multiple layers, si
 - `l()`: adds labels
 - `i()`: identify features
 - `f()`: returns to extent of originally created map
+- `s()`: selects and returns spatial objects
+- `m()`: measures distances on plot
 
 A function for pulling in basemaps (aerials or topo-quads) from the USGS National Map is included but should be considered experimental.
 
@@ -39,7 +41,7 @@ install_github("jhollist/quickmapr")
 library("quickmapr")
 ```
 
-To install from CRAN:
+To install from CRAN (curretnly version 0.1.1):
 
 
 ```r
