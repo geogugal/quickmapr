@@ -16,10 +16,7 @@ character string indicating the name of the layer. Defaults to 1.}
 to interactively get loc value until escaped.}
 }
 \value{
-Returns a list that contains data for the selected object (data is
-         NULL if not a Spatial DataFrame object), the \code{sp} object, and 
-         additional information for each object (e.g. area and perimeter for
-         polygons).
+Returns NULL.  Identified values are printed to the screen.
 }
 \description{
 Interactively select an \code{sp} or \code{raster} object and print the 

@@ -8,10 +8,7 @@
 #'        character string indicating the name of the layer. Defaults to 1.
 #' @param loc A list with an x and y numeric indicating a location.  Default is 
 #'            to interactively get loc value until escaped.  
-#' @return  Returns a list that contains data for the selected object (data is
-#'          NULL if not a Spatial DataFrame object), the \code{sp} object, and 
-#'          additional information for each object (e.g. area and perimeter for
-#'          polygons).  
+#' @return  Returns NULL.  Identified values are printed to the screen.
 #' 
 #' @export
 #' @import sp rgeos
