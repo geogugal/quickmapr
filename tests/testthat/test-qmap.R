@@ -65,8 +65,8 @@ test_that("map_extent is assigned correctly with single input",{
 
 test_that("i() works", {
   expect_error(i(),"Requires a valid qmap_obj.")
-  expect_is(i(x,"lake",loc=location),"list")
-  expect_is(i(x,"samples",loc=location),"list")
-  expect_is(i(x,"elev",loc=location),"data.frame")
-  expect_is(i(x,"width",loc=location),"list")
+  expect_null(i(x,"lake",loc=location))
+  expect_null(i(x,"samples",loc=location))
+  expect_null(i(x,"elev",loc=location))
+  expect_null(i(x,"width",loc=location))
 })

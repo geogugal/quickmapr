@@ -7,8 +7,7 @@
 i(qmap_obj = NULL, i_idx = 1, loc = NULL)
 }
 \arguments{
-\item{qmap_obj}{a \code{qmap} object from which to identify features.
-An \code{sp} object may also be passed directly}
+\item{qmap_obj}{a \code{qmap} object from which to identify features.}
 
 \item{i_idx}{a numeric value specifying which data layer to identify or a 
 character string indicating the name of the layer. Defaults to 1.}
@@ -17,13 +16,10 @@ character string indicating the name of the layer. Defaults to 1.}
 to interactively get loc value until escaped.}
 }
 \value{
-Returns a list that contains data for the selected object (data is
-         NULL if not a Spatial DataFrame object), the \code{sp} object, and 
-         additional information for each object (e.g. area and perimeter for
-         polygons).
+Returns NULL.  Identified values are printed to the screen.
 }
 \description{
-Interactively select an \code{sp} or \code{raster} object and return the 
+Interactively select an \code{sp} or \code{raster} object and print the 
 data associated with it. \code{i()} only accepts a single input point.
 }
 \examples{

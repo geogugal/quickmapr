@@ -1,8 +1,8 @@
 Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
-Version: 0.1.2
-Date: 2016-04-05
+Version: 0.2.0
+Date: 2016-09-16
 Authors@R: person(given = "Jeffrey W.",family = "Hollister",
     role = c("aut","cre"),
     email = "hollister.jeff@epa.gov")
@@ -14,21 +14,21 @@ Description: While analyzing geospatial data, easy visualization is often
     needed that allows for quick plotting, and simple, but easy interactivity.
     Additionally, visualizing geospatial data in projected coordinates is also
     desirable. The 'quickmapr' package provides a simple method to visualize 'sp'
-    and 'raster' objects, allows for basic zooming, panning, identifying, and
-    labeling of spatial objects, and does not require that the data be in geographic
-    coordinates.
+    and 'raster' objects, allows for basic zooming, panning, identifying,
+    labeling, selecting, and measuring spatial objects.  Importantly, it does 
+    not require that the data be in geographic coordinates.
 Depends:
     R (>= 3.0.0)
 Imports:
-    rgeos,
+    raster,
     sp,
+    rgeos,
     rgdal,
+    httr,
     stats,
     grDevices,
     graphics,
-    methods,
-    httr,
-    raster
+    methods
 Suggests:
     testthat,
     knitr

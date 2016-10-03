@@ -146,7 +146,7 @@ zoom_test<-function(qmap_obj,map_extent){
 }
 
 #' sp bbox to poly
-#' @param sp
+#' @param sp an sp object
 #' @keywords internal
 bbox_to_sp <- function(sp) {
     bbox <- bbox(sp)

@@ -2,16 +2,16 @@
 % Please edit documentation in R/qmap.R
 \name{print.qmap}
 \alias{print.qmap}
-\title{Default printing of a qmap object}
+\title{Default plotting of a qmap object}
 \usage{
 \method{print}{qmap}(x, ...)
 }
 \arguments{
 \item{x}{input qmap class to print}
 
-\item{...}{options passed to summary}
+\item{...}{options passed to plot}
 }
 \description{
-Prints the summary of a qmap object
+Plots a qmap object
 }
 

@@ -1,0 +1,98 @@
+% !TeX root = RJwrapper.tex
+\title{\texttt{quickmapr}: Simplified mapping and basic interactivy for
+\texttt{sp} and \texttt{raster} objects.}
+\author{by Jeffrey W. Hollister}
+
+\maketitle
+
+\abstract{%
+There are many packages that already exist or are in active development
+that support the visualization of spatial data in R. However, there
+seems to be a gap for those that need to quickly view, compare, and
+interactively explore the results of a given spatial analysis without
+first having to convert a different coordinate reference system.
+Functionality for the current release (v0.2.0) is for easy mapping of
+multiple layers, simple zooming, panning, labelling, and identifying.
+These tools are intended for use within an active spatial analysis
+workflow and not for production quality maps. Additionally,
+\texttt{quickmapr} does not make any assumptions about coordinate
+reference systems and leaves managing of projections to the analyst.
+This paper introduces the package and shows examples of its typical use.
+}
+
+\subsection{Introduction}\label{introduction}
+
+Great sptatial data stuff in R
+
+Visualization tools too, but no easy way to interact with the mapped
+data.
+
+Recently, lots of effort of on spatial data viz (e.g.~ggmaps, leaflet,
+cartographer etc.) that rely on javascript libraries or other web APIs.
+These provide a modern interface, with a rich set of basemaps, but all
+assume and unprojected or Web Mercator coordinate reference system. In
+the case of typical spatial data analysis workflow it is often desirable
+to quickly map the resultant spatial datasets in the projection chosen
+for the analysis. Currently, this is not possible with the most used
+javascript libraires. I developed \texttt{quickmapr} to fill this gap
+and provide spatial data analysts with a tool to quickly map multiple
+layers and interact with the resultant map without having to utilize
+various APIs or external libraries and without having to re-project
+data.
+
+This paper describes the basic usage of \texttt{quickmapr} and shows
+examples\ldots{}
+
+\subsection{\texorpdfstring{Basic usage of
+\texttt{quickamapr}.}{Basic usage of quickamapr.}}\label{basic-usage-of-quickamapr.}
+
+This section may contain a figure such as Figure \ref{figure:rlogo}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{Rlogo}
+  \caption{The logo of R.}
+  \label{figure:rlogo}
+\end{figure}
+
+\subsection{\texorpdfstring{The \texttt{qmap} function and
+object}{The qmap function and object}}\label{the-qmap-function-and-object}
+
+There will likely be several sections, perhaps including code snippets,
+such as:
+
+\begin{Schunk}
+\begin{Sinput}
+x <- 1:10
+x
+\end{Sinput}
+\begin{Soutput}
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+\end{Soutput}
+\end{Schunk}
+
+\subsection{Zooming and panning}\label{zooming-and-panning}
+
+\subsection{Identification and
+selection}\label{identification-and-selection}
+
+\subsection{Basemaps from the USGS National
+Map}\label{basemaps-from-the-usgs-national-map}
+
+\subsection{Summary}\label{summary}
+
+This file is only a basic article template. For full details of
+\emph{The R Journal} style and information on how to prepare your
+article for submission, see the
+\href{https://journal.r-project.org/share/author-guide.pdf}{Instructions
+for Authors}.
+
+\bibliography{RJreferences}
+
+\address{%
+Jeffrey W. Hollister\\
+U.S. Environmental Protection Agency\\
+Office of Research and Development\\ National Health and Environmental Effects Research Laboratory\\ Atlantic Ecology Division\\ 27 Tarzwell Drive\\ Narragansett, RI 02882\\
+}
+\href{mailto:hollister.jeff@epa.gov}{\nolinkurl{hollister.jeff@epa.gov}}
+

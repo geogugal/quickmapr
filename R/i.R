@@ -1,18 +1,14 @@
 #' Identify
 #' 
-#' Interactively select an \code{sp} or \code{raster} object and return the 
+#' Interactively select an \code{sp} or \code{raster} object and print the 
 #' data associated with it. \code{i()} only accepts a single input point.
 #' 
 #' @param qmap_obj a \code{qmap} object from which to identify features.
-#'        An \code{sp} object may also be passed directly
 #' @param i_idx a numeric value specifying which data layer to identify or a 
 #'        character string indicating the name of the layer. Defaults to 1.
 #' @param loc A list with an x and y numeric indicating a location.  Default is 
 #'            to interactively get loc value until escaped.  
-#' @return  Returns a list that contains data for the selected object (data is
-#'          NULL if not a Spatial DataFrame object), the \code{sp} object, and 
-#'          additional information for each object (e.g. area and perimeter for
-#'          polygons).  
+#' @return  Returns NULL.  Identified values are printed to the screen.
 #' 
 #' @export
 #' @import sp rgeos
@@ -30,11 +26,18 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
     } else {
         spdata <- qmap_obj$map_data[[i_idx]]
     }
-    switch(EXPR = get_sp_type(spdata), 
-           polygon = i_poly(spdata, loc), 
-           grid = i_grid(spdata, loc), 
-           line = i_line(spdata, loc), 
-           point = i_point(spdata, loc))
+    if (is.null(loc)) {
+    message("Click on plot to identify. Press 'Esc' to exit.")
+    loc <- locator(1)
+    while (!is.null(loc)) {
+      switch(EXPR = get_sp_type(spdata), 
+             polygon = i_poly(spdata, loc), 
+             grid = i_grid(spdata, loc), 
+             line = i_line(spdata, loc), 
+             point = i_point(spdata, loc))
+      loc <- locator(1)
+    }
+  }
 }
 
 #' Identify Polys
@@ -59,10 +62,10 @@ i_poly <- function(spdata, loc) {
     } else {
         data <- NULL
     }
-    idata <- list(data = data, spobj = spdata[idx, ], 
+    idata <- list(data = data, #spobj = spdata[idx, ], 
                   area = gArea(spdata[idx, ]), perim = gLength(spdata[idx, ]))
     
-    return(idata)
+    print(idata)
 }
 
 #' Identify Lines
@@ -78,17 +81,18 @@ i_line <- function(spdata, loc) {
     }
     idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     if (sum(idx) == 0) {
-        message("No line features at that location.")
-        return(NULL)
+      message("No line features at that location.")
+      return(NULL)
     }
     if (regexpr("DataFrame", class(spdata)) > 0) {
         data <- spdata@data[idx, ]
     } else {
         data <- NULL
     }
-    idata <- list(data = data, spobj = spdata[which(idx), ], length = gLength(spdata[which(idx), 
+    idata <- list(data = data, #spobj = spdata[which(idx), ], 
+                  length = gLength(spdata[which(idx), 
         ]))
-    return(idata)
+    print(idata)
 }
 
 #' Identify Points
@@ -113,8 +117,9 @@ i_point <- function(spdata, loc) {
     } else {
         data <- NULL
     }
-    idata <- list(data = data, spobj = spdata[which(idx), ])
-    return(idata)
+    idata <- list(data = data, #spobj = spdata[which(idx), ])
+                  location = sp::coordinates(loc_pt))
+    print(idata)
 }
 
 #' Identify Rasters
@@ -126,9 +131,13 @@ i_point <- function(spdata, loc) {
 i_grid <- function(spdata, loc) {
     spdata2 <- as(spdata, "SpatialGridDataFrame")
     if (is.null(loc)){
-      data <- over(SpatialPoints(locator(1), CRS(proj4string(spdata2))), spdata2)
+      loc_pt <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+      data <- over(SpatialPoints(loc_pt, CRS(proj4string(spdata2))), spdata2)
     } else {
+      loc_pt <- SpatialPoints(loc, CRS(proj4string(spdata)))
       data <- over(SpatialPoints(loc, CRS(proj4string(spdata2))), spdata2)
     }
-    return(data)
+    idata <- list(data = data, #spobj = spdata[which(idx), ])
+                  location = sp::coordinates(loc_pt))
+    print(idata)
 } 

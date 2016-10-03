@@ -5,13 +5,13 @@ quickmapr
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.33135.svg)](http://dx.doi.org/10.5281/zenodo.33135)
 
-[![RStudio_CRAN_Downloads](http://cranlogs.r-pkg.org/badges/grand-total/quickmapr)](http://cranlogs.r-pkg.org/badges/grand-total/quickmapr)
+[![RStudio_CRAN_Downloads](http://cranlogs.r-pkg.org/badges/quickmapr)](http://cranlogs.r-pkg.org/badges/quickmapr)
 
 There are many packages that already exist or are in active development that support the visualization of spatial data in R.  However, there seems to be a gap for those that need to quickly view, compare, and explore the results of a given spatial analysis. The current thinking behind `quickmapr` is to allow for quick visualization of `sp` and `raster` objects. 
 
 Functionality for the current release is for easy mapping of multiple layers, simple zooming, panning, labelling, and identifying.  These tools are intended for use within an active spatial analysis workflow and not for production quality maps.
 
-`quickmapr` is built as a series of wrapper functions for the default `sp` and 'raster' plotting functions. Currently there are 8 commands planned.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
+`quickmapr` is built as a series of wrapper functions for the default `sp` and `raster` plotting functions. Currently there are 10 commands.  As the idea behind this is to quickly map data, an emphasis was given to brevity of function names.  The commands are:
 
 - `qmap()`: creates the map and controls options
 - `zi()`: zooms in
@@ -21,6 +21,8 @@ Functionality for the current release is for easy mapping of multiple layers, si
 - `l()`: adds labels
 - `i()`: identify features
 - `f()`: returns to extent of originally created map
+- `s()`: selects and returns spatial objects
+- `m()`: measures distances on plot
 
 A function for pulling in basemaps (aerials or topo-quads) from the USGS National Map is included but should be considered experimental.
 
@@ -39,7 +41,7 @@ install_github("jhollist/quickmapr")
 library("quickmapr")
 ```
 
-To install from CRAN:
+To install from CRAN (curretnly version 0.1.1):
 
 
 ```r
@@ -61,7 +63,7 @@ data(lake)
 qm <- qmap(elev,samples,buffer,width)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
 
 There are some other options on `qmap` that let you change the draw order, coloring of vectors, extent of the map, and whether or not to preform a basic projection check (data are assumed to be in the same coordinate reference system).
 
@@ -73,7 +75,7 @@ So for instance, if you want to zoom in to the extent of one of your layers you 
 qm<-qmap(elev,samples,buffer,extent=width)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
 Currently this is only working with object in memory and not pulling from the `qmap` object.  
 
@@ -85,7 +87,7 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png) 
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
 
 Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
 and United States Specific)
@@ -96,14 +98,14 @@ and United States Specific)
 qm <- qmap(qm,basemap = "topo", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)
 
 ```r
 #Get an Aerial Basemap
 qm <- qmap(qm, basemap = "1m_aerial", resolution = 1000)
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-2.png) 
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-2.png)
 
 Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
 

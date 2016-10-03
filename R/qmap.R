@@ -47,7 +47,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     
     basemap <- match.arg(basemap)
     if(basemap == "none") {basemap <- NULL}
-    
     mapdata <- build_map_data(...)
     # Test Projections
     if (prj) {
@@ -88,7 +87,11 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     
     
     # match colors to length of mapdata
-    colors <- rep(colors, length(mapdata))[1:length(mapdata)]
+    
+    if(length(colors) != length(mapdata)){
+      message("number of specified colors does not match number of data layers and some colors are repeated.")
+      colors <- rep(colors, length(mapdata))[1:length(mapdata)]
+    }
     
     qmap_obj <- list(map_data = mapdata, map_extent = bbx, orig_extent = bbx, 
                      draw_order = order, 
@@ -181,19 +184,16 @@ plot.qmap <- function(x, ...) {
     
 }
 
-#' Default printing of a qmap object
+#' Default plotting of a qmap object 
 #' 
-#' Prints the summary of a qmap object
+#' Plots a qmap object
 #' 
 #' @param x input qmap class to print
-#' @param ... options passed to summary
+#' @param ... options passed to plot
 #' @method print qmap
 #' @export
 print.qmap <- function(x, ...) {
-    print_it <- list(map_data = names(x$map_data), map_extent = x$map_extent, 
-                     draw_order = x$draw_order, colors = x$colors,
-                     fill = x$fill, label = x$label)
-    return(print_it)
+    plot.qmap(x, ...)
 }
 
 #' Get a basemap from USGS National Map

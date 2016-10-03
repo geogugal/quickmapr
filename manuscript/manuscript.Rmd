@@ -1,0 +1,61 @@
+---
+title: "`quickmapr`: Simplified mapping and basic interactivy for `sp` and `raster` objects." 
+author:
+  - name: Jeffrey W. Hollister
+    affiliation: U.S. Environmental Protection Agency
+    address:
+    - Office of Research and Development
+    - National Health and Environmental Effects Research Laboratory
+    - Atlantic Ecology Division
+    - 27 Tarzwell Drive
+    - Narragansett, RI 02882
+    email:  hollister.jeff@epa.gov
+abstract: >
+  There are many packages that already exist or are in active development that support the visualization of spatial data in R. However, there seems to be a gap for those that need to quickly view, compare, and interactively explore the results of a given spatial analysis without first having to convert a different coordinate reference system.  Functionality for the current release (v0.2.0) is for easy mapping of multiple layers, simple zooming, panning, labelling, and identifying. These tools are intended for use within an active spatial analysis workflow and not for production quality maps.  Additionally, `quickmapr` does not make any assumptions about coordinate reference systems and leaves managing of projections to the analyst.  This paper introduces the package and shows examples of its typical use.
+preamble: >
+  % Any extra latex you need in the preamble, \citep{R}, \citet{R}
+output: rticles::rjournal_article
+---
+
+## Introduction
+
+Great sptatial data stuff in R
+
+Visualization tools too, but no easy way to interact with the mapped data.
+
+Recently, lots of effort of on spatial data viz (e.g. ggmaps, leaflet, cartographer etc.) that rely on javascript libraries or other web APIs.  These provide a modern interface, with a rich set of basemaps, but all assume and unprojected or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraires.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
+
+This paper describes the basic usage of `quickmapr` and shows examples...
+
+## Basic usage of `quickamapr`.
+
+This section may contain a figure such as Figure \ref{figure:rlogo}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics{Rlogo}
+  \caption{The logo of R.}
+  \label{figure:rlogo}
+\end{figure}
+
+## The `qmap` function and object
+
+There will likely be several sections, perhaps including code snippets, such as:
+
+```{r}
+x <- 1:10
+x
+```
+
+## Zooming and panning
+
+## Identification and selection
+
+## Basemaps from the USGS National Map
+
+## Summary
+
+This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).
+
+
+\bibliography{RJreferences}
