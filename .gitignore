@@ -3,3 +3,4 @@
 .RData
 inst/doc
 README.pdf
+log_check.R
