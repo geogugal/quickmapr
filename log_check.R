@@ -9,4 +9,4 @@ qm_monthly <- qm_downld %>%
   group_by(year,month) %>%
   summarize(monthly_download = sum(count))
 ggplot(qm_downld,aes(x=date,y=count))+
-  geom_line()+geom_smooth()
+  geom_line()+geom_smooth()  
