@@ -10,6 +10,7 @@ r:
 r_binary_packages:
   - rgdal
   - sp
+  - rgeos
 
 notifications:
   email:
