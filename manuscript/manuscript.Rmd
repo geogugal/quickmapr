@@ -19,33 +19,16 @@ output: rticles::rjournal_article
 
 ## Introduction
 
-Great sptatial data stuff in R
+Spatial data analysis capabilities in R have been steadily growing over the last several years.  We are now to the point where nearly all Geographic Information Systems (GIS) functionality can be accomplished without leaving R.  The one area that had lagged behind was spatial data visualization and interactivity.  This too is changing rapidly.  Initially, spatial data visualization had been handled via base plotting methods (e.g from `sp` or `raster`) or via additional plotting packages such as `ggplot2`.  While these methods provide the ability to make high quality maps, they do not provide interactivity, a hallmark of GIS.
 
-Visualization tools too, but no easy way to interact with the mapped data.
-
-Recently, lots of effort of on spatial data viz (e.g. ggmaps, leaflet, cartographer etc.) that rely on javascript libraries or other web APIs.  These provide a modern interface, with a rich set of basemaps, but all assume and unprojected or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraires.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
+To address this, most solutions (e.g. `ggmap`, `leaflet`, etc.) have relied on javascript libraries or other web APIs.  These provide a modern interface, with a rich set of basemaps, but all assume and unprojected or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraires.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
 
 This paper describes the basic usage of `quickmapr` and shows examples...
 
 ## Basic usage of `quickamapr`.
 
-This section may contain a figure such as Figure \ref{figure:rlogo}.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{Rlogo}
-  \caption{The logo of R.}
-  \label{figure:rlogo}
-\end{figure}
 
 ## The `qmap` function and object
-
-There will likely be several sections, perhaps including code snippets, such as:
-
-```{r}
-x <- 1:10
-x
-```
 
 ## Zooming and panning
 
