@@ -1,6 +1,5 @@
 % !TeX root = RJwrapper.tex
-\title{\texttt{quickmapr}: Simplified mapping and basic interactivy for
-\texttt{sp} and \texttt{raster} objects.}
+\title{\texttt{quickmapr}: Simplified mapping and basic interactivity.}
 \author{by Jeffrey W. Hollister}
 
 \maketitle
@@ -10,11 +9,12 @@ There are many packages that already exist or are in active development
 that support the visualization of spatial data in R. However, there
 seems to be a gap for those that need to quickly view, compare, and
 interactively explore the results of a given spatial analysis without
-first having to convert a different coordinate reference system.
-Functionality for the current release (v0.2.0) is for easy mapping of
-multiple layers, simple zooming, panning, labelling, and identifying.
-These tools are intended for use within an active spatial analysis
-workflow and not for production quality maps. Additionally,
+first having to convert to a different coordinate reference system.
+Functionality for the current release (v0.2.0) simplifies mapping of
+multiple \texttt{sf}, \texttt{sp} or \texttt{raster} layers, and also
+provides interactive zooming, panning, labelling, selecting, and
+identifying. These tools are intended for use within an active spatial
+analysis workflow and not for production quality maps. Additionally,
 \texttt{quickmapr} does not make any assumptions about coordinate
 reference systems and leaves managing of projections to the analyst.
 This paper introduces the package and shows examples of its typical use.
@@ -29,31 +29,32 @@ without leaving R. The one area that had lagged behind was spatial data
 visualization and interactivity. This too is changing rapidly.
 Initially, spatial data visualization had been handled via base plotting
 methods (e.g from \texttt{sp} or \texttt{raster}) or via additional
-plotting packages such as \texttt{ggplot2}. While these methods provide
-the ability to make high quality maps, they do not provide
-interactivity, a hallmark of GIS.
+plotting packages such as
+\texttt{ggplot2}\citep{pebesma2005classes, bivand2013asdar, raster, ggplot2}.
+While these methods provide the ability to make high quality maps, they
+do not provide interactivity, a hallmark of GIS.
 
 To address this, most solutions (e.g. \texttt{ggmap}, \texttt{leaflet},
-etc.) have relied on javascript libraries or other web APIs. These
-provide a modern interface, with a rich set of basemaps, but all assume
-and unprojected or Web Mercator coordinate reference system. In the case
-of typical spatial data analysis workflow it is often desirable to
-quickly map the resultant spatial datasets in the projection chosen for
-the analysis. Currently, this is not possible with the most used
-javascript libraires. I developed \texttt{quickmapr} to fill this gap
-and provide spatial data analysts with a tool to quickly map multiple
-layers and interact with the resultant map without having to utilize
-various APIs or external libraries and without having to re-project
-data.
+\texttt{mapview} etc.) have relied on javascript libraries or other web
+APIs \citep{ggmap, leaflet, mapview}. These provide a modern interface,
+with a rich set of basemaps, but all assume a geographic coordinate
+system or Web Mercator coordinate reference system. In the case of
+typical spatial data analysis workflow it is often desirable to quickly
+map the resultant spatial datasets in the projection chosen for the
+analysis. Currently, this is not possible with the most used javascript
+libraries. I developed \texttt{quickmapr} to fill this gap and provide
+spatial data analysts with a tool to quickly map multiple layers and
+interact with the resultant map without having to utilize various APIs
+or external libraries and without having to re-project data.
 
 This paper describes the basic usage of \texttt{quickmapr} and shows
 examples\ldots{}
 
-\subsection{\texorpdfstring{Basic usage of
-\texttt{quickamapr}.}{Basic usage of quickamapr.}}\label{basic-usage-of-quickamapr.}
+\subsection{Basic usage of
+\texttt{quickamapr}.}\label{basic-usage-of-quickamapr.}
 
-\subsection{\texorpdfstring{The \texttt{qmap} function and
-object}{The qmap function and object}}\label{the-qmap-function-and-object}
+\subsection{The \texttt{qmap} function and
+object}\label{the-qmap-function-and-object}
 
 \subsection{Zooming and panning}\label{zooming-and-panning}
 
@@ -71,7 +72,7 @@ article for submission, see the
 \href{https://journal.r-project.org/share/author-guide.pdf}{Instructions
 for Authors}.
 
-\bibliography{RJreferences}
+\bibliography{hollister}
 
 \address{%
 Jeffrey W. Hollister\\

@@ -14,15 +14,15 @@ abstract: >
   There are many packages that already exist or are in active development that support the visualization of spatial data in R. However, there seems to be a gap for those that need to quickly view, compare, and interactively explore the results of a given spatial analysis without first having to convert to a different coordinate reference system.  Functionality for the current release (v0.2.0) simplifies mapping of multiple `sf`, `sp` or `raster` layers, and also provides interactive zooming, panning, labelling, selecting, and identifying. These tools are intended for use within an active spatial analysis workflow and not for production quality maps.  Additionally, `quickmapr` does not make any assumptions about coordinate reference systems and leaves managing of projections to the analyst.  This paper introduces the package and shows examples of its typical use.
 preamble: >
   % Any extra latex you need in the preamble, \citep{R}, \citet{R}
-bibliography: Rjreferences.bib
+bibliography: hollister.bib
 output: rticles::rjournal_article
 ---
 
 ## Introduction
 
-Spatial data analysis capabilities in R have been steadily growing over the last several years.  We are now to the point where nearly all Geographic Information Systems (GIS) functionality can be accomplished without leaving R.  The one area that had lagged behind was spatial data visualization and interactivity.  This too is changing rapidly.  Initially, spatial data visualization had been handled via base plotting methods (e.g from `sp` or `raster`) or via additional plotting packages such as `ggplot2`[@sp, @raster, @ggplot2].  While these methods provide the ability to make high quality maps, they do not provide interactivity, a hallmark of GIS.
+Spatial data analysis capabilities in R have been steadily growing over the last several years.  We are now to the point where nearly all Geographic Information Systems (GIS) functionality can be accomplished without leaving R.  The one area that had lagged behind was spatial data visualization and interactivity.  This too is changing rapidly.  Initially, spatial data visualization had been handled via base plotting methods (e.g from `sp` or `raster`) or via additional plotting packages such as `ggplot2`\citep{pebesma2005classes, bivand2013asdar, raster, ggplot2}.  While these methods provide the ability to make high quality maps, they do not provide interactivity, a hallmark of GIS.
 
-To address this, most solutions (e.g. `ggmap`, `leaflet`, `mapview` etc.) have relied on javascript libraries or other web APIs[@ggmap, @leaflet, @mapview].  These provide a modern interface, with a rich set of basemaps, but all assume and unprojected or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraires.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
+To address this, most solutions (e.g. `ggmap`, `leaflet`, `mapview` etc.) have relied on javascript libraries or other web APIs \citep{ggmap, leaflet, mapview}.  These provide a modern interface, with a rich set of basemaps, but all assume a geographic coordinate system or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraries.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
 
 This paper describes the basic usage of `quickmapr` and shows examples...
 
@@ -42,4 +42,4 @@ This paper describes the basic usage of `quickmapr` and shows examples...
 This file is only a basic article template. For full details of _The R Journal_ style and information on how to prepare your article for submission, see the [Instructions for Authors](https://journal.r-project.org/share/author-guide.pdf).
 
 
-\bibliography{RJreferences}
+\bibliography{hollister}
