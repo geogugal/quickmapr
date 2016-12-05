@@ -20,16 +20,16 @@ output: rticles::rjournal_article
 
 ## Introduction
 
-Spatial data analysis capabilities in R have been steadily growing over the last several years.  We are now to the point where nearly all Geographic Information Systems (GIS) functionality can be accomplished without leaving R.  The one area that had lagged behind was spatial data visualization and interactivity.  This too is changing rapidly.  Initially, spatial data visualization had been handled via base plotting methods (e.g from `sp` or `raster`) or via additional plotting packages such as `ggplot2`\citep{pebesma2005classes, bivand2013asdar, raster, ggplot2}.  While these methods provide the ability to make high quality maps, they do not provide interactivity, a hallmark of GIS.
+Spatial data analysis capabilities in R have been steadily growing over the last several years.  We are now to the point where nearly all Geographic Information Systems (GIS) functionality can be accomplished without leaving R.  The one area that had lagged behind was spatial data visualization and interactivity.  This too is changing rapidly.  Initially, spatial data visualization had been handled via base plotting methods (e.g from \CRANpkg{sp} or \CRANpkg{raster}) or via additional plotting packages such as \CRANpkg{ggplot2}\citep{pebesma2005classes, bivand2013asdar, raster, ggplot2}.  While these methods provide the ability to make high quality maps, they do not provide interactivity, a hallmark of GIS.
 
-To address this, most solutions (e.g. `ggmap`, `leaflet`, `mapview` etc.) have relied on javascript libraries or other web APIs \citep{ggmap, leaflet, mapview}.  These provide a modern interface, with a rich set of basemaps, but all assume a geographic coordinate system or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraries.  I developed `quickmapr` to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
+To address this, most solutions (e.g. \CRANpkg{ggmap}, \CRANpkg{leaflet}, \CRANpkg{mapview} etc.) have relied on javascript libraries or other web APIs \citep{ggmap, leaflet, mapview}.  These provide a modern interface, with a rich set of basemaps, but all assume a geographic coordinate system or Web Mercator coordinate reference system.  In the case of typical spatial data analysis workflow it is often desirable to quickly map the resultant spatial datasets in the projection chosen for the analysis.  Currently, this is not possible with the most used javascript libraries.  I developed \CRANpkg{quickmapr} to fill this gap and provide spatial data analysts with a tool to quickly map multiple layers and interact with the resultant map without having to utilize various APIs or external libraries and without having to re-project data.
 
-This paper describes the basic usage of `quickmapr` and shows examples...
+The goals of this paper are to describe the basic usage of \pkg{quickmapr}, show several examples of its use, and outline changes expected in future versions. We also briefly discuss the contribtuion that \pkg{quickmapr} makes to the existing suite of spatial data visualization tools in R. 
 
-## Basic usage of `quickamapr`.
+## Basic usage
 
 
-## The `qmap` function and object
+## The \code{qmap} function and object
 
 ## Zooming and panning
 
