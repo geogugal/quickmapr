@@ -32,12 +32,15 @@ The basic workflow for using \pkg{quickmapr} is as follows:
 
 1. Use the \code{qmap()} function to create a \code{qmap} object.  This object holds the data  and pertinent information about the current visualization environment (e.g. symbology, zoom/pan extent, etc.).  This first step is acheived with:
 
-```{r workflow}
+
+```r
 library(quickmapr)
 data(lake)
 
 qm <- qmap(elev,lake,samples,buffer)
 ```
+
+![plot of chunk workflow](figure/workflow-1.png)
 
 2. With a \code{qmap} object created you may interact with the map using the various \pkg{quickmapr} functions. 
 
