@@ -1,3 +1,8 @@
+# quickmapr v 0.2.1 (2016-12-09)
+
+## Minor Changes
+- several legacy objects were included in the `qmap` object.  I have removed `map`, `col_tbl`, and `values`.
+
 # quickmapr v0.2.0 (2016-09-16)
 
 ## API changes
