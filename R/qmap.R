@@ -81,11 +81,6 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     }
     bbx <- data.frame(bbx)
     
-    values <- NULL
-    col_tbl <- NULL
-    
-    
-    
     # match colors to length of mapdata
     
     if(length(colors) != length(mapdata)){
@@ -95,11 +90,9 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     
     qmap_obj <- list(map_data = mapdata, map_extent = bbx, orig_extent = bbx, 
                      draw_order = order, 
-                     colors = colors, fill = fill, map = NULL, 
-                     basemap = basemap, col_tbl = col_tbl, values = values,
-                     resolution = resolution)
+                     colors = colors, fill = fill, 
+                     basemap = basemap, resolution = resolution)
     class(qmap_obj) <- "qmap"
-    #qmap_obj$map = plot.qmap(qmap_obj)
     plot.qmap(qmap_obj)
     return(qmap_obj)
 }
@@ -125,8 +118,6 @@ plot.qmap <- function(x, ...) {
     colors <- x$colors
     bbx <- x$map_extent
     basemap <- x$basemap
-    col_tbl <- x$col_tbl
-    values <- x$values
     resolution <- x$resolution
     
     # Creates the plot
