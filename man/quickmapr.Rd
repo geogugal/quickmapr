@@ -10,4 +10,3 @@ includes panning, zooming, identifying, and labelling.  The goal of
 \code{\link{quickmapr}} is to make working with spatial data easy and quick,
 it is not intended to provide publication quality maps.
 }
-

@@ -13,4 +13,3 @@ for each lake are from the first version of the
 Dataset}.
 }
 \keyword{datasets}
-

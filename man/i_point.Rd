@@ -10,4 +10,3 @@ i_point(spdata, loc)
 Identify Points
 }
 \keyword{internal}
-

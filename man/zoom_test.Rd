@@ -10,4 +10,3 @@ zoom_test(qmap_obj, map_extent)
 Test range of zoom
 }
 \keyword{internal}
-

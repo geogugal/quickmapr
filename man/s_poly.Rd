@@ -10,4 +10,3 @@ s_poly(spdata, loc)
 select Polys
 }
 \keyword{internal}
-

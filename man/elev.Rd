@@ -10,4 +10,3 @@ This example data is a RasterLayer of the National
 Elevation Dataset for a buffer of Lake Sunapee.
 }
 \keyword{datasets}
-

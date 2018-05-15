@@ -10,4 +10,3 @@ s_point(spdata, loc)
 select Points
 }
 \keyword{internal}
-

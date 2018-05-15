@@ -16,4 +16,3 @@ list of spatial objects with names
 builds a map_data from many input types
 }
 \keyword{internal}
-

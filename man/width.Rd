@@ -11,4 +11,3 @@ Maximum lake width is defined as the longest line perpendciular to the
 maximum lake length.
 }
 \keyword{datasets}
-

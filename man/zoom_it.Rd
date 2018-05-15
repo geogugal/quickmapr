@@ -10,4 +10,3 @@ zoom_it(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE)
 Zoom it
 }
 \keyword{internal}
-

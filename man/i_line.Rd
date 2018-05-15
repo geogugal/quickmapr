@@ -10,4 +10,3 @@ i_line(spdata, loc)
 Identify Lines
 }
 \keyword{internal}
-

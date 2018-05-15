@@ -34,4 +34,3 @@ x<-qmap(x_base)
 
 }
 \keyword{internal}
-

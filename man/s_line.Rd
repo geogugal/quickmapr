@@ -10,4 +10,3 @@ s_line(spdata, loc)
 select Lines
 }
 \keyword{internal}
-

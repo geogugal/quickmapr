@@ -16,4 +16,3 @@ numeric vector indicating the size of the x and y extent
 Gets the x and y diff of a qmap_obj
 }
 \keyword{internal}
-

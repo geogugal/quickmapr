@@ -54,4 +54,3 @@ qmap(qm,order=c(2,3,5))
 qm<-qmap(qm,basemap="1m_aerial", resolution = 800)
 }
 }
-

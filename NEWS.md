@@ -1,4 +1,8 @@
-# quickmapr v 0.2.1 (2016-12-09)
+# quickmapr v 0.3.0 (2018-05-15)
+
+## Major Changes
+- `sf` objects now supported.  Coerces to `Spatial`
+- Non-matching projections now throw a warning instead of an error.
 
 ## Minor Changes
 - several legacy objects were included in the `qmap` object.  I have removed `map`, `col_tbl`, and `values`.

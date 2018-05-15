@@ -10,4 +10,3 @@ i_grid(spdata, loc)
 Identify Rasters
 }
 \keyword{internal}
-
