@@ -55,6 +55,7 @@ get_colors <- function(...) {
 #' @importFrom raster unstack
 #' @keywords internal
 build_map_data <- function(...) {
+  
    
     mapdata <- list(...)
 
