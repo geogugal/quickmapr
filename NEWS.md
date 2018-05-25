@@ -1,11 +1,17 @@
 # quickmapr v 0.3.0 (2018-05-15)
 
+## CRAN Issues
+- Using github hosted images in README now instead non-existing (on CRAN) local images.
+
 ## Major Changes
 - `sf` objects now supported.  Coerces to `Spatial`
 - Non-matching projections now throw a warning instead of an error.
 
 ## Minor Changes
 - several legacy objects were included in the `qmap` object.  I have removed `map`, `col_tbl`, and `values`.
+- names on map_data were too agressively cleaned and caused problems when passing anything more complex than a simple object name.  Fixed.
+- Aerials from the `basemap` option no longer supported by the National Map.  First step is a warning and returning a topo.  Will be deprecated in future releases.
+
 
 # quickmapr v0.2.0 (2016-09-16)
 

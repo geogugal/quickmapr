@@ -54,8 +54,8 @@ test_that("l() works",{
 })
 
 test_that("projection checks work",{
-  expect_error(qmap(samp_diff_proj,lake), "Projections do not match. Use prj=FALSE to override projection check.\n\n This is not recommended. Re-project to common projection instead.")
-  expect_error(qmap(lake_no_proj),"No projection info.  Use prj=FALSE to override projection check.")
+  expect_warning(qmap(samp_diff_proj,lake), "Projections do not exactly match.\n\nDouble check you projuection and re-project to common projection instead.")
+  expect_warning(qmap(lake_no_proj),"No projection info.  Use prj=FALSE to override projection check.")
 })
 
 test_that("map_extent is assigned correctly with single input",{

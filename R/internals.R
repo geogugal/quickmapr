@@ -87,16 +87,6 @@ build_map_data <- function(...) {
     name <- name[!name %in% "list"]
     names(mapdata) <- name
     mapdata <- unlist(mapdata)
-    name <- names(mapdata)
-    name <- gsub("^list\\(.*\\)\\.", "", name)
-    name <- gsub("\\)[0-9]$", "", name)
-    name <- gsub("\\)$", "", name)
-    name <- gsub("^list\\(", "", name)
-    name <- unlist(strsplit(name, ","))
-    name <- unlist(strsplit(name, "="))
-    name <- gsub(" ", "", name)
-    name <- unique(name)
-    names(mapdata) <- name
     return(mapdata)
 }
 

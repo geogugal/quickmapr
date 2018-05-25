@@ -52,7 +52,7 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     if (prj) {
         prjs <- lapply(mapdata, sp::proj4string)
         if (length(unique(prjs)) > 1) {
-            warning("Projections do not exactly match. Use prj=FALSE to override projection check.\n\n This is not recommended. Re-project to common projection instead.", 
+            warning("Projections do not exactly match.\n\nDouble check you projuection and re-project to common projection instead.", 
                 call. = FALSE)
         } else if (any(is.na(prjs))) {
             warning("No projection info.  Use prj=FALSE to override projection check.", 
@@ -223,7 +223,8 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
         p4s <- proj4string(qmap_obj$map_data[[1]])
     }
     if (base == "1m_aerial") {
-        server_url <- "http://raster.nationalmap.gov/arcgis/rest/services/Orthoimagery/USGS_EROS_Ortho_NAIP/ImageServer/exportImage?"
+        warning("The service this basemap was served from has been sunset and the aerials are no longer supported.  A topo is returned instead.")
+        server_url <- "http://services.arcgisonline.com/arcgis/rest/services/USA_Topo_Maps/MapServer/export?"
     } else if (base == "topo") {
         server_url <- "http://services.arcgisonline.com/arcgis/rest/services/USA_Topo_Maps/MapServer/export?"
     }

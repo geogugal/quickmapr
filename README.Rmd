@@ -1,3 +1,15 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, cache=FALSE, echo=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "man/figures/",
+               fig.width = 3, fig.height = 3, dpi = 72)
+
+```
+
 quickmapr
 =========
 
@@ -86,9 +98,6 @@ and United States Specific)
 ```{r}
 #Get a Topo Basemap
 qm <- qmap(qm,basemap = "topo", resolution = 1000)
-
-#Get an Aerial Basemap
-qm <- qmap(qm, basemap = "1m_aerial", resolution = 1000)
 ```
 
 Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
