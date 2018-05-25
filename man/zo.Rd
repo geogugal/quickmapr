@@ -28,4 +28,3 @@ qm<-qmap(list(lake,buffer,elev))
 zo(qm)
 }
 }
-

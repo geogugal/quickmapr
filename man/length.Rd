@@ -9,4 +9,3 @@
 This example data is a line dataset representing the maximum lake length.
 }
 \keyword{datasets}
-

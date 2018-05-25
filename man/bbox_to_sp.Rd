@@ -13,4 +13,3 @@ bbox_to_sp(sp)
 sp bbox to poly
 }
 \keyword{internal}
-

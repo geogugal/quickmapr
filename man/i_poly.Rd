@@ -10,4 +10,3 @@ i_poly(spdata, loc)
 Identify Polys
 }
 \keyword{internal}
-

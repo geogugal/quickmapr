@@ -13,4 +13,3 @@ m(qmap_obj = NULL)
 Allows interactive selection of points and returns length of selecte line in
 units of the current \code{qmap} object.
 }
-

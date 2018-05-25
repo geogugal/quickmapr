@@ -15,4 +15,3 @@
 Plots the qmap class and uses the order, colors, extent, and fill option 
 from \code{qmap}.
 }
-

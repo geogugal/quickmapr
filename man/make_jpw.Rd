@@ -17,4 +17,3 @@ make_jpw(file, bbx, width)
 make jpeg world file
 }
 \keyword{internal}
-

@@ -29,4 +29,3 @@ x<-qmap(list(lake,buffer,elev))
 zi(x)
 }
 }
-

@@ -58,6 +58,13 @@ build_map_data <- function(...) {
   
    
     mapdata <- list(...)
+   
+    # Conver sf to sp
+    sf_idx <- which(unlist(lapply(mapdata, 
+                                  function(x) inherits(x, c("sf", "sfc")))))
+    for(i in sf_idx){
+      mapdata[[i]] <- sf::as_Spatial(mapdata[[i]])
+    }
 
     # Deal with qmaps
     qmap_idx <- na.omit(match(lapply(mapdata, class), "qmap"))[1]
@@ -177,3 +184,4 @@ make_jpw <- function(file, bbx, width) {
     writeLines(as.character(upper_left_y), con)
     close(con)
 } 
+

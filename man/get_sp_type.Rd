@@ -16,4 +16,3 @@ character vector indicating point, line, polygon, or grid
 Pull out essential info on sp class
 }
 \keyword{internal}
-

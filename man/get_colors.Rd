@@ -16,4 +16,3 @@ vector of colors
 gets color from input qmap
 }
 \keyword{internal}
-
