@@ -10,7 +10,7 @@ quickmapr
 
 [![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) [![Coverage Status](https://coveralls.io/repos/jhollist/quickmapr/badge.svg?branch=master&service=github)](https://coveralls.io/github/jhollist/quickmapr?branch=master) 
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.33135.svg)](http://dx.doi.org/10.5281/zenodo.33135)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.33135.svg)](https://doi.org/10.5281/zenodo.33135)
 
 [![RStudio_CRAN_Downloads](http://cranlogs.r-pkg.org/badges/quickmapr)](http://cranlogs.r-pkg.org/badges/quickmapr)
 
