@@ -1,7 +1,7 @@
 # quickmapr v 0.3.0 (2018-05-15)
 
 ## CRAN Issues
-- Using github hosted images in README now instead non-existing (on CRAN) local images.
+- Moved images in README to man/figures
 
 ## Major Changes
 - `sf` objects now supported.  Coerces to `Spatial`

@@ -5,9 +5,10 @@ editor_options:
 ---
 ```{r setup, cache=FALSE, echo=FALSE}
 library(knitr)
+knit_hooks$set(optipng = hook_optipng, pngquant = hook_pngquant)
 opts_chunk$set(fig.path = "man/figures/",
-               fig.width = 3, fig.height = 3, dpi = 72)
-
+               fig.width = 6, fig.height = 6, dpi = 72,
+               fig.retina = 1, optipng = '-o7', pngquant = '--speed=1')
 ```
 
 quickmapr
@@ -95,7 +96,7 @@ qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), f
 Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
 and United States Specific)
 
-```{r}
+```{r, eval= TRUE}
 #Get a Topo Basemap
 qm <- qmap(qm,basemap = "topo", resolution = 1000)
 ```
