@@ -1,21 +1,23 @@
 language: r
-warnings_are_errors: true
-sudo: true
+sudo: required
+dist: trusty
+cache:
+  - packages
+  - ccache
+latex: false
 
+addons:
+  apt:
+    sources:
+      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
+    packages:
+      - libproj-dev
+      - libgeos-dev
+      - libgdal-dev
+      - libudunits2-dev
 r:
-  - oldrel
   - release
   - devel
-
-r_binary_packages:
-  - rgdal
-  - sp
-  - rgeos
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
 
 r_github_packages:
   - jimhester/covr
