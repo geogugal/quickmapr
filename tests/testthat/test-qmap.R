@@ -63,6 +63,12 @@ test_that("map_extent is assigned correctly with single input",{
   expect_is(qmap(lake,extent = samples)$map_extent,"data.frame")
 })
 
+# loc arg not currently working
+i_loc_poly <- list(x = 1804201, y = 630302.2)
+i_loc_line <- list(x = 1803746, y = 629495.9)
+i_loc_pt <- list(x = 1804096, y = 631634.4)
+i_loc_raster <- list(x = 1802098, y = 630442.4)
+
 test_that("i() works", {
   expect_error(i(),"Requires a valid qmap_obj.")
   expect_null(i(x,"lake",loc=location))

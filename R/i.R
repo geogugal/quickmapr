@@ -37,6 +37,12 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
              point = i_point(spdata, loc))
       loc <- locator(1)
     }
+    } else {
+      switch(EXPR = get_sp_type(spdata), 
+             polygon = i_poly(spdata, loc), 
+             grid = i_grid(spdata, loc), 
+             line = i_line(spdata, loc), 
+             point = i_point(spdata, loc))
   }
 }
 
