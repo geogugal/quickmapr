@@ -71,8 +71,8 @@ i_loc_raster <- list(x = 1802098, y = 630442.4)
 
 test_that("i() works", {
   expect_error(i(),"Requires a valid qmap_obj.")
-  expect_null(i(x,"lake",loc=location))
-  expect_null(i(x,"samples",loc=location))
-  expect_null(i(x,"elev",loc=location))
-  expect_null(i(x,"width",loc=location))
+  expect_is(i(x,"lake",loc=i_loc_poly), "list")
+  expect_is(i(x,"samples",loc=i_loc_pt), "list")
+  expect_is(i(x,"elev",loc=i_loc_raster), "list")
+  expect_is(i(x,"width",loc=i_loc_line), "list")
 })
