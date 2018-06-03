@@ -12,6 +12,8 @@
 - names on map_data were too agressively cleaned and caused problems when passing anything more complex than a simple object name.  Fixed.
 - Aerials from the `basemap` option no longer supported by the National Map.  First step is a warning and returning a topo.  Will be deprecated in future releases.
 
+## Tests
+- added initial tests including for i(), m(), and s()
 
 # quickmapr v0.2.0 (2016-09-16)
 
