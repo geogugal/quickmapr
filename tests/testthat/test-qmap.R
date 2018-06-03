@@ -39,6 +39,7 @@ test_that("interactivity works", {
 })
 
 
+
 test_that("f() returns qmap", {
   expect_is(f(x),"qmap")
 })
@@ -75,4 +76,12 @@ test_that("i() works", {
   expect_is(i(x,"samples",loc=i_loc_pt), "list")
   expect_is(i(x,"elev",loc=i_loc_raster), "list")
   expect_is(i(x,"width",loc=i_loc_line), "list")
+})
+
+test_that("m() works",{
+  expect_error(m(), "Requires a valid qmap_obj.")
+})
+
+test_that("s() works",{
+  expect_error(s(), "Requires a valid qmap_obj.")
 })
