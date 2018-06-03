@@ -1,12 +1,11 @@
 ## Comments
-This new version adds new functionality and cleans up several small issues
+This version addresses images in README issue noted in May 16 email from Kurt Hornik
 
 ## Test Environments
-- Ubuntu 12.04, travis-ci, R 3.2.5 (2016-04-14)
-- Ubuntu 12.04, travis-ci, R 3.3.1 (2016-06-21)
-- Ubuntu 12.04, travis-ci, R Under development (unstable) (2016-09-16 r71271)
-- Windows Server 2012 R2 x64, Appveyor, 3.3.1 Patched (2016-09-14 r71253)
-- Linus Mint 18, local, R 3.3.1 (2016-09-02)
+- Ubuntu 16.04.04, local, R 3.4.4 
+- Ubuntu 14.04.5, travis, R 3.5.0
+- Ubuntu 14.04.5, travis, R Under development (unstable) (2018-06-02 r74838)
+- Windows Server 2012 R2 x64 (build 9600), Appveyor, R version 3.5.0 Patched (2018-06-01 r74838)
 
 ## R CMD check results
 - No ERRORS or WARNINGS
