@@ -220,7 +220,7 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
         stop("Requires a valid qmap_obj.")
     } else {
         bbx <- qmap_obj$map_extent
-        p4s <- proj4string(qmap_obj$map_data[[1]])
+        wkt <- sf:st_crs(qmap_obj$map_data[[1]])$wkt
     }
     if (base == "1m_aerial") {
         warning("The service this basemap was served from has been sunset and the aerials are no longer supported.  A topo is returned instead.")
@@ -240,8 +240,8 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
     format_url <- "&format=jpg"
     pixel_url <- "&pixelType=U8&noDataInterpretation=esriNoDataMatchAny&interpolation=+RSP_BilinearInterpolation"
     file_url <- "&f=image"
-    bbx_sr_url <- paste("&bboxSR={'wkt':'", rgdal::showWKT(p4s), "'}", sep = "")
-    image_sr_url <- paste("&imageSR={'wkt':'", rgdal::showWKT(p4s), "'}", 
+    bbx_sr_url <- paste("&bboxSR={'wkt':'", wkt, "'}", sep = "")
+    image_sr_url <- paste("&imageSR={'wkt':'", wkt, "'}", 
                           sep = "")
     size_url <- paste("&size=", width, ",", width/ratio, sep = "")
     request_url <- paste0(server_url, bbx_url, bbx_sr_url, image_sr_url, 
