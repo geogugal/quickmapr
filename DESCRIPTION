@@ -23,7 +23,6 @@ Imports:
     raster,
     sp,
     rgeos,
-    rgdal,
     httr,
     stats,
     grDevices,

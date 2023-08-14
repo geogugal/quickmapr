@@ -1,6 +1,5 @@
 #setup
 context("qmap")
-library(rgdal)
 library(sp)
 data(lake)
 x<-qmap(elev,lake,samples,width)
