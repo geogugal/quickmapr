@@ -135,9 +135,7 @@ zoom_test<-function(qmap_obj,map_extent){
     p <- Polygon(cbind(x, y))
     ps <- Polygons(list(p), "p1")
     poly <- SpatialPolygons(list(ps), 1L, proj4string = CRS(prj))
-    poly<-sp::spTransform(poly,CRS("+proj=aea +lat_1=20 +lat_2=60 +lat_0=40 
-                               +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m 
-                               +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+    poly<-sp::spTransform(poly,CRS(sf::st_crs(5072)$wkt))
     if(rgeos::gArea(poly)<=10000){resp<-TRUE}
   }
   return(resp)
