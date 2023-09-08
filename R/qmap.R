@@ -50,9 +50,9 @@ qmap <- function(..., extent = NULL, order = 1:length(mapdata),
     mapdata <- build_map_data(...)
     # Test Projections
     if (prj) {
-        prjs <- lapply(mapdata, sp::proj4string)
+        prjs <- lapply(mapdata, function(x) sf::st_crs(x)$wkt)
         if (length(unique(prjs)) > 1) {
-            warning("Projections do not exactly match.\n\nDouble check you projuection and re-project to common projection instead.", 
+            warning("Projections do not exactly match.\n\nDouble check you projection and re-project to common projection instead.", 
                 call. = FALSE)
         } else if (any(is.na(prjs))) {
             warning("No projection info.  Use prj=FALSE to override projection check.", 
