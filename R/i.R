@@ -53,10 +53,10 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
 #' @keywords internal
 i_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- rgeos::gWithin(SpatialPoints(locator(1), CRS(proj4string(spdata))),
+      idx <- rgeos::gWithin(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)),
                           spdata, byid = TRUE)[, 1]
     }  else {
-      idx <- rgeos::gWithin(SpatialPoints(loc, CRS(proj4string(spdata))),
+      idx <- rgeos::gWithin(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)),
                             spdata, byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {
@@ -81,9 +81,9 @@ i_poly <- function(spdata, loc) {
 #' @keywords internal
 i_line <- function(spdata, loc) {
     if (is.null(loc)){ 
-      loc_pt <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(proj4string(spdata)))
+      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
     }
     idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     if (sum(idx) == 0) {
@@ -108,10 +108,10 @@ i_line <- function(spdata, loc) {
 #' @keywords internal
 i_point <- function(spdata, loc) {
     if (is.null(loc)){
-      loc_pt <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
+      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
       idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(proj4string(spdata)))
+      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
       idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     }
     if (sum(idx) == 0) {
@@ -137,11 +137,11 @@ i_point <- function(spdata, loc) {
 i_grid <- function(spdata, loc) {
     spdata2 <- as(spdata, "SpatialGridDataFrame")
     if (is.null(loc)){
-      loc_pt <- SpatialPoints(locator(1), CRS(proj4string(spdata)))
-      data <- over(SpatialPoints(loc_pt, CRS(proj4string(spdata2))), spdata2)
+      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
+      data <- over(SpatialPoints(loc_pt, CRS(sf::st_crs(spdata2)$wkt)), spdata2)
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(proj4string(spdata)))
-      data <- over(SpatialPoints(loc, CRS(proj4string(spdata2))), spdata2)
+      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
+      data <- over(SpatialPoints(loc, CRS(sf::st_crs(spdata2)$wkt)), spdata2)
     }
     idata <- list(data = data, #spobj = spdata[which(idx), ])
                   location = sp::coordinates(loc_pt))
