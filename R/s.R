@@ -39,10 +39,10 @@ s <- function(qmap_obj = NULL, s_idx = 1, loc = NULL) {
 #' @keywords internal
 s_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf:st_crs(spdata)), sparse = FALSE)),
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt), sparse = FALSE)),
                           spdata, byid = TRUE)[, 1]
     }  else {
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf:st_crs(spdata)), sparse = FALSE),
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt), sparse = FALSE),
                             spdata, byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {
@@ -64,9 +64,9 @@ s_poly <- function(spdata, loc) {
 #' @keywords internal
 s_line <- function(spdata, loc) {
     if (is.null(loc)){ 
-      loc_pt <- SpatialPoints(locator(1), CRS(sf:st_crs(spdata)))
+      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(sf:st_crs(spdata)))
+      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
     }
     idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     if (sum(idx) == 0) {
@@ -83,10 +83,10 @@ s_line <- function(spdata, loc) {
 #' @keywords internal
 s_point <- function(spdata, loc) {
     if (is.null(loc)){
-      loc_pt <- SpatialPoints(locator(1), CRS(sf:st_crs(spdata)))
+      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
       idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(sf:st_crs(spdata)))
+      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
       idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
     }
     if (sum(idx) == 0) {
