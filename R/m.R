@@ -22,6 +22,6 @@ m <- function(qmap_obj = NULL){
       locs<-rbind(locs,coordinates(loc))
     }
   }
-  rgeos::gLength(sl)
+  sf::st_length(sf::st_as_sf(sl))
 }
 
