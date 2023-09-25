@@ -11,7 +11,7 @@
 #' @return  Returns a selected \code{sp} object
 #' 
 #' @export
-#' @import sp rgeos
+#' @import sp 
 #' @examples
 #' \dontrun{
 #' data(lake)
@@ -34,7 +34,7 @@ s <- function(qmap_obj = NULL, s_idx = 1, loc = NULL) {
 
 #' select Polys
 #' 
-#' @import sp rgeos
+#' @import sp 
 #' @importFrom graphics locator
 #' @keywords internal
 s_poly <- function(spdata, loc) {
@@ -59,7 +59,7 @@ s_poly <- function(spdata, loc) {
 
 #' select Lines
 #' 
-#' @import sp rgeos
+#' @import sp 
 #' @importFrom graphics locator
 #' @keywords internal
 s_line <- function(spdata, loc) {
@@ -78,7 +78,7 @@ s_line <- function(spdata, loc) {
 
 #' select Points
 #' 
-#' @import sp rgeos
+#' @import sp 
 #' @importFrom graphics locator
 #' @keywords internal
 s_point <- function(spdata, loc) {
