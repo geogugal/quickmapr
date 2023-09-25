@@ -2,9 +2,11 @@ Package: quickmapr
 Type: Package
 Title: Quickly Map and Explore Spatial Data
 Version: 0.4.0
-Authors@R: person(given = "Jeffrey W.",family = "Hollister",
-    role = c("aut","cre"),
-    email = "hollister.jeff@epa.gov")
+Authors@R: c(person(given = "Jeffrey W.",family = "Hollister",
+                    role = c("aut"), email = "hollister.jeff@epa.gov",
+                    comment = c(ORCID = "0000-0002-9254-9740")),
+             person(given = "Jugal", family = "Patel", email = "jugalpatel1217@gmail.com", 
+                    role = c("aut","cre")))
 URL: https://www.github.com/jhollist/quickmapr
 BugReports: https://github.com/jhollist/quickmapr/issues
 Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
