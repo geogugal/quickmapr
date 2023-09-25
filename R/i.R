@@ -11,7 +11,7 @@
 #' @return  Returns NULL.  Identified values are printed to the screen.
 #' 
 #' @export
-#' @import sp rgeos
+#' @import sp
 #' @examples
 #' \dontrun{
 #' data(lake)
@@ -48,16 +48,16 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
 
 #' Identify Polys
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- rgeos::gWithin(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)),
-                          spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
+                           spdata, byid = TRUE)[, 1]
     }  else {
-      idx <- rgeos::gWithin(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)),
-                            spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
+                           spdata, byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {
         message("No polygon features at that location.")
@@ -76,7 +76,7 @@ i_poly <- function(spdata, loc) {
 
 #' Identify Lines
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_line <- function(spdata, loc) {
@@ -103,7 +103,7 @@ i_line <- function(spdata, loc) {
 
 #' Identify Points
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_point <- function(spdata, loc) {
@@ -130,7 +130,7 @@ i_point <- function(spdata, loc) {
 
 #' Identify Rasters
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom methods as
 #' @importFrom graphics locator
 #' @keywords internal
