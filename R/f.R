@@ -16,7 +16,7 @@
 #' f(x)
 #' }
 f <- function(qmap_obj = NULL) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     }
     obj <- paste(substitute(qmap_obj))

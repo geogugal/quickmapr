@@ -4,7 +4,9 @@
 \name{width}
 \alias{width}
 \title{Maximum lake width for \code{quickmapr} examples}
-\format{SpatialLines}
+\format{
+SpatialLines
+}
 \description{
 This example data is a line dataset representing the maximum lake width.
 Maximum lake width is defined as the longest line perpendciular to the

@@ -20,7 +20,7 @@
 #' s(qm,3)
 #' }
 s <- function(qmap_obj = NULL, s_idx = 1, loc = NULL) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else {
         spdata <- qmap_obj$map_data[[s_idx]]
@@ -39,11 +39,13 @@ s <- function(qmap_obj = NULL, s_idx = 1, loc = NULL) {
 #' @keywords internal
 s_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
-                          spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), 
+                                                      CRS(sf::st_crs(spdata)$wkt))), 
+                           sparse = FALSE, sf::st_as_sf(spdata), byid = TRUE)[, 1]
     }  else {
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
-                            spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, 
+                                                      CRS(sf::st_crs(spdata)$wkt))), 
+                           sparse = FALSE, sf::st_as_sf(spdata), byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {
         message("No polygon features at that location.")
@@ -63,12 +65,15 @@ s_poly <- function(spdata, loc) {
 #' @importFrom graphics locator
 #' @keywords internal
 s_line <- function(spdata, loc) {
+  sfdata <- sf::st_as_sf(spdata)
     if (is.null(loc)){ 
       loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
     } else {
       loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
     }
-    idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
+  idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                   min(sf::st_distance(loc_pt, sfdata)), 
+                                   sparse = FALSE)[1,]
     if (sum(idx) == 0) {
       message("No line features at that location.")
       return(NULL)
@@ -82,13 +87,18 @@ s_line <- function(spdata, loc) {
 #' @importFrom graphics locator
 #' @keywords internal
 s_point <- function(spdata, loc) {
-    if (is.null(loc)){
-      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
-      idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
-    } else {
-      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
-      idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
-    }
+  sfdata <- sf::st_as_sf(spdata)
+  if (is.null(loc)){
+    loc_pt <- sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)))
+    idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                     min(sf::st_distance(loc_pt, sfdata)), 
+                                     sparse = FALSE)[1,]
+  } else {
+    loc_pt <- sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)))
+    idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                     min(sf::st_distance(loc_pt, sfdata)), 
+                                     sparse = FALSE)[1,]
+  }
     if (sum(idx) == 0) {
         message("No point features at that location.")
         return(NULL)

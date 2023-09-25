@@ -4,7 +4,9 @@
 \name{buffer}
 \alias{buffer}
 \title{Buffer of Lake Sunapee for \code{quickmapr} examples}
-\format{SpatialPolygonsDataFrame}
+\format{
+SpatialPolygonsDataFrame
+}
 \description{
 This example data is a SpatialPolygonsDataFrame representing a buffer
 of a single lake, Lake Sunapee.

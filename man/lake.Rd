@@ -4,7 +4,9 @@
 \name{lake}
 \alias{lake}
 \title{Lake Data for \code{quickmapr} examples}
-\format{SpatialPolygonDataframe with 1 lakes, each with 13 variables}
+\format{
+SpatialPolygonDataframe with 1 lakes, each with 13 variables
+}
 \description{
 This example data is a SpatialPolygonsDataFrame 
 of a single lake, Lake Sunapee.

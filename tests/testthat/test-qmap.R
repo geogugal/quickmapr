@@ -5,7 +5,6 @@ data(lake)
 x<-qmap(elev,lake,samples,width)
 x2<-qmap(samples,lake)
 x3<-x2
-l(x3)
 samp_diff_proj <- spTransform(samples, 
                               CRSobj = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
 lake_no_proj <- lake
@@ -54,7 +53,7 @@ test_that("l() works",{
 })
 
 test_that("projection checks work",{
-  expect_warning(qmap(samp_diff_proj,lake), "Projections do not exactly match.\n\nDouble check you projuection and re-project to common projection instead.")
+  expect_warning(qmap(samp_diff_proj,lake), "Projections do not exactly match.\n\nDouble check you projection and re-project to common projection instead.")
   expect_warning(qmap(lake_no_proj),"No projection info.  Use prj=FALSE to override projection check.")
 })
 

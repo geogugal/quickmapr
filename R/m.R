@@ -7,19 +7,19 @@
 #' @import sp
 #' @export
 m <- function(qmap_obj = NULL){
-  if (class(qmap_obj) != "qmap") {
+  if (!inherits(qmap_obj, "qmap")) {
     stop("Requires a valid qmap_obj.")
   } 
   plot(qmap_obj)
   message("Click on plot to draw line to measure. Press 'Esc' to exit.")
   loc <- locator(1)
-  locs <- coordinates(loc)
+  locs <- sp::coordinates(loc)
   while (!is.null(loc)) {
     sl <- SpatialLines(list(Lines(list(Line(locs)), "id")))
     plot(sl,add=T)
     loc <- locator(1)
     if(!is.null(loc)){
-      locs<-rbind(locs,coordinates(loc))
+      locs<-rbind(locs,sp::coordinates(loc))
     }
   }
   sf::st_length(sf::st_as_sf(sl))

@@ -4,9 +4,16 @@
 \alias{qmap}
 \title{Build qmap object}
 \usage{
-qmap(..., extent = NULL, order = 1:length(mapdata),
-  colors = 1:length(mapdata), fill = FALSE, prj = TRUE,
-  basemap = c("none", "1m_aerial", "topo"), resolution = 300)
+qmap(
+  ...,
+  extent = NULL,
+  order = 1:length(mapdata),
+  colors = 1:length(mapdata),
+  fill = FALSE,
+  prj = TRUE,
+  basemap = c("none", "1m_aerial", "topo"),
+  resolution = 300
+)
 }
 \arguments{
 \item{...}{Spatial objects to map.  Maybe passed as objects, a list of 

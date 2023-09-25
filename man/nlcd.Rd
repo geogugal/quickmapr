@@ -4,7 +4,9 @@
 \name{nlcd}
 \alias{nlcd}
 \title{Land Cover Data for \code{quickmapr} examples}
-\format{RasterLayer of 467 x 262 and 30 meter resolution}
+\format{
+RasterLayer of 467 x 262 and 30 meter resolution
+}
 \description{
 This example data is a RasterLayer of the National 
 Land Cover Dataset for a buffer of Lake Sunapee.

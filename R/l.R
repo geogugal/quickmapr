@@ -23,7 +23,7 @@
 #' l(qm, layer = "buffer")
 #' }
 l <- function(qmap_obj, field = NULL, layer = 1) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
       stop("Requires a valid qmap_obj.")
     }   
   
@@ -36,8 +36,8 @@ l <- function(qmap_obj, field = NULL, layer = 1) {
     if (get_sp_type(spdata) == "line") {
       stop("Line labelling not yet supported")  
     } else {
-      x <- coordinates(spdata)[, 1]
-      y <- coordinates(spdata)[, 2]
+      x <- sp::coordinates(spdata)[, 1]
+      y <- sp::coordinates(spdata)[, 2]
     }
     
     if (is.null(field)) {
