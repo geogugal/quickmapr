@@ -39,10 +39,10 @@ s <- function(qmap_obj = NULL, s_idx = 1, loc = NULL) {
 #' @keywords internal
 s_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt), sparse = FALSE)),
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
                           spdata, byid = TRUE)[, 1]
     }  else {
-      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt), sparse = FALSE),
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))), sparse = FALSE,
                             spdata, byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {

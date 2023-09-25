@@ -22,7 +22,6 @@ Depends:
 Imports:
     raster,
     sp,
-    rgeos,
     httr,
     stats,
     grDevices,
@@ -32,4 +31,4 @@ Imports:
 Suggests:
     testthat,
     knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 7.2.3
