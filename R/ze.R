@@ -19,7 +19,7 @@
 #' ze()
 #' }
 ze <- function(qmap_obj = NULL, extent = NULL) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else {
         obj <- paste(substitute(qmap_obj))

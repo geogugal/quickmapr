@@ -5,7 +5,9 @@
 \alias{examp_lakes}
 \title{Lakes from the National Lakes Morphometry Dataset for \code{quickmapr} 
 examples}
-\format{SpatialPolygonsDataFrame}
+\format{
+SpatialPolygonsDataFrame
+}
 \description{
 This example data is a polygon dataset of many lakes in New Hampshire.  Data
 for each lake are from the first version of the 

@@ -3,9 +3,12 @@
 \docType{data}
 \name{samples}
 \alias{samples}
-\alias{samples}
 \title{Point data for \code{quickmapr} examples}
-\format{SpatialPointsDataFrame}
+\format{
+SpatialPointsDataFrame
+
+SpatialPointsDataFrame
+}
 \description{
 This is a fabricated point dataset for what might be a common type of data
 collected for a lake.

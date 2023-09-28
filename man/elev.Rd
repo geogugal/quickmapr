@@ -4,7 +4,9 @@
 \name{elev}
 \alias{elev}
 \title{Elevation Data for \code{quickmapr} examples}
-\format{RasterLayer of 455 x 246 and 30 meter resolution}
+\format{
+RasterLayer of 455 x 246 and 30 meter resolution
+}
 \description{
 This example data is a RasterLayer of the National 
 Elevation Dataset for a buffer of Lake Sunapee.

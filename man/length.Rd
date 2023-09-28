@@ -4,7 +4,9 @@
 \name{length}
 \alias{length}
 \title{Maximum Lake Length line for \code{quickmapr} examples}
-\format{SpatialLines}
+\format{
+SpatialLines
+}
 \description{
 This example data is a line dataset representing the maximum lake length.
 }

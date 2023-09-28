@@ -11,7 +11,7 @@
 #' @return  Returns NULL.  Identified values are printed to the screen.
 #' 
 #' @export
-#' @import sp rgeos
+#' @import sp
 #' @examples
 #' \dontrun{
 #' data(lake)
@@ -21,7 +21,7 @@
 #' i(qm,2)
 #' }
 i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else {
         spdata <- qmap_obj$map_data[[i_idx]]
@@ -48,16 +48,18 @@ i <- function(qmap_obj = NULL, i_idx = 1, loc = NULL) {
 
 #' Identify Polys
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_poly <- function(spdata, loc) {
     if(is.null(loc)){
-      idx <- rgeos::gWithin(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)),
-                          spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(locator(1), 
+                                                      CRS(sf::st_crs(spdata)$wkt))), 
+                           sparse = FALSE, sf::st_as_sf(spdata), byid = TRUE)[, 1]
     }  else {
-      idx <- rgeos::gWithin(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)),
-                            spdata, byid = TRUE)[, 1]
+      idx <- sf::st_within(sf::st_as_sf(SpatialPoints(loc, 
+                                                      CRS(sf::st_crs(spdata)$wkt))), 
+                           sparse = FALSE, sf::st_as_sf(spdata), byid = TRUE)[, 1]
     }
     if (sum(idx) == 0) {
         message("No polygon features at that location.")
@@ -68,24 +70,31 @@ i_poly <- function(spdata, loc) {
     } else {
         data <- NULL
     }
-    idata <- list(data = data, #spobj = spdata[idx, ], 
-                  area = gArea(spdata[idx, ]), perim = gLength(spdata[idx, ]))
+    
+    sfdata <- sf::st_as_sf(spdata[idx, ])
+    idata <- list(data = data,
+                  area = sf::st_area(sfdata), 
+                  perim = sf::st_length(sf::st_cast(sfdata, "MULTILINESTRING")))
     
     print(idata)
 }
 
 #' Identify Lines
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_line <- function(spdata, loc) {
-    if (is.null(loc)){ 
-      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
-    } else {
-      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
-    }
-    idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
+  
+  sfdata <- sf::st_as_sf(spdata)
+  if (is.null(loc)){ 
+    loc_pt <- sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)))
+  } else {
+    loc_pt <- sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)))
+  }
+  idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                   min(sf::st_distance(loc_pt, sfdata)), 
+                                   sparse = FALSE)[1,]
     if (sum(idx) == 0) {
       message("No line features at that location.")
       return(NULL)
@@ -95,24 +104,28 @@ i_line <- function(spdata, loc) {
     } else {
         data <- NULL
     }
-    idata <- list(data = data, #spobj = spdata[which(idx), ], 
-                  length = gLength(spdata[which(idx), 
-        ]))
+    idata <- list(data = data, 
+                  length = sf::st_length(sf::st_as_sf(spdata[which(idx),])))
     print(idata)
 }
 
 #' Identify Points
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom graphics locator
 #' @keywords internal
 i_point <- function(spdata, loc) {
+    sfdata <- sf::st_as_sf(spdata)
     if (is.null(loc)){
-      loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
-      idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
+      loc_pt <- sf::st_as_sf(SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt)))
+      idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                       min(sf::st_distance(loc_pt, sfdata)), 
+                                       sparse = FALSE)[1,]
     } else {
-      loc_pt <- SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt))
-      idx <- gWithinDistance(loc_pt, spdata, gDistance(loc_pt, spdata), byid = T)
+      loc_pt <- sf::st_as_sf(SpatialPoints(loc, CRS(sf::st_crs(spdata)$wkt)))
+      idx <- sf::st_is_within_distance(loc_pt, sfdata, 
+                                       min(sf::st_distance(loc_pt, sfdata)), 
+                                       sparse = FALSE)[1,]
     }
     if (sum(idx) == 0) {
         message("No point features at that location.")
@@ -124,17 +137,18 @@ i_point <- function(spdata, loc) {
         data <- NULL
     }
     idata <- list(data = data, #spobj = spdata[which(idx), ])
-                  location = sp::coordinates(loc_pt))
+                  location = sf::st_coordinates(loc_pt))
     print(idata)
 }
 
 #' Identify Rasters
 #' 
-#' @import sp rgeos
+#' @import sp
 #' @importFrom methods as
 #' @importFrom graphics locator
 #' @keywords internal
 i_grid <- function(spdata, loc) {
+    
     spdata2 <- as(spdata, "SpatialGridDataFrame")
     if (is.null(loc)){
       loc_pt <- SpatialPoints(locator(1), CRS(sf::st_crs(spdata)$wkt))
@@ -144,6 +158,6 @@ i_grid <- function(spdata, loc) {
       data <- over(SpatialPoints(loc, CRS(sf::st_crs(spdata2)$wkt)), spdata2)
     }
     idata <- list(data = data, #spobj = spdata[which(idx), ])
-                  location = sp::coordinates(loc_pt))
+                  location = coordinates(loc_pt))
     print(idata)
 } 

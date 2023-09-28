@@ -117,10 +117,11 @@ zoom_it <- function(qmap_obj, loc, zoom_perc, out = FALSE, pan = FALSE) {
 
 #' Test range of zoom 
 #' @keywords internal
-zoom_test<-function(qmap_obj,map_extent){
+zoom_test <- function(qmap_obj,map_extent){
+  
   resp<-FALSE
   #need to have check happen before zoom not on old zoom
-  prj <- sf:st_crs(qmap_obj$map_data[[1]])$wkt
+  prj <- sf::st_crs(qmap_obj$map_data[[1]])$wkt
   if(is.na(prj)){
     orig_x<-abs(diff(as.numeric(qmap_obj$orig_extent[1,])))
     orig_y<-abs(diff(as.numeric(qmap_obj$orig_extent[2,])))
@@ -136,7 +137,7 @@ zoom_test<-function(qmap_obj,map_extent){
     ps <- Polygons(list(p), "p1")
     poly <- SpatialPolygons(list(ps), 1L, proj4string = CRS(prj))
     poly<-sp::spTransform(poly,CRS(sf::st_crs(5072)$wkt))
-    if(rgeos::gArea(poly)<=10000){resp<-TRUE}
+    if(as.numeric(sf::st_area(sf::st_as_sf(poly)))<=10000){resp<-TRUE}
   }
   return(resp)
 }
