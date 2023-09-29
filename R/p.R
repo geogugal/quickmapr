@@ -21,7 +21,7 @@
 #' p(x)
 #' }
 p <- function(qmap_obj = NULL, loc = NULL) {
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else if (is.null(loc)) {
         continue <- 0

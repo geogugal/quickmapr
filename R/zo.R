@@ -24,7 +24,7 @@ zo <- function(qmap_obj = NULL, zoom_perc = 0.5, loc = NULL) {
     if (zoom_perc >= 1 || zoom_perc < 0) {
         stop("Argument, zoom_perc, needs to be between 0 and 1")
     }
-    if (class(qmap_obj) != "qmap") {
+    if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else if (is.null(loc)) {
         continue <- 0

@@ -216,11 +216,11 @@ get_basemap <- function(qmap_obj = NULL, base = c("1m_aerial", "topo"),
     base <- match.arg(base)
     if (is.null(qmap_obj)) {
         stop("A qmap_obj is required to fetch a basemap")
-    } else if (class(qmap_obj) != "qmap") {
+    } else if (!inherits(qmap_obj, "qmap")) {
         stop("Requires a valid qmap_obj.")
     } else {
         bbx <- qmap_obj$map_extent
-        wkt <- sf:st_crs(qmap_obj$map_data[[1]])$wkt
+        wkt <- sf::st_crs(qmap_obj$map_data[[1]])$wkt
     }
     if (base == "1m_aerial") {
         warning("The service this basemap was served from has been sunset and the aerials are no longer supported.  A topo is returned instead.")

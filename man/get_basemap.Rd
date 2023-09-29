@@ -4,8 +4,12 @@
 \alias{get_basemap}
 \title{Get a basemap from USGS National Map}
 \usage{
-get_basemap(qmap_obj = NULL, base = c("1m_aerial", "topo"), width = 300,
-  outfile = tempfile())
+get_basemap(
+  qmap_obj = NULL,
+  base = c("1m_aerial", "topo"),
+  width = 300,
+  outfile = tempfile()
+)
 }
 \arguments{
 \item{qmap_obj}{A valid \code{qmap()} object}
