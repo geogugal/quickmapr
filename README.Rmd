@@ -1,5 +1,6 @@
 ---
-output: html_document
+title: quickmapr
+output: github_document
 editor_options: 
   chunk_output_type: console
 ---
@@ -11,12 +12,8 @@ opts_chunk$set(fig.path = "man/figures/",
                fig.retina = 1, optipng = '-o7', pngquant = '--speed=1')
 ```
 
-quickmapr
-=========
-
-[![travis_status](https://travis-ci.org/jhollist/quickmapr.svg)](https://travis-ci.org/jhollist/quickmapr)  
-
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/jhollist/quickmapr?branch=master)](https://ci.appveyor.com/project/jhollist/quickmapr) 
+[![R build
+status](https://github.com/geogugal/quickmapr/workflows/R-CMD-check/badge.svg)](https://github.com/geogugal/quickmapr/actions)
 
 [![Coverage Status](https://coveralls.io/repos/github/jhollist/quickmapr/badge.svg?branch=master)](https://coveralls.io/github/jhollist/quickmapr?branch=master)
 
@@ -97,17 +94,7 @@ You can change colors (this is still a bit clunky).
 qm<-qmap(elev,samples,buffer,order = c(2,1,3), colors = c("red","red","blue"), fill=TRUE)
 ```
 
-Basemaps can be added from the USGS' National Map (still VERY experimental,slow,
-and United States Specific)
-
-```{r, eval= TRUE}
-#Get a Topo Basemap
-qm <- qmap(qm,basemap = "topo", resolution = 1000)
-```
-
 Identifying is accomplished with i() and returns different items depending on the type of spatial data.  
-
-
 ```{r eval=FALSE}
 #identify
 i(qm,"samples")

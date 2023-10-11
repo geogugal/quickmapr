@@ -7,8 +7,8 @@ Authors@R: c(person(given = "Jeffrey W.",family = "Hollister",
                     comment = c(ORCID = "0000-0002-9254-9740")),
              person(given = "Jugal", family = "Patel", email = "jugalpatel1217@gmail.com", 
                     role = c("aut","cre")))
-URL: https://www.github.com/jhollist/quickmapr
-BugReports: https://github.com/jhollist/quickmapr/issues
+URL: https://www.github.com/geogugal/quickmapr
+BugReports: https://github.com/geogugal/quickmapr/issues
 Maintainer: Jeffrey W. Hollister <hollister.jeff@epa.gov>
 License: CC0
 Description: While analyzing geospatial data, easy visualization is often

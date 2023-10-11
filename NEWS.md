@@ -1,3 +1,8 @@
+# quickmapr v 0.4.0 (2023-10-11)
+
+## Major Changes
+- Removed all calls to rgeos, rgdal, etc. to address those packages being removed from CRAN
+
 # quickmapr v 0.3.0 (2018-05-15)
 
 ## CRAN Issues
