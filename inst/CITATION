@@ -1,10 +1,13 @@
 utils::citHeader("To cite quickmapr:")
 
-utils::citEntry(entry = "manual",
-  author = "Jeffrey W. Hollister",
+bibentry(bibtype = "Manual",
+  author = c(person("Jeffrey", "Hollister", email = "hollister.jeff@epa.gov", 
+                  role = c("aut"), comment = c(ORCID = "0000-0002-9254-9740")),
+             person("Jugal", "Patel", email = "jugalpatel1217@gmail.com", 
+                    role = c("aut","cre")))      
   title = "quickmapr: Quickly map and explore spatial data",
-  year = "2015",
-  note = {"R package version 0.1.0, doi: 10.5281/zenodo.32971"},
+  year = "2023",
+  note = {"R package version 0.4.0, doi: 10.5281/zenodo.32971"},
   url = "http://github.com/jhollist/quickmapr",
-  textVersion = "Hollister, J.W. (2015). quickmapr: Quickly map and explore spatial data. CRAN v0.010. 10.5281/zenodo.32971 "
+  textVersion = "Hollister, J.W., Patel, J. (2023). quickmapr: Quickly map and explore spatial data. CRAN v0.4.0. 10.5281/zenodo.32971 "
 )
