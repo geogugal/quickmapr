@@ -4,7 +4,7 @@ bibentry(bibtype = "Manual",
   author = c(person("Jeffrey", "Hollister", email = "hollister.jeff@epa.gov", 
                   role = c("aut"), comment = c(ORCID = "0000-0002-9254-9740")),
              person("Jugal", "Patel", email = "jugalpatel1217@gmail.com", 
-                    role = c("aut","cre")))      
+                    role = c("aut","cre"))),      
   title = "quickmapr: Quickly map and explore spatial data",
   year = "2023",
   note = {"R package version 0.4.0, doi: 10.5281/zenodo.32971"},
