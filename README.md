@@ -9,7 +9,7 @@ Status](https://coveralls.io/repos/github/jhollist/quickmapr/badge.svg?branch=ma
 
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.33135.svg)](https://doi.org/10.5281/zenodo.33135)
 
-[![RStudio_CRAN_Downloads](http://cranlogs.r-pkg.org/badges/quickmapr)](http://cranlogs.r-pkg.org/badges/quickmapr)
+[![RStudio_CRAN_Downloads](http://cranlogs.r-pkg.org:443/badges/quickmapr)](https://cran.r-project.org/package=quickmapr)
 
 There are many packages that already exist or are in active development
 that support the visualization of spatial data in R. However, there
