@@ -8,6 +8,6 @@ bibentry(bibtype = "Manual",
   title = "quickmapr: Quickly map and explore spatial data",
   year = "2023",
   note = {"R package version 0.4.0, doi: 10.5281/zenodo.32971"},
-  url = "http://github.com/jhollist/quickmapr",
-  textVersion = "Hollister, J.W., Patel, J. (2023). quickmapr: Quickly map and explore spatial data. CRAN v0.4.0. 10.5281/zenodo.32971 "
+  url = "https://github.com/geogugal/quickmapr",
+  textVersion = "Hollister, J.W., Patel, J. (2023). quickmapr: Quickly map and explore spatial data. CRAN v0.4.0. 10.5281/zenodo.32971"
 )

@@ -1,6 +1,8 @@
 ## Comments
 
-- Modified startup message to note switch to sf and terra, but keeping RasterLayer as output for now..
+- Fixed link in CITATION
+- Modified startup message to note switch to sf and terra, but keeping RasterLayer as output for now.
+- Maintainership for quickmapr has switched from Jeff Hollister to Jugal Patel.  This versions DESCRIPTION captures that change and email was sent to cran-submissions@r-project.org on 2023-10-11.
 
 ## Test Environments
 
